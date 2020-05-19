@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/caja_miembro_equipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:id="@+id/tabla_equipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border"
+                android:padding="10dp">
+
+                <ImageView
+                    android:id="@+id/imagen_escudo_equipo"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:src="@drawable/escudo"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/nombre_equipo"
+                            android:layout_width="match_parent"
+                            android:layout_height="34dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/equipo"
+                            android:textColor="@color/primary_text"
+                            android:textSize="20sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/equipo_ciudad"
+                            android:layout_width="match_parent"
+                            android:layout_height="33dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/jugadores"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="16sp" />
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/equipo_fundacion"
+                            android:layout_width="match_parent"
+                            android:layout_height="33dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:text="@string/cuerpo_tecnico"
+                            android:textColor="@color/secondary_text"
+                            android:textSize="16sp" />
+                    </TableRow>
+
+                </TableLayout>
+
+            </TableRow>
+        </TableLayout>
+
+    </RelativeLayout>
+
+</TableRow>

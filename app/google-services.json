@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "44388647595",
+    "firebase_url": "https://arbitrapp.firebaseio.com",
+    "project_id": "arbitrapp",
+    "storage_bucket": "arbitrapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44388647595:android:eb10c20bf981322f1c2dee",
+        "android_client_info": {
+          "package_name": "com.example.arbitrapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44388647595-qs7oc108n7knrb6vac043h7hbnub52th.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.arbitrapp",
+            "certificate_hash": "8a64fe47f10c58f46b0be3882922459b45677cd5"
+          }
+        },
+        {
+          "client_id": "44388647595-q8p154i5rb7jch4u2r9j8mvjp8rdd13g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXDcVZuDiWXPHQk2E4c_o0igLu32ZkwGc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "44388647595-q8p154i5rb7jch4u2r9j8mvjp8rdd13g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

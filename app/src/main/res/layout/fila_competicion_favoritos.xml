@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/fila_competicion_favoritos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:id="@+id/tabla_fila_favoritos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <TextView
+                    android:id="@+id/favoritos_sede"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:paddingStart="20dp"
+                    android:text="@string/sede"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text"/>
+
+                <TextView
+                    android:id="@+id/favoritos_temporada"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="end"
+                    android:paddingEnd="20dp"
+                    android:text="@string/temporada"
+                    android:textSize="18sp"
+                    android:textColor="@color/secondary_text"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/favoritos_categoria"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/categoria"
+                    android:textSize="20sp"
+                    android:textColor="@color/primary_text"/>
+            </TableRow>
+        </TableLayout>
+
+    </RelativeLayout>
+
+</TableRow>

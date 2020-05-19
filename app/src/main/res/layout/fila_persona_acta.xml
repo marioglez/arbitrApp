@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/caja_arbitro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border">
+
+            <TextView
+                android:id="@+id/nombrePersona"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="85"
+                android:padding="2dp"
+                android:text="TextView"
+                android:textColor="@color/primary_text"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/dorsalPersona"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="15"
+                android:gravity="center"
+                android:padding="2dp"
+                android:text="10"
+                android:textColor="@color/primary_text"
+                android:textSize="12sp" />
+        </TableRow>
+
+    </RelativeLayout>
+
+</TableRow>

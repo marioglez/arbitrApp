@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imagenFondo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@color/colorPrimary" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagenPerfil"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/arbitro"
+        app:civ_border_width="0dp"
+        app:civ_border_color="#000000"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/txtNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagenPerfil"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/nombrePerfil"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/txtCategoria"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtNombre"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/categoriaPerfil"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/perfil_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagenFondo"
+        android:layout_marginTop="0dp"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/perfil_navigation" />
+
+    <ScrollView
+        android:id="@+id/scrollViewPerfil"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/perfil_navigation"
+        android:layout_marginTop="0dp">
+
+        <FrameLayout
+            android:id="@+id/fragment_perfil_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </ScrollView>
+
+</RelativeLayout>

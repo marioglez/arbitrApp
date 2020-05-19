@@ -1,0 +1,342 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/layout_arbitrar">
+
+    <TableLayout
+        android:id="@+id/tabla_marcador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/arbitrar_escudo_local"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="45"
+                android:padding="5dp"
+                android:src="@drawable/escudo2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+
+            <ImageView
+                android:id="@+id/arbitrar_escudo_visitante"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="45"
+                android:padding="5dp"
+                android:src="@drawable/escudo" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/arbitrar_nombre_local"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+
+            <TextView
+                android:id="@+id/arbitrar_nombre_visitante"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/arbitrar_marcador_local"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="0"
+                android:textSize="30sp"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="-"
+                android:textSize="30sp"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/arbitrar_marcador_visitante"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="0"
+                android:textSize="30sp"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
+
+    <TableLayout
+        android:id="@+id/tabla_tiempo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabla_marcador">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            android:padding="5dp"
+            android:background="@color/primary_text">
+
+            <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:layout_gravity="center">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/tiempoCorrido"
+                        android:textColor="@color/icons"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Chronometer
+                        android:id="@+id/crono_corrido"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:textColor="@color/icons"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <ImageView
+                android:id="@+id/imageView_crono"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/ic_play_circle"/>
+
+            <TableLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:layout_gravity="center">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/tiempoParado"
+                        android:textColor="@color/colorAccent"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+
+                    <Chronometer
+                        android:id="@+id/crono_parado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:textSize="24sp"
+                        android:textColor="@color/colorAccent"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </TableRow>
+
+    </TableLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabla_tiempo">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/arbitrar_textView_titulares"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/primary_light"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/jugadores_titulares"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/arbitrar_tabla_titulares"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/arbitrar_textView_titulares">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableLayout
+                        android:id="@+id/arbitrar_titulares_locales"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"/>
+
+                    <TableLayout
+                        android:id="@+id/arbitrar_titulares_visitantes"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/arbitrar_textView_suplentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/arbitrar_tabla_titulares"
+                android:background="@color/primary_light"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/jugadores_suplentes"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/arbitrar_tabla_suplentes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/arbitrar_textView_suplentes">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableLayout
+                        android:id="@+id/arbitrar_suplentes_locales"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"/>
+
+                    <TableLayout
+                        android:id="@+id/arbitrar_suplentes_visitantes"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"/>
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/arbitrar_textView_tecnicos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/arbitrar_tabla_suplentes"
+                android:background="@color/primary_light"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="@string/cuerpo_tecnico"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/arbitrar_tabla_tecnicos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/arbitrar_textView_tecnicos">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TableLayout
+                        android:id="@+id/arbitrar_tecnicos_locales"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"/>
+
+                    <TableLayout
+                        android:id="@+id/arbitrar_tecnicos_visitantes"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"/>
+                </TableRow>
+
+            </TableLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button_arbitrar"
+        android:backgroundTint="@color/error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/ic_silbato"/>
+
+</RelativeLayout>

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/competicionesLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/tabla_arbitro_informacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:padding="10dp"
+                android:text="@string/datosMovil"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_arbitro_movil"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:padding="10dp"
+                android:text="@string/datosEmail"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_arbitro_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:padding="10dp"
+                android:text="@string/partidosArbitrados"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_arbitro_partidosArbitrados"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="40"
+                android:padding="10dp"
+                android:text="@string/valoracionGeneral"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_arbitro_valoracion"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="60"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+    </TableLayout>
+
+</RelativeLayout>

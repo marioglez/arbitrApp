@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".partido.ActaActivity">
+
+    <TableLayout
+        android:id="@+id/tabla_marcador"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/escudo_local"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="45"
+                android:padding="5dp"
+                android:src="@drawable/escudo2" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+
+            <ImageView
+                android:id="@+id/escudo_visitante"
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="45"
+                android:padding="5dp"
+                android:src="@drawable/escudo" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/nombre_local"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10" />
+
+            <TextView
+                android:id="@+id/nombre_visitante"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="TextView"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/marcador_local"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="0"
+                android:textSize="30sp"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="-"
+                android:textSize="30sp"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/marcador_visitante"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="45"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="0"
+                android:textSize="30sp"
+                android:textColor="@color/primary_text"
+                android:textStyle="bold" />
+        </TableRow>
+
+    </TableLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/acta_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabla_marcador"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/acta_navigation" />
+
+    <ScrollView
+        android:id="@+id/scrollViewActa"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/acta_navigation">
+
+        <FrameLayout
+            android:id="@+id/fragment_acta_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </ScrollView>
+</RelativeLayout>

@@ -1,0 +1,158 @@
+<resources>
+    //ActionBar Titles
+    <string name="app_name">arbitrApp</string>
+    <string name="home_name">Home</string>
+
+    <string name="splash1">arbitr</string>
+    <string name="splash2">App</string>
+
+    //LOGIN
+    <string name="loginEmail">Usuario</string>
+    <string name="loginPassword">Contraseña</string>
+    <string name="loginButton">Iniciar Sesión</string>
+    <string name="loginFail1">UPS...No has podido iniciar sesión</string>
+    <string name="loginFail2">Tu usuario y contraseña no coinciden Por favor, intentalo de nuevo</string>
+
+    //HOME
+    <string name="competicionesIcon">Competiciones</string>
+    <string name="homeIcon">Home</string>
+    <string name="perfilIcon">Perfil</string>
+
+    //PERFIL
+    <string name="navDatos">Datos</string>
+    <string name="navAgenda">Agenda</string>
+    <string name="navEstadisticas">Estadísticas</string>
+    <string name="nombrePerfil">Nombre Apellido1 Apellido2</string>
+    <string name="categoriaPerfil">Categoría</string>
+    <string name="datosNombre">Nombre</string>
+    <string name="datosApellidos">Apellidos</string>
+    <string name="datosEdad">Edad</string>
+    <string name="datosNacionalidad">Nacionalidad</string>
+    <string name="datosMovil">Móvil</string>
+    <string name="datosEmail">Email</string>
+    <string name="partidosArbitrados">Partidos arbitrados</string>
+    <string name="valoracionGeneral">Valoración general</string>
+    <string name="valoracionRecibidas">Valoraciones recibidas</string>
+    <string name="proximosPartidos">Próximos partidos</string>
+    <string name="noProximosPartidos">No hay partidos próximamente</string>
+    <string name="hoy">HOY</string>
+    <string name="mañana">MAÑANA</string>
+    <string name="semana">SEMANA</string>
+    <string name="como_llegar">COMO LLEGAR</string>
+
+    //PARTIDO
+    <string name="equipo">Equipo</string>
+    <string name="rol">rol</string>
+    <string name="informacion">INFORMACIÓN</string>
+    <string name="local">LOCAL</string>
+    <string name="visitante">VISITANTE</string>
+    <string name="estadoPartido">Estado</string>
+    <string name="localPartido">Equipo Local</string>
+    <string name="visitantePartido">Equipo Visitante</string>
+    <string name="lugarPartido">Lugar</string>
+    <string name="fechaPartido">Fecha</string>
+    <string name="horaPartido">Hora</string>
+    <string name="resultadoPartido">Resultado</string>
+    <string name="arbitraje">Arbitraje</string>
+    <string name="cuerpo_tecnico">Cuerpo Técnico</string>
+    <string name="jugadores">Jugadores</string>
+    <string name="jugadores_titulares">Jugadores Titulares</string>
+    <string name="jugadores_suplentes">Jugadores Suplentes</string>
+    <string name="sin_partidos_jugados">No hay partidos jugados</string>
+    <string name="sin_partidos_pendientes">No hay partidos pendientes</string>
+    <string name="sin_arbitros_asignados">No hay arbitros asignados</string>
+
+    //ACTA
+    <string name="alineaciones">Alineaciones</string>
+    <string name="partido">Partido</string>
+
+    //EQUIPO
+    <string name="categoria">Categoría</string>
+    <string name="ciudad">Ciudad</string>
+    <string name="Campo">Campo de juego</string>
+    <string name="plantilla_equipo">Plantilla</string>
+    <string name="estadisticas_equipo">Estadísticas</string>
+    <string name="calendario_equipo">Calendario</string>
+    <string name="tipo_miembro">Tipo Miembro</string>
+    <string name="calendario_jugados">Jugados</string>
+    <string name="calendario_pendientes">Pendientes</string>
+    //estadisticas
+    <string name="partidos">Partidos</string>
+    <string name="goles">Goles</string>
+    <string name="tarjetas">Tarjetas</string>
+    <string name="total">Total</string>
+    <string name="jugados">Jugados</string>
+    <string name="sinJugar">Sin jugar</string>
+    <string name="victorias">Victorias</string>
+    <string name="empates">Empates</string>
+    <string name="derrotas">Derrotas</string>
+    <string name="ganados">Ganados</string>
+    <string name="perdidos">Perdidos</string>
+    <string name="empatados">Empatados</string>
+    <string name="favor">A favor</string>
+    <string name="contra">En contra</string>
+    <string name="amarillas">Amarillas</string>
+    <string name="rojas">Rojas</string>
+    //persona
+    <string name="titular">Titular</string>
+    <string name="suplente">Suplente</string>
+    <string name="marcados">Marcados</string>
+    <string name="recibidos">Recibidos</string>
+    <string name="propiaPuerta">Propia puerta</string>
+
+    //ARBITRO
+    <string name="informacion_arbitro">Información</string>
+    <string name="agenda_arbitro">Agenda</string>
+
+    //COMPETICIONES
+    <string name="temporada">Temporada</string>
+    <string name="sede">Sede</string>
+    <string name="buscar">BUSCAR</string>
+    <string name="favoritos">Favoritos</string>
+    <string name="equipos">Equipos</string>
+    <string name="clasificacion">Clasificación</string>
+    //clasificacion
+    <string name="leyenda">Leyenda</string>
+    <string name="puntos">Puntos</string>
+    <string name="leyenda1">Campeón de Liga</string>
+    <string name="leyenda2">Ascenso</string>
+    <string name="leyenda3">Descenso</string>
+    //jornada
+    <string name="jornada">Jornada</string>
+    <string name="Partidos">Partidos:</string>
+    <string name="PJ">PJ:</string>
+    <string name="PNJ">PNJ:</string>
+    <string name="PS">PS:</string>
+    <string name="PA">PA:</string>
+
+    //ARBITRAR
+    <string name="tiempoCorrido">Tiempo corrido</string>
+    <string name="tiempoParado">Tiempo parado</string>
+    <string name="gol">Gol</string>
+    <string name="GOL">GOL</string>
+    <string name="golPropia">Gol propia</string>
+    <string name="sustitucion">Sustitución</string>
+    <string name="amarilla">Amarilla</string>
+    <string name="roja">Roja</string>
+    <string name="segundaAmarilla">Doble Amarilla</string>
+    <string name="lesion">Lesión</string>
+    <string name="terminar">Terminar</string>
+    <string name="aFavor">A favor</string>
+    <string name="enContra">En contra</string>
+    <string name="evento">Evento</string>
+    <string name="motivo">Motivo</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="finalizarPartido">Finalizar partido</string>
+    <string name="arbitrarPartido">Arbitrar partido</string>
+    <string name="segundaParte">Segunda parte</string>
+    <string name="iniciar">Iniciar</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="title_activity_maps">Map</string>
+
+    //CAMPOS
+    <string name="nombreCampo">Nombre campo</string>
+    <string name="direccion">Dirección</string>
+    <string name="capacidad">Capacidad</string>
+
+</resources>

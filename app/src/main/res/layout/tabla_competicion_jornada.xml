@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/caja_miembro_equipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"/>
+
+                <TextView
+                    android:id="@+id/textview_competicion_jornada"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="80"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="@string/jornada"
+                    android:textColor="@color/primary_text"
+                    android:textStyle="bold"
+                    android:textSize="24sp" />
+
+                <ImageView
+                    android:visibility="invisible"
+                    android:id="@+id/imageview_completada"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:padding="1dp"
+                    android:src="@drawable/ic_check_box_green_24dp"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/Partidos"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textview_competicion_partidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="1"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="|"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/PJ"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textview_competicion_partidos_jugados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="1"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/PNJ"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textview_competicion_partidos_no_jugados"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="1"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="@string/PS"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/textview_competicion_partidos_suspendidos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="1"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textview_competicion_fecha"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="70"
+                    android:gravity="center"
+                    android:padding="5dp"
+                    android:text="dd/mm/aaaa - dd/mm/aaaa"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="18sp" />
+
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+</TableRow>

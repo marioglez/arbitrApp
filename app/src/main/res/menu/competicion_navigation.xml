@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_competicion_equipos"
+        android:icon="@drawable/ic_grupo"
+        android:title="@string/equipos" />
+
+    <item
+        android:id="@+id/nav_competicion_clasificacion"
+        android:icon="@drawable/ic_competiciones"
+        android:title="@string/clasificacion" />
+
+    <item
+        android:id="@+id/nav_competicion_calendario"
+        android:icon="@drawable/ic_date_range_black_24dp"
+        android:title="@string/calendario_equipo" />
+</menu>

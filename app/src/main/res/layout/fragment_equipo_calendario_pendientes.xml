@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/equipo_calendario_pendientes_Layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textview_sin_partidos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="40dp"
+        android:gravity="center"
+        android:textColor="@color/primary_text"
+        android:textSize="24dp"
+        android:text="@string/sin_partidos_pendientes"/>
+
+    <TableLayout
+        android:id="@+id/tabla_equipo_calendario_pendientes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

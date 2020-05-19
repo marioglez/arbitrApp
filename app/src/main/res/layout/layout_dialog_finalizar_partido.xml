@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/finalizarPartido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:text="@string/finalizarPartido"
+        android:textSize="24sp"
+        android:textColor="@color/primary_text"
+        android:textStyle="bold"/>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/finalizarPartido">
+
+        <RelativeLayout
+            android:id="@+id/finalizar_aceptar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/boton_verde">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/txt_aceptar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center"
+                    android:text="@string/finalizar"
+                    android:textColor="@color/icons" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_toEndOf="@id/txt_aceptar"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/icons"
+                    app:srcCompat="@drawable/ic_silbato"
+                    android:scaleX=".6"
+                    android:scaleY=".6"/>
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/finalizar_cancelar"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_toEndOf="@+id/finalizar_aceptar"
+            android:background="@drawable/boton_rojo">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/txt_cancelar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingEnd="10dp"
+                    android:gravity="center"
+                    android:text="@string/cancelar"
+                    android:textColor="@color/icons" />
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_toEndOf="@id/txt_cancelar"
+                    android:background="@android:color/transparent"
+                    android:tint="@color/icons"
+                    app:srcCompat="@drawable/ic_cancel" />
+
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

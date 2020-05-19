@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textviewPartidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorAccent"
+                android:padding="5dp"
+                android:paddingStart="10dp"
+                android:text="@string/partidos"
+                android:textColor="@color/primary_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/tablaPersonaPartidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textviewPartidos">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/jugados"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosJugados"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/jugados"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/ganados"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosGanados"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/ganados"
+                        android:textColor="@color/primary_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/perdidos"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosPerdidos"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/perdidos"
+                        android:textColor="@color/primary_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/empatados"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosEmpatados"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/empatados"
+                        android:textColor="@color/primary_text" />
+                </TableRow>
+
+            </TableLayout>
+
+            <TextView
+                android:id="@+id/textviewTarjetas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tablaPersonaPartidos"
+                android:background="@color/colorAccent"
+                android:padding="5dp"
+                android:paddingStart="10dp"
+                android:text="@string/tarjetas"
+                android:textColor="@color/primary_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/tablaPersonaTarjetas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textviewTarjetas">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_tarjetasTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/amarillas"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_tarjetasAmarillas"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/amarillas"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/rojas"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_tarjetasRojas"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:text="@string/rojas"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+            </TableLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

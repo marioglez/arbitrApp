@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/caja_partido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp">
+
+        <TableLayout
+            android:id="@+id/tabla_partido"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/border">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView_equipos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@color/colorAccent"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="@color/primary_text"
+                    android:textSize="20sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border">
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:contentDescription="@string/app_name"
+                    android:padding="10sp"
+                    app:srcCompat="@drawable/ic_premio_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textView_liga"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="@color/primary_text" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:padding="10sp"
+                    app:srcCompat="@drawable/ic_location_on_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textView_lugar"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="@color/primary_text" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"/>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/border">
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="20"
+                    android:padding="10sp"
+                    app:srcCompat="@drawable/ic_date_range_black_24dp" />
+
+                <TextView
+                    android:id="@+id/textView_fecha"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="70"
+                    android:gravity="center"
+                    android:text="TextView"
+                    android:textColor="@color/primary_text" />
+
+                <ImageView
+                    android:id="@+id/imageview_completado"
+                    android:visibility="invisible"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:padding="1dp"
+                    android:src="@drawable/ic_check_box_green_24dp"/>
+            </TableRow>
+        </TableLayout>
+
+        <RelativeLayout
+            android:id="@+id/comoLlegar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tabla_partido"
+            android:layout_centerInParent="true"
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:id="@+id/txt_como_llegar"
+                android:layout_width="120dp"
+                android:layout_height="30dp"
+                android:layout_alignParentStart="true"
+                android:background="@color/maps"
+                android:gravity="center"
+                android:text="@string/como_llegar"
+                android:textColor="@color/icons" />
+
+            <ImageButton
+                android:id="@+id/imageButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_toRightOf="@id/txt_como_llegar"
+                android:background="@color/maps"
+                app:srcCompat="@drawable/ic_navigation_black_24dp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</TableRow>

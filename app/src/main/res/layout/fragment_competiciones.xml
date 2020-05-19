@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/competicionesLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textview_temporada"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_text"
+                android:text="@string/temporada"/>
+
+            <Spinner
+                android:id="@+id/spinner_temporada"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/textview_temporada"/>
+
+            <TextView
+                android:id="@+id/textview_sede"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/spinner_temporada"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_text"
+                android:text="@string/sede"/>
+
+            <Spinner
+                android:id="@+id/spinner_sede"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/textview_sede"/>
+
+            <TextView
+                android:id="@+id/textview_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/spinner_sede"
+                android:padding="10dp"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_text"
+                android:text="@string/categoria"/>
+
+            <Spinner
+                android:id="@+id/spinner_categoria"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_below="@id/textview_categoria"/>
+
+            <RelativeLayout
+                android:id="@+id/boton_competiciones_buscar"
+                android:visibility="invisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spinner_categoria"
+                android:layout_centerInParent="true"
+                android:layout_margin="10dp"
+                android:background="@drawable/boton_buscar">
+
+                <TextView
+                    android:id="@+id/txt_buscar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="5dp"
+                    android:gravity="center"
+                    android:text="@string/buscar"
+                    android:textColor="@color/icons" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_toEndOf="@id/txt_buscar"
+                    android:background="@android:color/transparent"
+                    android:paddingEnd="30dp"
+                    app:srcCompat="@drawable/ic_search_white_24dp" />
+            </RelativeLayout>
+
+             <LinearLayout
+                 android:id="@+id/banda_favoritos"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@id/boton_competiciones_buscar"
+                 android:layout_marginTop="20dp"
+                 android:background="@color/colorAccent">
+
+                 <TextView
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"/>
+
+                 <TextView
+                     android:layout_width="wrap_content"
+                     android:layout_height="30dp"
+                     android:gravity="center"
+                     android:text="@string/favoritos"
+                     android:textSize="20sp"
+                     android:textStyle="bold"
+                     android:textColor="@color/primary_text" />
+
+                 <ImageButton
+                     android:layout_width="wrap_content"
+                     android:layout_height="30dp"
+                     android:background="@android:color/transparent"
+                     android:tint="@color/primary_text"
+                     app:srcCompat="@drawable/ic_star_black_24dp" />
+
+                 <TextView
+                     android:layout_width="0dp"
+                     android:layout_height="wrap_content"
+                     android:layout_weight="1"/>
+
+             </LinearLayout>
+
+            <TableLayout
+                android:id="@+id/tablaFavoritos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/banda_favoritos">
+
+            </TableLayout>
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

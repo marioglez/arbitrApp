@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TableLayout
+        android:id="@+id/tabla_partido_informacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView_estadoPartido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:padding="10dp"
+                android:text="@string/estadoPartido"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_estado_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView_localPartido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:padding="10dp"
+                android:text="@string/localPartido"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_local_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView_visitantePartido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:padding="10dp"
+                android:text="@string/visitantePartido"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_visitante_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_lugarPartido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:padding="10dp"
+                android:text="@string/lugarPartido"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_lugar_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView_fechaPartido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:padding="10dp"
+                android:text="@string/fechaPartido"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_fecha_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView_horaPartido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:padding="10dp"
+                android:text="@string/horaPartido"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_hora_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView_resultadoPartido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.1"
+                android:padding="10dp"
+                android:text="@string/resultadoPartido"
+                android:textColor="@color/primary_text" />
+
+            <TextView
+                android:id="@+id/textView_resultado_partido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textColor="@color/secondary_text" />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/arbitraje"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabla_partido_informacion"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/arbitraje"
+        android:background="@color/colorAccent"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
+
+    <RelativeLayout
+        android:id="@+id/layout_arbitros"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/arbitraje">
+
+        <TextView
+            android:id="@+id/sin_arbitros"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/sin_arbitros_asignados"
+            android:textColor="@color/primary_text"
+            android:textSize="24sp"/>
+
+        <TableLayout
+            android:id="@+id/tablaArbitros"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

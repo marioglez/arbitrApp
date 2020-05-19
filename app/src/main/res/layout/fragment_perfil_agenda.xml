@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_agenda"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/proximosPartidos"
+        android:textColor="@color/secondary_text"
+        android:textSize="20sp" />
+
+    <TableLayout
+        android:id="@+id/tabla_dias"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textView_hoy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="obtener"
+                android:paddingTop="10sp"
+                android:text="0"
+                android:textColor="@color/icons"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView_manana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="10sp"
+                android:text="0"
+                android:textColor="@color/icons"
+                android:textSize="24sp" />
+
+            <TextView
+                android:id="@+id/textView_semana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingTop="10sp"
+                android:text="0"
+                android:textColor="@color/icons"
+                android:textSize="24sp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/textViewHoy"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="10sp"
+                android:text="@string/hoy"
+                android:textColor="@color/icons"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewManana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="10sp"
+                android:text="@string/mañana"
+                android:textColor="@color/icons"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/textViewSemana"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:paddingBottom="10sp"
+                android:text="@string/semana"
+                android:textColor="@color/icons"
+                android:textSize="20sp" />
+        </TableRow>
+
+    </TableLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_partido"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tabla_dias"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/textview_sin_partidos"
+            android:visibility="invisible"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:textColor="@color/primary_text"
+            android:textSize="24dp"
+            android:text="@string/sin_partidos_pendientes"/>
+
+        <TableLayout
+            android:id="@+id/tablaPartidos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

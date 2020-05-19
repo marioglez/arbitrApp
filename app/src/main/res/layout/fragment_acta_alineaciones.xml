@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_acta_alineaciones"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView_titulares"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_text"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/jugadores_titulares"
+        android:textColor="@color/icons"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/tabla_titulares"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_titulares">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:id="@+id/titulares_locales"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"/>
+
+            <TableLayout
+                android:id="@+id/titulares_visitantes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textView_suplentes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabla_titulares"
+        android:background="@color/primary_text"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/jugadores_suplentes"
+        android:textColor="@color/icons"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/tabla_suplentes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_suplentes">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:id="@+id/suplentes_locales"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"/>
+
+            <TableLayout
+                android:id="@+id/suplentes_visitantes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"/>
+        </TableRow>
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textView_tecnicos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabla_suplentes"
+        android:background="@color/primary_text"
+        android:gravity="center"
+        android:padding="5dp"
+        android:text="@string/cuerpo_tecnico"
+        android:textColor="@color/icons"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/tabla_tecnicos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_tecnicos">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableLayout
+                android:id="@+id/tecnicos_locales"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"/>
+
+            <TableLayout
+                android:id="@+id/tecnicos_visitantes"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="50"/>
+        </TableRow>
+
+    </TableLayout>
+</RelativeLayout>

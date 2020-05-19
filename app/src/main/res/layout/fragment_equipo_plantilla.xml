@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/equipoPlantillaLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textviewCuerpoTecnico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:padding="5dp"
+        android:paddingStart="10dp"
+        android:text="@string/cuerpo_tecnico"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/tablaCuerpoTecnico"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewCuerpoTecnico">
+
+    </TableLayout>
+
+    <TextView
+        android:id="@+id/textviewJugadores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tablaCuerpoTecnico"
+        android:background="@color/colorAccent"
+        android:padding="5dp"
+        android:paddingStart="10dp"
+        android:text="@string/jugadores"
+        android:textColor="@color/primary_text"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TableLayout
+        android:id="@+id/tablaJugadores"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewJugadores">
+
+    </TableLayout>
+
+</RelativeLayout>

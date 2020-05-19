@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/border">
+
+    <ImageView
+        android:id="@+id/imageview_fondo"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:contentDescription="@string/app_name"
+        app:srcCompat="@color/primary_text" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagen_persona"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/arbitro"
+        app:civ_border_width="1dp"
+        app:civ_border_color="@color/icons"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/textview_arbitrar_nombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imagen_persona"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="@string/nombrePerfil"
+        android:textColor="@color/icons"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/textview_arbitrar_equipo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_arbitrar_nombre"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:text="@string/equipo"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageview_fondo">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+
+            <TableLayout
+                android:id="@+id/tablaEventos"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/evento_amarilla"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="33.33"
+                        app:srcCompat="@drawable/ic_yellowcard" />
+
+                    <ImageView
+                        android:id="@+id/evento_roja"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="33.33"
+                        app:srcCompat="@drawable/ic_redcard" />
+
+                    <ImageView
+                        android:id="@+id/evento_segundaAmarilla"
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="33.33"
+                        app:srcCompat="@drawable/ic_tarjetas" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33.33"
+                        android:gravity="center"
+                        android:text="@string/amarilla"
+                        android:textColor="@color/primary_text"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33.33"
+                        android:gravity="center"
+                        android:text="@string/roja"
+                        android:textColor="@color/primary_text"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="33.33"
+                        android:gravity="center"
+                        android:text="@string/segundaAmarilla"
+                        android:textColor="@color/primary_text"
+                        android:textSize="10sp" />
+                </TableRow>
+
+            </TableLayout>
+
+            <RelativeLayout
+                android:id="@+id/arbitrar_salir"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tablaEventos"
+                android:layout_centerInParent="true"
+                android:layout_margin="50dp"
+                android:background="@drawable/boton_verde">
+
+                <TextView
+                    android:id="@+id/txt_salir"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:paddingStart="30dp"
+                    android:paddingEnd="5dp"
+                    android:gravity="center"
+                    android:text="@string/terminar"
+                    android:textColor="@color/icons" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_toEndOf="@id/txt_salir"
+                    android:background="@android:color/transparent"
+                    android:paddingEnd="30dp"
+                    android:tint="@color/icons"
+                    app:srcCompat="@drawable/ic_exit" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
+</RelativeLayout>

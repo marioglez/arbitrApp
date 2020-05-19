@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_datos"
+        android:title="@string/navDatos" />
+
+    <item
+        android:id="@+id/nav_agenda"
+        android:title="@string/navAgenda" />
+
+    <item
+        android:id="@+id/nav_estadisticas"
+        android:title="@string/navEstadisticas" />
+
+</menu>
