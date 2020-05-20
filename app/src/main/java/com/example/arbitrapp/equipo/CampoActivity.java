@@ -1,4 +1,4 @@
-package com.example.arbitrapp;
+package com.example.arbitrapp.equipo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Campo;
 
 public class CampoActivity extends AppCompatActivity {

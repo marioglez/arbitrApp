@@ -14,19 +14,26 @@
         android:textColor="@color/primary_text"
         android:textStyle="bold"/>
 
+    <Spinner
+        android:id="@+id/spinner_finalizar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_below="@id/finalizarPartido"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_below="@id/finalizarPartido">
+        android:layout_below="@id/spinner_finalizar">
 
         <RelativeLayout
             android:id="@+id/finalizar_aceptar"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:background="@drawable/boton_verde">
+            android:background="@drawable/boton_gris">
 
             <RelativeLayout
                 android:layout_width="wrap_content"

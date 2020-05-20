@@ -378,22 +378,22 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
     }
 
     @Override
-    public void applyFinalizar(boolean finalizar) {
-        if (finalizar) {
-            //Actualizar datos finales del partido
-            partido.setEstadoPartido("Finalizado");
+    public void applyFinalizar(String finalizar) {
+        //Actualizar datos finales del partido
+        partido.setEstadoPartido(finalizar);
+        if (finalizar.equals(PARTIDO_FINALIZADO)) {
             partido.setGolesLocal(String.valueOf(contadorLocal));
             partido.setGolesVisitante(String.valueOf(contadorVisitante));
             //Eventos ya se han ido añadiendo
-
-            //Subir partido a la BD
-            partido.guardarPartido();
-
-            Intent intent = new Intent();
-            intent.putExtra("partido",partido);
-            setResult(1,intent);
-            finish();
         }
+
+        //Subir partido a la BD
+        partido.guardarPartido();
+
+        Intent intent = new Intent();
+        intent.putExtra("partido",partido);
+        setResult(1,intent);
+        finish();
     }
 
     @Override
