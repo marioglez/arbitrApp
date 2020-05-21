@@ -9,11 +9,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,29 +27,45 @@ import com.example.arbitrapp.equipo.EquipoActivity;
 import com.example.arbitrapp.modelos.ComparadorDorsales;
 import com.example.arbitrapp.modelos.Equipo;
 import com.example.arbitrapp.modelos.Jugador;
+import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.modelos.Tecnico;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
 import java.util.Collections;
 
+import static com.example.arbitrapp.FirebaseData.EQUIPO_CUERPO_TECNICO;
+import static com.example.arbitrapp.FirebaseData.EQUIPO_LOCAL;
+import static com.example.arbitrapp.FirebaseData.EQUIPO_SUPLENTES;
+import static com.example.arbitrapp.FirebaseData.EQUIPO_TITULARES;
+import static com.example.arbitrapp.FirebaseData.EQUIPO_VISITANTE;
+import static com.example.arbitrapp.FirebaseData.PARTIDO_FINALIZADO;
+import static com.example.arbitrapp.FirebaseData.TECNICO;
 import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
+import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class PartidoEquipoFragment extends Fragment {
 
+    private View view;
     private Equipo equipo;
+    private Partido partido;
     private RelativeLayout relativeLayout;
     private ImageView imageView;
     private TextView nombreEquipo;
     private TextView numeroTecnicos, numeroJugadores;
+    private ImageButton editarTecnicos, editarTitulares, editarSuplentes;
     private TableLayout tablaTecnicos, tablaTitulares, tablaSuplentes;
+    private FloatingActionButton botonGuardar;
 
-    public PartidoEquipoFragment(Equipo equipo){
+    public PartidoEquipoFragment(Equipo equipo, Partido partido){
         this.equipo = equipo;
+        this.partido = partido;
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_partido_equipo, container, false);
+        view = inflater.inflate(R.layout.fragment_partido_equipo, container, false);
 
         relativeLayout = view.findViewById(R.id.layout_partido_equipo);
         imageView = view.findViewById(R.id.imagenEscudo);
@@ -57,13 +75,7 @@ public class PartidoEquipoFragment extends Fragment {
         tablaTecnicos = view.findViewById(R.id.tablaTecnicos);
         tablaTitulares = view.findViewById(R.id.tablaTitulares);
         tablaSuplentes = view.findViewById(R.id.tablaSuplentes);
-
-        rellenarInfoEquipo(view);
-
-        return view;
-    }
-
-    private void rellenarInfoEquipo(final View view){
+        botonGuardar = view.findViewById(R.id.floating_action_button_guardar_alineacion);
 
         nombreEquipo.setText(equipo.getNombre());
         try {
@@ -82,8 +94,62 @@ public class PartidoEquipoFragment extends Fragment {
             }
         });
 
+        rellenarInfoEquipo(view);
+
+        if (!partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(TECNICO)
+                && currentUser.getEquipo().getNombre().equals(equipo.getNombre())) {
+
+            obtenerPlantillaEquipo();
+
+            editarTecnicos = view.findViewById(R.id.imageButton_tecnicos);
+            editarTecnicos.setVisibility(View.VISIBLE);
+            editarTecnicos.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivityForResult(new Intent(getContext(), PopUpEditarAlineacionActivity.class)
+                            .putExtra("titulo",EQUIPO_CUERPO_TECNICO)
+                            .putExtra("usuarios",equipo.getTecnicos())
+                            .putExtra("seleccionados",equipo.getTecnicosPartido()),0);
+                }
+            });
+
+            editarTitulares = view.findViewById(R.id.imageButton_titulares);
+            editarTitulares.setVisibility(View.VISIBLE);
+            editarTitulares.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivityForResult(new Intent(getContext(), PopUpEditarAlineacionActivity.class)
+                            .putExtra("titulo",EQUIPO_TITULARES)
+                            .putExtra("usuarios",equipo.getJugadores())
+                            .putExtra("seleccionados",equipo.getTitulares()),1);
+                }
+            });
+
+            editarSuplentes = view.findViewById(R.id.imageButton_suplentes);
+            editarSuplentes.setVisibility(View.VISIBLE);
+            editarSuplentes.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivityForResult(new Intent(getContext(), PopUpEditarAlineacionActivity.class)
+                            .putExtra("titulo",EQUIPO_SUPLENTES)
+                            .putExtra("usuarios",equipo.getJugadores())
+                            .putExtra("seleccionados",equipo.getSuplentes()),2);
+                }
+            });
+        }
+
+
+        return view;
+    }
+
+    private void rellenarInfoEquipo(final View view){
+        limpiarTabla(tablaTecnicos);
+        limpiarTabla(tablaTitulares);
+        limpiarTabla(tablaSuplentes);
+
         ComparadorDorsales comparadorDorsales = new ComparadorDorsales();
         int contadorTecnicos = 0, contadorTitulares = 0, contadorSuplentes = 0;
+
         for(Tecnico t : equipo.getTecnicosPartido()){
             contadorTecnicos++;
             LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -133,7 +199,7 @@ public class PartidoEquipoFragment extends Fragment {
     private void irAEquipo() {
         if (equipo.getPartidos().isEmpty() || equipo.getJugadores().isEmpty()) {
             equipo.obtenerPartidos(TEMPORADA_ACTUAL);
-            equipo.obtenerPlantilla();
+            obtenerPlantillaEquipo();
 
             //ESPERAR POR LOS DATOS
             final ProgressDialog tempDialog;
@@ -158,5 +224,64 @@ public class PartidoEquipoFragment extends Fragment {
             startActivity(new Intent(getContext(), EquipoActivity.class).putExtra("equipo", equipo));
         }
 
+    }
+
+    private void obtenerPlantillaEquipo() {
+        if (equipo.getTecnicos().isEmpty() || equipo.getJugadores().isEmpty()) {
+            equipo.obtenerPlantilla();
+        }
+    }
+
+    private void limpiarTabla(TableLayout tableLayout) {
+        while (tableLayout.getChildCount() > 1) {
+            tableLayout.removeView(tableLayout.getChildAt(tableLayout.getChildCount() - 1));
+        }
+    }
+
+    private void guardarAlineacion() {
+        boolean resultado;
+        if (partido.getEquipoLocal().getNombre().equals(equipo.getNombre())) {
+            resultado = partido.guardarAlineacion(equipo, EQUIPO_LOCAL);
+        } else {
+            resultado = partido.guardarAlineacion(equipo, EQUIPO_VISITANTE);
+        }
+
+        if (resultado) {
+            Toast.makeText(getContext(),"Alineación actualizada con éxito",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(),"Error al actualizar alineación",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try{
+            switch (resultCode) {
+                case 0:
+                    equipo.setTecnicosPartido((ArrayList<Tecnico>) data.getSerializableExtra("resultado"));
+                    rellenarInfoEquipo(view);
+                    break;
+                case 1:
+                    equipo.setTitulares((ArrayList<Jugador>) data.getSerializableExtra("resultado"));
+                    rellenarInfoEquipo(view);
+                    break;
+                case 2:
+                    equipo.setSuplentes((ArrayList<Jugador>) data.getSerializableExtra("resultado"));
+                    rellenarInfoEquipo(view);
+                    break;
+            }
+            if (botonGuardar.getVisibility() != View.VISIBLE) {
+                botonGuardar.setVisibility(View.VISIBLE);
+                botonGuardar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        guardarAlineacion();
+                    }
+                });
+            }
+        } catch (Exception e) {
+            Log.w("PARTIDO EQUIPO", "onActivityResult: No se ha modificado alineacion");
+        }
     }
 }

@@ -326,6 +326,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
             public void onFinish() {
                 if (!segundaParte) {
                     DialogSegundaPartePartido dialogSegundaPartePartido = new DialogSegundaPartePartido();
+                    dialogSegundaPartePartido.setCancelable(false);
                     dialogSegundaPartePartido.show(getSupportFragmentManager(),"SEGUNDA PARTE DIALOG");
                 } else {
                     finalizarPartido();
@@ -381,7 +382,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
     public void applyFinalizar(String finalizar) {
         //Actualizar datos finales del partido
         partido.setEstadoPartido(finalizar);
-        if (finalizar.equals(PARTIDO_FINALIZADO)) {
+        if (!finalizar.equals(PARTIDO_SIN_JUGAR)) {
             partido.setGolesLocal(String.valueOf(contadorLocal));
             partido.setGolesVisitante(String.valueOf(contadorVisitante));
             //Eventos ya se han ido añadiendo
@@ -392,7 +393,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
 
         Intent intent = new Intent();
         intent.putExtra("partido",partido);
-        setResult(1,intent);
+        setResult(RESULT_OK,intent);
         finish();
     }
 

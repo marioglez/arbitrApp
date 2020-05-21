@@ -194,7 +194,6 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         dobleAmarilla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("PUTO EVENTO MANDADO", "onClick: " + EVENTO_SEGUNDA_AMARILLA);
                 DialogEvento dialogEvento = new DialogEvento(EVENTO_SEGUNDA_AMARILLA);
                 dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
             }
@@ -249,7 +248,6 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
 
     //FINALIZAR POPUP Y ENVIAR DATOS A ARBITRAR ACTIVITY
     private void finishPopUp(){
-        Log.d("POP UP", "finishPopUp: SALIR");
         if (!eventos.isEmpty()) {
             //ESPERAR POR LOS EVENTOS
             final ProgressDialog tempDialog;

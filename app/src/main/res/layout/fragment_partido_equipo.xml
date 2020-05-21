@@ -92,6 +92,17 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <ImageButton
+        android:visibility="invisible"
+        android:id="@+id/imageButton_tecnicos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tabla_equipo"
+        android:layout_margin="15dp"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_mode_edit"
+        android:background="@android:color/transparent"/>
+
     <TableLayout
         android:id="@+id/tablaTecnicos"
         android:layout_width="match_parent"
@@ -151,6 +162,18 @@
         android:textColor="@color/primary_text"
         android:textSize="20sp"
         android:textStyle="bold" />
+
+    <ImageButton
+        android:visibility="invisible"
+        android:id="@+id/imageButton_titulares"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tablaTecnicos"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_mode_edit"
+        android:background="@android:color/transparent"/>
 
     <TableLayout
         android:id="@+id/tablaTitulares"
@@ -212,6 +235,18 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
+    <ImageButton
+        android:visibility="invisible"
+        android:id="@+id/imageButton_suplentes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tablaTitulares"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="15dp"
+        android:layout_alignParentRight="true"
+        app:srcCompat="@drawable/ic_mode_edit"
+        android:background="@android:color/transparent"/>
+
     <TableLayout
         android:id="@+id/tablaSuplentes"
         android:layout_width="match_parent"
@@ -259,6 +294,15 @@
 
     </TableLayout>
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floating_action_button_guardar_alineacion"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="50dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:srcCompat="@drawable/ic_save"/>
 
 </RelativeLayout>

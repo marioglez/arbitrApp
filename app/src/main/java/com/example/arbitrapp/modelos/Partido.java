@@ -1,6 +1,5 @@
 package com.example.arbitrapp.modelos;
 
-import android.os.AsyncTask;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -104,17 +103,49 @@ public class Partido implements Serializable {
         databaseReference.child(EQUIPO_LOCAL).child(EQUIPO_GOLES).setValue(this.golesLocal);
         databaseReference.child(EQUIPO_VISITANTE).child(EQUIPO_GOLES).setValue(this.golesVisitante);
         //eventos
-        for (Evento e : eventos) {
-            Map<String, String> evento = new HashMap<>();
-            String autores = "";
-            for (Usuario usuario : e.getAutores()) {
-                autores += usuario.getId() + "-";
+        if (!eventos.isEmpty()) {
+            for (Evento e : eventos) {
+                Map<String, String> evento = new HashMap<>();
+                String autores = "";
+                for (Usuario usuario : e.getAutores()) {
+                    autores += usuario.getId() + "-";
+                }
+                evento.put(EVENTO_AUTOR,autores);
+                evento.put(EVENTO_EQUIPO, e.getEquipo());
+                evento.put(EVENTO_MINUTO, e.getMinuto());
+                evento.put(EVENTO_TIPO,e.getAccion());
+                databaseReference.child(PARTIDO_EVENTOS).push().setValue(evento);
             }
-            evento.put(EVENTO_AUTOR,autores);
-            evento.put(EVENTO_EQUIPO, e.getEquipo());
-            evento.put(EVENTO_MINUTO, e.getMinuto());
-            evento.put(EVENTO_TIPO,e.getAccion());
-            databaseReference.child(PARTIDO_EVENTOS).push().setValue(evento);
+        }
+    }
+
+    public boolean guardarAlineacion(Equipo equipo, String condicionEquipo) {
+        try {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child(COMPETICIONES).child(this.temporada).child(this.sede).child(this.categoria)
+                    .child(PARTIDOS).child(this.jornadaPartido).child(this.diaPartido).child(this.idPartido)
+                    .child(condicionEquipo).child(EQUIPO_MIEMBROS);
+            databaseReference.removeValue();
+
+            for (Tecnico tecnico : equipo.getTecnicosPartido()) {
+                Map<String, String> miembro = new HashMap<>();
+                miembro.put(EQUIPO_PLANTILLA_TIPO, EQUIPO_PLANTILLA_TIPO_TECNICO);
+                databaseReference.child(tecnico.getId()).setValue(miembro);
+            }
+            for (Jugador jugador : equipo.getTitulares()) {
+                Map<String, String> miembro = new HashMap<>();
+                miembro.put(EQUIPO_PLANTILLA_TIPO, EQUIPO_PLANTILLA_TIPO_JUGADOR_TITULAR);
+                databaseReference.child(jugador.getId()).setValue(miembro);
+            }
+            for (Jugador jugador : equipo.getSuplentes()) {
+                Map<String, String> miembro = new HashMap<>();
+                miembro.put(EQUIPO_PLANTILLA_TIPO, EQUIPO_PLANTILLA_TIPO_JUGADOR_SUPLENTE);
+                databaseReference.child(jugador.getId()).setValue(miembro);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 

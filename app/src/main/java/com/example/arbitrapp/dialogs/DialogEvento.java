@@ -30,7 +30,6 @@ public class DialogEvento extends AppCompatDialogFragment {
 
     public DialogEvento(String evento) {
         this.evento = evento;
-        Log.d("PUTO EVENTO", "DialogEvento: " + evento);
     }
 
     @NonNull

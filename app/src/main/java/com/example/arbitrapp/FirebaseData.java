@@ -97,6 +97,11 @@ public final class FirebaseData extends Application {
     public static final String EQUIPO_NOMBRE = "nombre";
     public static final String EQUIPO_MIEMBROS = "miembros";
     public static final String EQUIPO_GOLES = "goles";
+    public static final String EQUIPO_TITULARES = "Titulares";
+    public static final String EQUIPO_SUPLENTES = "Suplentes";
+    public static final String EQUIPO_CUERPO_TECNICO = "Cuerpo Técnico";
+    public static final int MAX_JUG_TITULARES = 11;
+    public static final int MAX_JUG_SUPLENTES = 5;
 
     //ESTADOS DE PARTIDO
     public static final String PARTIDO_FINALIZADO = "Finalizado";

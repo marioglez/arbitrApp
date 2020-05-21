@@ -37,7 +37,10 @@
             android:label="@string/title_activity_maps" />
         <activity
             android:name=".arbitrar.PopUpArbitrarActivity"
-            android:theme="@style/AppTheme.PopUpTheme" />
+            android:theme="@style/AppTheme.PopUpArbitrarTheme" />
+        <activity
+            android:name=".partido.PopUpEditarAlineacionActivity"
+            android:theme="@style/AppTheme.PopUpEditarAlineacionTheme" />
         <activity android:name=".arbitrar.ArbitrarActivity" />
         <activity android:name=".competiciones.JornadaActivity" />
         <activity android:name=".competiciones.CompeticionActivity" />

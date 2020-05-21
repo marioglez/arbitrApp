@@ -109,11 +109,11 @@ public class PartidoActivity extends AppCompatActivity {
                     break;
                 case R.id.nav_local:
                     scrollView.smoothScrollTo(0,0);
-                    selectedFragment = new PartidoEquipoFragment(partido.getEquipoLocal());
+                    selectedFragment = new PartidoEquipoFragment(partido.getEquipoLocal(), partido);
                     break;
                 case R.id.nav_visitante:
                     scrollView.smoothScrollTo(0,0);
-                    selectedFragment = new PartidoEquipoFragment(partido.getEquipoVisitante());
+                    selectedFragment = new PartidoEquipoFragment(partido.getEquipoVisitante(), partido);
                     break;
             }
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_partido_container, selectedFragment).commit();
@@ -124,7 +124,7 @@ public class PartidoActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 1) {
+        if (resultCode == RESULT_OK) {
             partido = (Partido) data.getSerializableExtra("partido");
             bottomNavigationView.setSelectedItemId(R.id.nav_informacion);
             floatingActionButton.setVisibility(View.GONE);

@@ -149,6 +149,7 @@
     <string name="finalizar">Finalizar</string>
     <string name="cancelar">Cancelar</string>
     <string name="title_activity_maps">Map</string>
+    <string name="alineacion">Alineación</string>
 
     //CAMPOS
     <string name="nombreCampo">Nombre campo</string>

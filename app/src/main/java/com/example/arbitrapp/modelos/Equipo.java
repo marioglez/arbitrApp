@@ -198,6 +198,10 @@ public class Equipo implements Serializable {
         });
     }
 
+    public void guardarAlineaciones() {
+
+    }
+
     //GETTERS
 
     public String getNombre() {
@@ -244,12 +248,24 @@ public class Equipo implements Serializable {
         return tecnicosPartido;
     }
 
+    public void setTecnicosPartido(ArrayList<Tecnico> tecnicosPartido) {
+        this.tecnicosPartido = tecnicosPartido;
+    }
+
     public ArrayList<Jugador> getTitulares() {
         return titulares;
     }
 
+    public void setTitulares(ArrayList<Jugador> titulares) {
+        this.titulares = titulares;
+    }
+
     public ArrayList<Jugador> getSuplentes() {
         return suplentes;
+    }
+
+    public void setSuplentes(ArrayList<Jugador> suplentes) {
+        this.suplentes = suplentes;
     }
 
     public ArrayList<Partido> getPartidos() {
