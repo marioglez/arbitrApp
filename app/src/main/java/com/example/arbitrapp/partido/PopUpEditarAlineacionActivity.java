@@ -35,6 +35,7 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
     private ArrayList<Tecnico> tecnicosSeleccionados;
     private ArrayList<Jugador> jugadores;
     private ArrayList<Jugador> jugadoresSeleccionados;
+    private ArrayList<Jugador> jugadoresUsados;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
             case EQUIPO_SUPLENTES:
                 jugadores = (ArrayList<Jugador>) getIntent().getSerializableExtra("usuarios");
                 jugadoresSeleccionados = (ArrayList<Jugador>) getIntent().getSerializableExtra("seleccionados");
+                jugadoresUsados = (ArrayList<Jugador>) getIntent().getSerializableExtra("usados");
                 rellenarJugadores();
                 btnFinalizar.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -111,6 +113,11 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
             CheckBox checkBox = new CheckBox(this);
             checkBox.setText(jugador.getNombreCompleto());
             checkBox.setId(id);
+            for (Jugador usado: jugadoresUsados) {
+                if (usado.getId().equals(jugador.getId())) {
+                    checkBox.setEnabled(false);
+                }
+            }
             for (Jugador seleccionado : jugadoresSeleccionados) {
                 if (seleccionado.getId().equals(jugador.getId())) {
                     checkBox.setChecked(true);

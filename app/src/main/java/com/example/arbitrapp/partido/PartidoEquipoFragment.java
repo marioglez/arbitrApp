@@ -121,6 +121,7 @@ public class PartidoEquipoFragment extends Fragment {
                     startActivityForResult(new Intent(getContext(), PopUpEditarAlineacionActivity.class)
                             .putExtra("titulo",EQUIPO_TITULARES)
                             .putExtra("usuarios",equipo.getJugadores())
+                            .putExtra("usados",equipo.getSuplentes())
                             .putExtra("seleccionados",equipo.getTitulares()),1);
                 }
             });
@@ -133,6 +134,7 @@ public class PartidoEquipoFragment extends Fragment {
                     startActivityForResult(new Intent(getContext(), PopUpEditarAlineacionActivity.class)
                             .putExtra("titulo",EQUIPO_SUPLENTES)
                             .putExtra("usuarios",equipo.getJugadores())
+                            .putExtra("usados", equipo.getTitulares())
                             .putExtra("seleccionados",equipo.getSuplentes()),2);
                 }
             });
