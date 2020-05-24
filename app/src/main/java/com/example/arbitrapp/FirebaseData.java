@@ -104,6 +104,7 @@ public final class FirebaseData extends Application {
     public static final int MAX_JUG_SUPLENTES = 5;
 
     //ESTADOS DE PARTIDO
+    public static final String PARTIDO_EN_CURSO = "En curso";
     public static final String PARTIDO_FINALIZADO = "Finalizado";
     public static final String PARTIDO_SIN_JUGAR = "Sin jugar";
     public static final String PARTIDO_SUSPENDIDO = "Suspendido";

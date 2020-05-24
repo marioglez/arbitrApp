@@ -34,6 +34,7 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        Log.d("PERFIL", "onCreateView: ");
         if(currentUser.getAgenda() == null){
             currentUser.setAgenda(new Agenda());
         }
@@ -51,37 +52,9 @@ public class PerfilFragment extends Fragment {
         //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_datos);
 
-        //obtenerUsuario(view);
         pintarDatos(view);
 
         return view;
-    }
-
-    private void obtenerUsuario(final View view){
-
-        //ESPERAR POR LOS DATOS
-        final ProgressDialog tempDialog;
-        int i = 0;
-
-        //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-        tempDialog = new ProgressDialog(getContext());
-        tempDialog.setMessage("Recuperando Perfil...");
-        tempDialog.setCancelable(false);
-        tempDialog.setProgress(i);
-        tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
-        tempDialog.show();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tempDialog.dismiss();
-                pintarDatos(view);
-
-                //Fragment inicial
-                bottomNavigationView.setSelectedItemId(R.id.nav_datos);
-            }
-        }, 1000);
     }
 
     private void pintarDatos(View view){

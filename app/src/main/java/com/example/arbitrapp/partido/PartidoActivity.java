@@ -75,8 +75,19 @@ public class PartidoActivity extends AppCompatActivity {
     //Boton flecha atras
     @Override
     public boolean onSupportNavigateUp(){
-        finish();
+        volverAtras();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        volverAtras();
+    }
+
+    private void volverAtras() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     //METODO PARA MOSTRAR OCULTAR MENU

@@ -45,7 +45,7 @@ public class Equipo implements Serializable {
         obtenerInfoEquipo(nombreEquipo);
         //Obtener plantilla de un partido concreto
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(temporada).child(sede).child(categoria).child(PARTIDOS).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).child(temporada).child(sede).child(categoria).child(PARTIDOS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot jornada : dataSnapshot.getChildren()){
@@ -74,7 +74,7 @@ public class Equipo implements Serializable {
 
     private void obtenerInfoEquipo(final String nombreEquipo){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(EQUIPOS).child(nombreEquipo).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(EQUIPOS).child(nombreEquipo).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -100,7 +100,7 @@ public class Equipo implements Serializable {
     public void obtenerPlantilla(){
         if (this.tecnicos.isEmpty() || this.jugadores.isEmpty()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-            databaseReference.child(EQUIPOS).child(nombre).addValueEventListener(new ValueEventListener() {
+            databaseReference.child(EQUIPOS).child(nombre).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     if(dataSnapshot.exists()){
@@ -174,7 +174,7 @@ public class Equipo implements Serializable {
     public void obtenerPartidos(final String temporada){
         partidos.clear();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(temporada).child(sede).child(categoria).child(PARTIDOS).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).child(temporada).child(sede).child(categoria).child(PARTIDOS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -196,10 +196,6 @@ public class Equipo implements Serializable {
 
             }
         });
-    }
-
-    public void guardarAlineaciones() {
-
     }
 
     //GETTERS

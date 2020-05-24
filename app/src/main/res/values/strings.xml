@@ -34,7 +34,9 @@
     <string name="valoracionGeneral">Valoración general</string>
     <string name="valoracionRecibidas">Valoraciones recibidas</string>
     <string name="proximosPartidos">Próximos partidos</string>
+    <string name="partidosDirecto">Partidos en directo</string>
     <string name="noProximosPartidos">No hay partidos próximamente</string>
+    <string name="noPartidosDirecto">No hay partidos en directo</string>
     <string name="hoy">HOY</string>
     <string name="mañana">MAÑANA</string>
     <string name="semana">SEMANA</string>

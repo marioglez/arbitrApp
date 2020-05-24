@@ -37,6 +37,7 @@ import static com.example.arbitrapp.FirebaseData.currentUser;
 public class HomeScreen extends AppCompatActivity {
 
     private ArrayList<Partido> proximosPartidos;
+    private ArrayList<Partido> partidosDirecto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class HomeScreen extends AppCompatActivity {
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         proximosPartidos = (ArrayList<Partido>) getIntent().getSerializableExtra("proximosPartidos");
+        partidosDirecto = (ArrayList<Partido>) getIntent().getSerializableExtra("partidosDirecto");
         //Toast.makeText(HomeScreen.this, "HOME: " + currentUser.getNombreCompleto(), Toast.LENGTH_LONG).show();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -63,7 +65,7 @@ public class HomeScreen extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.nav_home:
-                    selectedFragment = new HomeFragment(proximosPartidos);
+                    selectedFragment = new HomeFragment(proximosPartidos, partidosDirecto);
                     break;
                 case R.id.nav_competiciones:
                     selectedFragment = new CompeticionesFragment();

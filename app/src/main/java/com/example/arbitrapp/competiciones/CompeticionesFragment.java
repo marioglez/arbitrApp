@@ -71,7 +71,7 @@ public class CompeticionesFragment extends Fragment {
         tablaFavoritos = view.findViewById(R.id.tablaFavoritos);
 
         obtenerTemporadas();
-        obtenerFavoritos();
+        pintarFavoritos();
 
         spinnerTemporada.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -124,19 +124,6 @@ public class CompeticionesFragment extends Fragment {
         return view;
     }
 
-    public void obtenerFavoritos() {
-        currentUser.obtenerCompeticionesFavoritas();
-        //Esperar por las temporadas existentes
-        tempDialog.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tempDialog.dismiss();
-                pintarFavoritos();
-            }
-        }, 1000);
-    }
-
     private void pintarFavoritos() {
         tablaFavoritos.removeAllViews();
         for (final Competicion competicion : currentUser.getCompeticionesfavoritas()){
@@ -164,25 +151,17 @@ public class CompeticionesFragment extends Fragment {
     }
 
     private void obtenerTemporadas(){
-        spinnerTemporadaItems.add("Selecciona temporada");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    spinnerTemporadaItems.add("Selecciona temporada");
                     for(DataSnapshot temporada: dataSnapshot.getChildren()){
                         spinnerTemporadaItems.add(temporada.getKey());
                     }
-                    //Esperar por las temporadas existentes
-                    tempDialog.show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            tempDialog.dismiss();
-                            ArrayAdapter<String> adapterTemporada = new ArrayAdapter<>(getContext(), R.layout.spinner_item, spinnerTemporadaItems);
-                            spinnerTemporada.setAdapter(adapterTemporada);
-                        }
-                    }, 500);
+                    ArrayAdapter<String> adapterTemporada = new ArrayAdapter<>(getContext(), R.layout.spinner_item, spinnerTemporadaItems);
+                    spinnerTemporada.setAdapter(adapterTemporada);
                 } else {
                     Log.d("COMPETICIONES", "onDataChange: NO EXISTEN TEMPORADAS ");
                 }
@@ -196,26 +175,18 @@ public class CompeticionesFragment extends Fragment {
     }
 
     private void obtenerSedes(String temporada){
-        spinnerSedeItems.clear();
-        spinnerSedeItems.add("selecciona sede");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(temporada).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).child(temporada).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    spinnerSedeItems.clear();
+                    spinnerSedeItems.add("selecciona sede");
                     for(DataSnapshot sede: dataSnapshot.getChildren()){
                         spinnerSedeItems.add(sede.getKey());
                     }
-                    //Esperar por las sedes existentes de la temporada
-                    tempDialog.show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            tempDialog.dismiss();
-                            ArrayAdapter<String> adapterSede = new ArrayAdapter<>(getContext(), R.layout.spinner_item, spinnerSedeItems);
-                            spinnerSede.setAdapter(adapterSede);
-                        }
-                    }, 500);
+                    ArrayAdapter<String> adapterSede = new ArrayAdapter<>(getContext(), R.layout.spinner_item, spinnerSedeItems);
+                    spinnerSede.setAdapter(adapterSede);
                 } else {
                     Log.d("COMPETICIONES", "onDataChange: NO EXISTEN SEDES ");
                 }
@@ -229,26 +200,18 @@ public class CompeticionesFragment extends Fragment {
     }
 
     private void obtenerCategorias(String temporada, String sede){
-        spinnerCategoriaItems.clear();
-        spinnerCategoriaItems.add("Selecciona categoría");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(temporada).child(sede).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).child(temporada).child(sede).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    spinnerCategoriaItems.clear();
+                    spinnerCategoriaItems.add("Selecciona categoría");
                     for(DataSnapshot categoria: dataSnapshot.getChildren()){
                         spinnerCategoriaItems.add(categoria.getKey());
                     }
-                    //Esperar por las categorias existentes de la sede y temporada
-                    tempDialog.show();
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            tempDialog.dismiss();
-                            ArrayAdapter<String> adapterCategoria = new ArrayAdapter<>(getContext(), R.layout.spinner_item, spinnerCategoriaItems);
-                            spinnerCategoria.setAdapter(adapterCategoria);
-                        }
-                    }, 500);
+                    ArrayAdapter<String> adapterCategoria = new ArrayAdapter<>(getContext(), R.layout.spinner_item, spinnerCategoriaItems);
+                    spinnerCategoria.setAdapter(adapterCategoria);
                 } else {
                     Log.d("COMPETICIONES", "onDataChange: NO EXISTEN CATEGORIAS ");
                 }
@@ -295,6 +258,7 @@ public class CompeticionesFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        obtenerFavoritos();
+        //obtenerFavoritos();
+        pintarFavoritos();
     }
 }

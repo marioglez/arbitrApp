@@ -153,7 +153,7 @@ public class LoginScreen extends AppCompatActivity {
         final int day = cal.get(Calendar.DAY_OF_YEAR);
         final int year = cal.get(Calendar.YEAR);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

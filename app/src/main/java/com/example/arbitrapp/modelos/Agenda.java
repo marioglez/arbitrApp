@@ -34,19 +34,22 @@ public class Agenda implements Serializable {
     private void obtenerPartidosSemana(){
         Calendar cal = Calendar.getInstance();
         final int day = cal.get(Calendar.DAY_OF_YEAR);
+        //Log.w("DIA DEL AÑO", "obtenerPartidosSemana: " + day );
         final int year = cal.get(Calendar.YEAR);
         final String sede = currentUser.getEquipo().getSede();
         final String categoria = currentUser.getEquipo().getCategoria();
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).child(sede).child(categoria)
-                .child(PARTIDOS).addListenerForSingleValueEvent(new ValueEventListener() {
+                .child(PARTIDOS).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (int i = 0; i<=6; i++) {
-                        final int diaSemana = i;
-                        final int dia = day + i;
+                    partidosHoy.clear();
+                    partidosManana.clear();
+                    partidosSemana.clear();
+                    for (int diaSemana = 0; diaSemana<=6; diaSemana++) {
+                        final int dia = day + diaSemana;
                         final String idPartidos = dayOfYear(year, dia);
                         for (DataSnapshot jornada : dataSnapshot.getChildren()) {
                             for (DataSnapshot diaPartido : jornada.getChildren()) {
@@ -55,7 +58,6 @@ public class Agenda implements Serializable {
                                         if (currentUser.getEquipo().getNombre().equals(partido.child(EQUIPO_LOCAL).child(EQUIPO_NOMBRE).getValue().toString()) ||
                                                 currentUser.getEquipo().getNombre().equals(partido.child(EQUIPO_VISITANTE).child(EQUIPO_NOMBRE).getValue().toString())) {
                                             pertenezcoPartido(new Partido(TEMPORADA_ACTUAL, sede, categoria, idPartidos, partido.getKey()), diaSemana);
-                                            Log.d("PERTENEZCO", "onDataChange: pertenezco al partido como jugador" + idPartidos);
                                         }
                                     }
                                 }
@@ -81,9 +83,8 @@ public class Agenda implements Serializable {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    for (int i = 0; i<=6; i++) {
-                        final int diaSemana = i;
-                        final int dia = day + i;
+                    for (int diaSemana = 0; diaSemana<=6; diaSemana++) {
+                        final int dia = day + diaSemana;
                         final String idPartidos = dayOfYear(year, dia);
                         for (DataSnapshot sede : dataSnapshot.getChildren()) {
                             for (DataSnapshot categoria : sede.getChildren()) {

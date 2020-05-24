@@ -45,26 +45,6 @@ public class CompeticionActivity extends AppCompatActivity {
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_competicion_equipos);
-
-        //esperarDatos();
-    }
-
-    private void esperarDatos(){
-        final ProgressDialog tempDialog;
-        int i = 0;
-        //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-        tempDialog = new ProgressDialog(CompeticionActivity.this);
-        tempDialog.setMessage("Recuperando Temporada...");
-        tempDialog.setCancelable(false);
-        tempDialog.setProgress(i);
-        tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        tempDialog.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tempDialog.dismiss();
-            }
-        }, 3000);
     }
 
     //Boton flecha atras

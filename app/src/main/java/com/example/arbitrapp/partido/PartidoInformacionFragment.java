@@ -28,6 +28,7 @@ import com.example.arbitrapp.modelos.Partido;
 public class PartidoInformacionFragment extends Fragment {
 
     private Partido partido;
+    private Arbitro arbitro;
     private TextView estado, local, visitante, lugar, fecha, hora, resultado, sinArbitros;
     private RelativeLayout relativeLayout;
     private TableLayout tablaArbitros;
@@ -111,9 +112,8 @@ public class PartidoInformacionFragment extends Fragment {
     }
 
     private void irAArbitro(final Arbitro arbitro) {
+        this.arbitro = arbitro;
         if (arbitro.getPartidos().isEmpty()){
-            arbitro.obtenerPartidos();
-
             //ESPERAR POR LOS DATOS
             final ProgressDialog tempDialog;
             int i = 0;
@@ -126,6 +126,7 @@ public class PartidoInformacionFragment extends Fragment {
             tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
             tempDialog.show();
+            arbitro.obtenerPartidos();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -137,5 +138,9 @@ public class PartidoInformacionFragment extends Fragment {
             startActivity(new Intent(getContext(), ArbitroActivity.class).putExtra("arbitro", arbitro));
         }
 
+    }
+
+    public void cargarPantalla() {
+        startActivity(new Intent(getContext(), ArbitroActivity.class).putExtra("arbitro", arbitro));
     }
 }

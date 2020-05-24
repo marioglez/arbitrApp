@@ -1,9 +1,9 @@
 package com.example.arbitrapp.modelos;
 
+import android.app.ProgressDialog;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -33,7 +33,7 @@ public class Arbitro extends Usuario implements Serializable {
 
     private void obtenerArbitro(String uid){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(USUARIOS).child(uid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(USUARIOS).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -55,7 +55,7 @@ public class Arbitro extends Usuario implements Serializable {
     public void obtenerPartidos(){
         partidos.clear();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -82,6 +82,8 @@ public class Arbitro extends Usuario implements Serializable {
                         }
                     }
                 }
+                //progressDialog.dismiss();
+                //partidoInformacionFragment.cargarPantalla();
             }
 
             @Override

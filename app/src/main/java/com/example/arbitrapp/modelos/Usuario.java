@@ -44,6 +44,7 @@ public class Usuario implements Serializable {
     public Usuario(){
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         obtenerUsuario(uid);
+        obtenerCompeticionesFavoritas(uid);
     }
 
     public Usuario(String uid){
@@ -52,7 +53,7 @@ public class Usuario implements Serializable {
 
     private void obtenerUsuario(final String uid){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(USUARIOS).child(uid).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(USUARIOS).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -73,7 +74,6 @@ public class Usuario implements Serializable {
                         } catch (Exception e) {
                             equipo = null;
                         }
-
                         agenda = null;
                         competicionesfavoritas = new ArrayList<>();
                     }catch (Exception e){
@@ -120,13 +120,13 @@ public class Usuario implements Serializable {
         }
     }
 
-    public void obtenerCompeticionesFavoritas(){
-        competicionesfavoritas.clear();
+    public void obtenerCompeticionesFavoritas(String uid){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(USUARIOS).child(this.id).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(USUARIOS).child(uid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
+                    competicionesfavoritas.clear();
                     for(DataSnapshot competicion : dataSnapshot.child(USUARIO_COMPETICIONES_FAVORITAS).getChildren()){
                         competicionesfavoritas.add(new Competicion(
                                 competicion.child(COMPETICION_TEMPORADA).getValue().toString(),
@@ -149,9 +149,8 @@ public class Usuario implements Serializable {
         favorita.put(COMPETICION_TEMPORADA,competicion.getTemporada());
         favorita.put(COMPETICION_SEDE, competicion.getSede());
         favorita.put(COMPETICION_CATEGORIA, competicion.getCategoria());
-        final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(USUARIOS).child(id).child(USUARIO_COMPETICIONES_FAVORITAS)
-                //.child(competicion.getTemporada()+competicion.getSede()+competicion.getCategoria())
                 .push()
                 .setValue(favorita);
     }
@@ -159,7 +158,7 @@ public class Usuario implements Serializable {
     public void eliminarCompeticionFavorita(final Competicion competicion) {
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child(USUARIOS).child(this.id).child(USUARIO_COMPETICIONES_FAVORITAS);
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.arbitrapp.MapsActivity;
 import com.example.arbitrapp.modelos.Agenda;
@@ -24,6 +26,8 @@ import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Usuario;
 import com.example.arbitrapp.partido.PartidoActivity;
+
+import static android.app.Activity.RESULT_OK;
 import static com.example.arbitrapp.FirebaseData.*;
 
 public class PerfilAgendaFragment extends Fragment {
@@ -39,6 +43,7 @@ public class PerfilAgendaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_perfil_agenda, container, false);
+        Log.d("TAG", "onCreateView: " + this.getTag());
 
         hoy = view.findViewById(R.id.textViewHoy);
         manana = view.findViewById(R.id.textViewManana);
@@ -133,7 +138,7 @@ public class PerfilAgendaFragment extends Fragment {
                 tableLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getContext(), PartidoActivity.class).putExtra("partido", p));
+                        startActivityForResult(new Intent(getContext(), PartidoActivity.class).putExtra("partido", p),0);
                     }
                 });
 
@@ -194,7 +199,7 @@ public class PerfilAgendaFragment extends Fragment {
                 tableLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getContext(), PartidoActivity.class).putExtra("partido", p));
+                        startActivityForResult(new Intent(getContext(), PartidoActivity.class).putExtra("partido", p),1);
                     }
                 });
 
@@ -255,7 +260,7 @@ public class PerfilAgendaFragment extends Fragment {
                 tableLayout.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        startActivity(new Intent(getContext(), PartidoActivity.class).putExtra("partido", p));
+                        startActivityForResult(new Intent(getContext(), PartidoActivity.class).putExtra("partido", p), 2);
                     }
                 });
 
@@ -276,6 +281,22 @@ public class PerfilAgendaFragment extends Fragment {
             String textoSinPartidos = "No hay partidos esta semana";
             sinPartidos.setText(textoSinPartidos);
             sinPartidos.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case 0:
+                obtenerPartidosHoy();
+                break;
+            case 1:
+                obtenerPartidosManana();
+                break;
+            case 2:
+                obtenerPartidosSemana();
+                break;
         }
     }
 }

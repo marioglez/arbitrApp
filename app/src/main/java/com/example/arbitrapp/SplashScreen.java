@@ -30,6 +30,7 @@ public class SplashScreen extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private ArrayList<Partido> proximosPartidos;
+    private ArrayList<Partido> partidosDirecto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class SplashScreen extends AppCompatActivity {
         setContentView(R.layout.activity_splash_screen);
 
         proximosPartidos = new ArrayList<>();
+        partidosDirecto = new ArrayList<>();
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -45,10 +47,13 @@ public class SplashScreen extends AppCompatActivity {
                 if(firebaseAuth.getCurrentUser() != null){
                     currentUser = new Usuario();
                     obtenerProximosPartidos();
+                    obtenerPartidosDirecto();
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            startActivity(new Intent(SplashScreen.this, HomeScreen.class).putExtra("proximosPartidos",proximosPartidos));
+                            startActivity(new Intent(SplashScreen.this, HomeScreen.class)
+                                    .putExtra("proximosPartidos",proximosPartidos)
+                                    .putExtra("partidosDirecto", partidosDirecto));
                             mAuth.removeAuthStateListener(mAuthListener);
                         }
                     }, 3000);
@@ -71,7 +76,7 @@ public class SplashScreen extends AppCompatActivity {
         final int day = cal.get(Calendar.DAY_OF_YEAR);
         final int year = cal.get(Calendar.YEAR);
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -86,7 +91,8 @@ public class SplashScreen extends AppCompatActivity {
                                     for (DataSnapshot diaPartido : jornada.getChildren()) {
                                         if (diaPartido.getKey().equals(idPartidos)) {
                                             for (DataSnapshot partido : diaPartido.getChildren()) {
-                                                if (!partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_FINALIZADO)) {
+                                                if (!partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_FINALIZADO)
+                                                    && !partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
                                                     proximosPartidos.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
                                                     partidosEncontrados++;
                                                 }
@@ -96,9 +102,43 @@ public class SplashScreen extends AppCompatActivity {
                                 }
                             }
                         }
-
                         diasBuscados++;
                     } while (partidosEncontrados<3 && diasBuscados<7);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void obtenerPartidosDirecto() {
+        Calendar cal = Calendar.getInstance();
+        final int day = cal.get(Calendar.DAY_OF_YEAR);
+        final int year = cal.get(Calendar.YEAR);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    final String idPartidos = (String.valueOf(year) + String.valueOf(day));
+                    for (DataSnapshot sede : dataSnapshot.getChildren()) {
+                        for (DataSnapshot categoria : sede.getChildren()) {
+                            for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
+                                for (DataSnapshot diaPartido : jornada.getChildren()) {
+                                    if (diaPartido.getKey().equals(idPartidos)) {
+                                        for (DataSnapshot partido : diaPartido.getChildren()) {
+                                            if (partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
+                                                partidosDirecto.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
@@ -122,5 +162,4 @@ public class SplashScreen extends AppCompatActivity {
             return (String.valueOf(year) + String.valueOf(dia));
         }
     }
-
 }

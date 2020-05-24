@@ -29,7 +29,7 @@ public class Campo implements Serializable {
 
     public Campo(final String nombreCampo) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(CAMPOS).child(nombreCampo).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(CAMPOS).child(nombreCampo).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {

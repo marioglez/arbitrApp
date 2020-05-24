@@ -34,7 +34,7 @@ public class Jugador extends Usuario implements Serializable {
 
     private void obtenerJugador(final String id){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(USUARIOS).child(id).addValueEventListener(new ValueEventListener() {
+        databaseReference.child(USUARIOS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
