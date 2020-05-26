@@ -35,6 +35,7 @@ import java.util.regex.Pattern;
 
 import static com.example.arbitrapp.FirebaseData.COMPETICIONES;
 import static com.example.arbitrapp.FirebaseData.PARTIDOS;
+import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
 import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
 import static com.example.arbitrapp.FirebaseData.PARTIDO_FINALIZADO;
 import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
@@ -50,6 +51,7 @@ public class LoginScreen extends AppCompatActivity {
     private ImageView imagen_logo, imagen_error;
     private TextView texto_error1, texto_error2;
     private ArrayList<Partido> proximosPartidos;
+    private ArrayList<Partido> partidosDirecto;
 
     private FirebaseAuth mAuth;
 
@@ -59,6 +61,7 @@ public class LoginScreen extends AppCompatActivity {
         setContentView(R.layout.activity_login_screen);
 
         proximosPartidos = new ArrayList<>();
+        partidosDirecto = new ArrayList<>();
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
@@ -99,11 +102,13 @@ public class LoginScreen extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             currentUser = new Usuario();
                             obtenerProximosPartidos();
+                            obtenerPartidosDirecto();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     startActivity(new Intent(LoginScreen.this, HomeScreen.class)
-                                            .putExtra("proximosPartidos",proximosPartidos));
+                                            .putExtra("proximosPartidos",proximosPartidos)
+                                            .putExtra("partidosDirecto", partidosDirecto));
                                 }
                             }, 3000);
 
@@ -168,7 +173,8 @@ public class LoginScreen extends AppCompatActivity {
                                     for (DataSnapshot diaPartido : jornada.getChildren()) {
                                         if (diaPartido.getKey().equals(idPartidos)) {
                                             for (DataSnapshot partido : diaPartido.getChildren()) {
-                                                if (!partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_FINALIZADO)) {
+                                                if (!partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_FINALIZADO)
+                                                        && !partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
                                                     proximosPartidos.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
                                                     partidosEncontrados++;
                                                 }
@@ -178,9 +184,43 @@ public class LoginScreen extends AppCompatActivity {
                                 }
                             }
                         }
-
                         diasBuscados++;
                     } while (partidosEncontrados<3 && diasBuscados<7);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void obtenerPartidosDirecto() {
+        Calendar cal = Calendar.getInstance();
+        final int day = cal.get(Calendar.DAY_OF_YEAR);
+        final int year = cal.get(Calendar.YEAR);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    final String idPartidos = (String.valueOf(year) + String.valueOf(day));
+                    for (DataSnapshot sede : dataSnapshot.getChildren()) {
+                        for (DataSnapshot categoria : sede.getChildren()) {
+                            for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
+                                for (DataSnapshot diaPartido : jornada.getChildren()) {
+                                    if (diaPartido.getKey().equals(idPartidos)) {
+                                        for (DataSnapshot partido : diaPartido.getChildren()) {
+                                            if (partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
+                                                partidosDirecto.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
 
