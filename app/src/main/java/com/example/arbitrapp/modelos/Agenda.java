@@ -79,10 +79,13 @@ public class Agenda implements Serializable {
         final int year = cal.get(Calendar.YEAR);
 
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    partidosHoy.clear();
+                    partidosManana.clear();
+                    partidosSemana.clear();
                     for (int diaSemana = 0; diaSemana<=6; diaSemana++) {
                         final int dia = day + diaSemana;
                         final String idPartidos = dayOfYear(year, dia);
@@ -93,7 +96,7 @@ public class Agenda implements Serializable {
                                         if (diaPartido.getKey().equals(idPartidos)) {
                                             for (DataSnapshot partido : diaPartido.getChildren()) {
                                                 for (DataSnapshot arbitro : partido.child(PARTIDO_ARBITRAJE).getChildren()) {
-                                                    if (currentUser.getId().equals(arbitro.child(ID).getValue().toString())) {
+                                                    if (currentUser.getUid().equals(arbitro.child(ID).getValue().toString())) {
                                                         pertenezcoPartido(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()), diaSemana);
                                                         Log.d("PERTENEZCO", "onDataChange: pertenezco al partido como arbitro" + idPartidos);
                                                     }

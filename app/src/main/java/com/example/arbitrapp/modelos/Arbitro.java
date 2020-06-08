@@ -1,6 +1,5 @@
 package com.example.arbitrapp.modelos;
 
-import android.app.ProgressDialog;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -13,11 +12,15 @@ import com.google.firebase.database.ValueEventListener;
 import static com.example.arbitrapp.FirebaseData.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.concurrent.CountDownLatch;
 
 public class Arbitro extends Usuario implements Serializable {
 
     private String categoria;
     private ArrayList<Partido> partidos = new ArrayList<>();
+    private Partido partido;
+
+    private CountDownLatch countDownLatch;
 
     public Arbitro(){
         super();
@@ -26,8 +29,14 @@ public class Arbitro extends Usuario implements Serializable {
         obtenerPartidos();
     }
 
-    public Arbitro(String uid){
+    public Arbitro(String uid) {
         super(uid);
+        obtenerArbitro(uid);
+    }
+
+    public Arbitro(String uid, CountDownLatch countDownLatch){
+        super(uid);
+        this.countDownLatch = countDownLatch;
         obtenerArbitro(uid);
     }
 
@@ -42,6 +51,11 @@ public class Arbitro extends Usuario implements Serializable {
                     }catch (Exception e){
                         Log.d("ARBITRO", "onDataChange: Error al obtener ARBITRO");
                     }
+                }
+                try{
+                    countDownLatch.countDown();
+                } catch (Exception e) {
+
                 }
             }
 
@@ -66,7 +80,7 @@ public class Arbitro extends Usuario implements Serializable {
                                     for (DataSnapshot diaPartido : jornada.getChildren()){
                                         for (DataSnapshot idPartido : diaPartido.getChildren()){
                                             for (DataSnapshot arbitro : idPartido.child(PARTIDO_ARBITRAJE).getChildren()){
-                                                if (arbitro.child(ID).getValue().toString().equals(Arbitro.super.getId())){
+                                                if (arbitro.child(ID).getValue().toString().equals(Arbitro.super.getUid())){
                                                     partidos.add(new Partido(
                                                             temporada.getKey(),
                                                             sede.getKey(),
@@ -82,8 +96,6 @@ public class Arbitro extends Usuario implements Serializable {
                         }
                     }
                 }
-                //progressDialog.dismiss();
-                //partidoInformacionFragment.cargarPantalla();
             }
 
             @Override

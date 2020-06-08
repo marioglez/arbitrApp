@@ -99,14 +99,14 @@ public class JugadorActivity extends AppCompatActivity {
                 contadorPartidosTotal++;
                 if(jugador.getEquipo().getNombre().equals(partido.getEquipoLocal().getNombre())){
                     for(Jugador j : partido.getEquipoLocal().getTitulares()){
-                        if(j.getId().equals(jugador.getId())){
+                        if(j.getUid().equals(jugador.getUid())){
                             contadorJugados++;
                             contadorTitular++;
                             break;
                         }
                     }
                     for(Jugador j : partido.getEquipoLocal().getSuplentes()){
-                        if(j.getId().equals(jugador.getId())){
+                        if(j.getUid().equals(jugador.getUid())){
                             contadorJugados++;
                             contadorSuplente++;
                             break;
@@ -114,14 +114,14 @@ public class JugadorActivity extends AppCompatActivity {
                     }
                 } else if (jugador.getEquipo().getNombre().equals(partido.getEquipoVisitante().getNombre())){
                     for(Jugador j : partido.getEquipoVisitante().getTitulares()){
-                        if(j.getId().equals(jugador.getId())){
+                        if(j.getUid().equals(jugador.getUid())){
                             contadorJugados++;
                             contadorTitular++;
                             break;
                         }
                     }
                     for(Jugador j : partido.getEquipoVisitante().getSuplentes()){
-                        if(j.getId().equals(jugador.getId())){
+                        if(j.getUid().equals(jugador.getUid())){
                             contadorJugados++;
                             contadorSuplente++;
                             break;
@@ -132,7 +132,7 @@ public class JugadorActivity extends AppCompatActivity {
                 //Eventos
                 for(Evento evento : partido.getEventos()){
                     for(Usuario u : evento.getAutores()){
-                        if(u.getId().equals(jugador.getId())){
+                        if(u.getUid().equals(jugador.getUid())){
                             switch (evento.getAccion()){
                                 case EVENTO_GOL:
                                     contadorMarcados++;

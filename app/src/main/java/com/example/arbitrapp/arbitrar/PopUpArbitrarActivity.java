@@ -204,12 +204,11 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     @Override
     public void applyGol(int resultado) {
         Log.d("RESULTADO GOL", "applyGol: " + resultado);
-        String[] autores = {jugador.getId()};
+        String[] autores = {jugador.getUid()};
         if (resultado == 1) {
             eventos.add(new Evento(String.valueOf(minuto),EVENTO_GOL,autores,equipo));
         } else {
             eventos.add(new Evento(String.valueOf(minuto),EVENTO_GOL_PROPIA,autores,equipo));
-
         }
     }
 
@@ -218,9 +217,9 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         Log.d("RESULTADO TARJETA", "applyTarjeta: " + resultado);
         String[] autores = new String[1];
         if (tecnico!=null){
-            autores[0] = tecnico.getId();
+            autores[0] = tecnico.getUid();
         } else {
-            autores[0] = jugador.getId();
+            autores[0] = jugador.getUid();
         }
         Log.d("AUTORES EVENTO", "applySustitucion: " + autores[0]);
         switch (resultado) {
@@ -242,7 +241,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     @Override
     public void applySustitucion(String resultado) {
         Log.d("RESULTADO SUSTITUCION", "applySustitucion: " + resultado);
-        String[] autores = {jugador.getId(), resultado};
+        String[] autores = {jugador.getUid(), resultado};
         eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo));
     }
 

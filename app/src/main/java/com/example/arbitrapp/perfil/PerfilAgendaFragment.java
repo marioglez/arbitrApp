@@ -43,7 +43,6 @@ public class PerfilAgendaFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.fragment_perfil_agenda, container, false);
-        Log.d("TAG", "onCreateView: " + this.getTag());
 
         hoy = view.findViewById(R.id.textViewHoy);
         manana = view.findViewById(R.id.textViewManana);
@@ -289,12 +288,15 @@ public class PerfilAgendaFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
+                Log.d("AGENDA", "onActivityResult: HOY");
                 obtenerPartidosHoy();
                 break;
             case 1:
+                Log.d("AGENDA", "onActivityResult: MAÑANA");
                 obtenerPartidosManana();
                 break;
             case 2:
+                Log.d("AGENDA", "onActivityResult: SEMANA");
                 obtenerPartidosSemana();
                 break;
         }

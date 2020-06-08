@@ -16,11 +16,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.arbitrapp.R;
 import static com.example.arbitrapp.FirebaseData.*;
 
+import com.example.arbitrapp.modelos.ComparadorNombres;
 import com.example.arbitrapp.modelos.Jugador;
 import com.example.arbitrapp.modelos.Tecnico;
 import com.example.arbitrapp.modelos.Usuario;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class PopUpEditarAlineacionActivity extends AppCompatActivity {
@@ -37,6 +39,8 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
     private ArrayList<Jugador> jugadoresSeleccionados;
     private ArrayList<Jugador> jugadoresUsados;
 
+    private ComparadorNombres comparadorNombres;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +54,7 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
 
         titulo = getIntent().getStringExtra("titulo");
         checkBoxes = new ArrayList<>();
+        comparadorNombres = new ComparadorNombres();
 
         tituloPopUp = findViewById(R.id.titulo_editar);
         layoutJugadores = findViewById(R.id.layoutJugadores);
@@ -92,12 +97,14 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
 
     private void rellenarTecnicos() {
         int id = 0;
+        //Ordenar tecnicos por nombre
+        Collections.sort(tecnicos,comparadorNombres);
         for (Tecnico tecnico : tecnicos) {
             CheckBox checkBox = new CheckBox(this);
             checkBox.setText(tecnico.getNombreCompleto());
             checkBox.setId(id);
             for (Tecnico seleccionado : tecnicosSeleccionados) {
-                if (seleccionado.getId().equals(tecnico.getId())) {
+                if (seleccionado.getUid().equals(tecnico.getUid())) {
                     checkBox.setChecked(true);
                 }
             }
@@ -109,17 +116,19 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
 
     private void rellenarJugadores() {
         int id = 0;
+        //Ordenar jugadores por nombre
+        Collections.sort(jugadores,comparadorNombres);
         for (Jugador jugador : jugadores) {
             CheckBox checkBox = new CheckBox(this);
             checkBox.setText(jugador.getNombreCompleto());
             checkBox.setId(id);
             for (Jugador usado: jugadoresUsados) {
-                if (usado.getId().equals(jugador.getId())) {
+                if (usado.getUid().equals(jugador.getUid())) {
                     checkBox.setEnabled(false);
                 }
             }
             for (Jugador seleccionado : jugadoresSeleccionados) {
-                if (seleccionado.getId().equals(jugador.getId())) {
+                if (seleccionado.getUid().equals(jugador.getUid())) {
                     checkBox.setChecked(true);
                 }
             }

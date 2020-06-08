@@ -3,12 +3,14 @@ package com.example.arbitrapp.home;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
@@ -21,32 +23,53 @@ import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.partido.PartidoActivity;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.concurrent.CountDownLatch;
+
+import static com.example.arbitrapp.FirebaseData.COMPETICIONES;
+import static com.example.arbitrapp.FirebaseData.PARTIDOS;
+import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
+import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
+import static com.example.arbitrapp.FirebaseData.PARTIDO_FINALIZADO;
+import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
+import static com.example.arbitrapp.FirebaseData.partidosDirecto;
+import static com.example.arbitrapp.FirebaseData.proximosPartidos;
 
 public class HomeFragment extends Fragment {
 
     private View view;
-    private ArrayList<Partido> proximosPartidos;
-    private ArrayList<Partido> partidosDirecto;
     private TableLayout tablaProximoPartido, tablaPartidoDirecto;
     private TextView tituloPartido, competicionPartido, lugarPartido, fechaPartido,
             nombreLocal, nombreVisitante, marcadorLocal, marcadorVisitante, ligaPartido;
+    private TextView noProximosPartidos, noPartidosDirecto;
     private ImageView escudoLocal, escudoVisitante;
-    private RelativeLayout comoLlegar;
+    private RelativeLayout comoLlegar, cajaDirecto, cajaProximos;
     private ImageButton chevronLeft, chevronRight, chevronLeftDirecto, chevronRightDirecto;
+    private ProgressBar progressBarDirecto, progressBarProximos;
 
     private int posicionCarousel, posicionCarouselDirecto;
 
-    public HomeFragment(ArrayList<Partido> proximosPartidos, ArrayList<Partido> partidosDirecto) {
-        this.proximosPartidos = proximosPartidos;
-        this.partidosDirecto = partidosDirecto;
-    }
+    private CountDownLatch countDownLatchDirecto;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_home, container, false);
+
+        progressBarDirecto = view.findViewById(R.id.progressBarDirecto);
+        cajaDirecto = view.findViewById(R.id.cajaDirecto);
+        progressBarProximos = view.findViewById(R.id.progressBarProximos);
+        cajaProximos = view.findViewById(R.id.caja_partido);
+        noProximosPartidos = view.findViewById(R.id.no_proximos_partidos);
+        noPartidosDirecto = view.findViewById(R.id.no_partidos_directo);
 
         tablaPartidoDirecto = view.findViewById(R.id.tabla_directo);
         chevronLeftDirecto = view.findViewById(R.id.chevron_izquierdaDirecto);
@@ -65,18 +88,191 @@ public class HomeFragment extends Fragment {
         lugarPartido = view.findViewById(R.id.lugar_partido);
         fechaPartido = view.findViewById(R.id.fecha_partido);
         comoLlegar = view.findViewById(R.id.comoLlegar_partido);
-
-        pintarPartidosDirecto();
-        pintarProximosPartidos();
+        
+        if (partidosDirecto.isEmpty() || proximosPartidos.isEmpty()) {
+            obtenerEnDirecto();
+            obtenerProximosPartidos();
+        } else {
+            pintarPartidosDirecto();
+            pintarProximosPartidos();
+        }
 
         return view;
+    }
+
+    /*@Override
+    public void onStart() {
+        super.onStart();
+        Log.w("HOME FRAGMENT", "onStart: " + partidosDirecto.size() + proximosPartidos.size());
+        if (!partidosDirecto.isEmpty() || !proximosPartidos.isEmpty()){
+            Log.w("HOME ", "onResume: pintar");
+            pintarPartidosDirecto();
+            pintarProximosPartidos();
+        }
+    }*/
+
+    private void obtenerEnDirecto() {
+        Calendar cal = Calendar.getInstance();
+        final int day = cal.get(Calendar.DAY_OF_YEAR);
+        final int year = cal.get(Calendar.YEAR);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    partidosDirecto.clear();
+                    final String idPartidos = (String.valueOf(year) + String.valueOf(day));
+                    for (DataSnapshot sede : dataSnapshot.getChildren()) {
+                        for (DataSnapshot categoria : sede.getChildren()) {
+                            for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
+                                for (DataSnapshot diaPartido : jornada.getChildren()) {
+                                    if (diaPartido.getKey().equals(idPartidos)) {
+                                        for (DataSnapshot partido : diaPartido.getChildren()) {
+                                            if (partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
+                                                partidosDirecto.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pintarPartidosDirecto();
+                        }
+                    }, 3000);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void obtenerProximosPartidos() {
+        Calendar cal = Calendar.getInstance();
+        final int day = cal.get(Calendar.DAY_OF_YEAR);
+        final int year = cal.get(Calendar.YEAR);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    proximosPartidos.clear();
+                    int partidosEncontrados = 0;
+                    int diasBuscados = 0;
+                    do {
+                        final int dia = day + diasBuscados;
+                        final String idPartidos = dayOfYear(year, dia);
+                        for (DataSnapshot sede : dataSnapshot.getChildren()) {
+                            for (DataSnapshot categoria : sede.getChildren()) {
+                                for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
+                                    for (DataSnapshot diaPartido : jornada.getChildren()) {
+                                        if (diaPartido.getKey().equals(idPartidos)) {
+                                            for (DataSnapshot partido : diaPartido.getChildren()) {
+                                                if (!partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_FINALIZADO)
+                                                        && !partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
+                                                    proximosPartidos.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
+                                                    partidosEncontrados++;
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        diasBuscados++;
+                    } while (partidosEncontrados<3 && diasBuscados<7);
+                    new Handler().postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            pintarProximosPartidos();
+                        }
+                    }, 3000);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private String dayOfYear(int year, int dia){
+        //Comprobar si pasa del dia maximo del año
+        Calendar cal = new GregorianCalendar(year, 11, 31);
+        int totalDias = cal.get(Calendar.DAY_OF_YEAR);
+
+        if(dia>totalDias){
+            year += + 1;
+            dia -= totalDias;
+            return (String.valueOf(year) + String.valueOf(dia));
+        } else {
+            return (String.valueOf(year) + String.valueOf(dia));
+        }
+    }
+
+    private void obtenerPartidosDirecto() {
+        Calendar cal = Calendar.getInstance();
+        final int day = cal.get(Calendar.DAY_OF_YEAR);
+        final int year = cal.get(Calendar.YEAR);
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
+        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    final String idPartidos = (String.valueOf(year) + String.valueOf(day));
+                    for (DataSnapshot sede : dataSnapshot.getChildren()) {
+                        for (DataSnapshot categoria : sede.getChildren()) {
+                            for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
+                                for (DataSnapshot diaPartido : jornada.getChildren()) {
+                                    if (diaPartido.getKey().equals(idPartidos)) {
+                                        for (DataSnapshot partido : diaPartido.getChildren()) {
+                                            if (partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
+                                                partidosDirecto.add(new Partido(countDownLatchDirecto, TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    countDownLatchDirecto = new CountDownLatch(partidosDirecto.size());
+                    for (Partido p : partidosDirecto) {
+                        p.start();
+                    }
+                    try {
+                        countDownLatchDirecto.await();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    pintarPartidosDirecto();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void pintarPartidosDirecto() {
         posicionCarouselDirecto = 0;
         if (!partidosDirecto.isEmpty()) {
             rellenarPartidosDirecto();
+            tablaPartidoDirecto.setVisibility(View.VISIBLE);
+            chevronLeftDirecto.setVisibility(View.VISIBLE);
+            chevronRightDirecto.setVisibility(View.VISIBLE);
+            progressBarDirecto.setVisibility(View.GONE);
+            noPartidosDirecto.setVisibility(View.GONE);
 
+            desactivarChevron(chevronLeftDirecto);
             chevronLeftDirecto.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -94,6 +290,7 @@ public class HomeFragment extends Fragment {
             if (partidosDirecto.size() < 2 ){
                 desactivarChevron(chevronRightDirecto);
             } else {
+                activarChevron(chevronRightDirecto);
                 chevronRightDirecto.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -110,10 +307,10 @@ public class HomeFragment extends Fragment {
             }
 
         } else {
+            progressBarDirecto.setVisibility(View.GONE);
             tablaPartidoDirecto.setVisibility(View.GONE);
             chevronLeftDirecto.setVisibility(View.GONE);
             chevronRightDirecto.setVisibility(View.GONE);
-            TextView noPartidosDirecto = view.findViewById(R.id.no_partidos_directo);
             noPartidosDirecto.setVisibility(View.VISIBLE);
         }
     }
@@ -137,8 +334,17 @@ public class HomeFragment extends Fragment {
         }
         nombreLocal.setText(partidosDirecto.get(posicionCarouselDirecto).getEquipoLocal().getNombre());
         nombreVisitante.setText(partidosDirecto.get(posicionCarouselDirecto).getEquipoVisitante().getNombre());
-        marcadorLocal.setText(partidosDirecto.get(posicionCarouselDirecto).getGolesLocal());
-        marcadorVisitante.setText(partidosDirecto.get(posicionCarouselDirecto).getGolesVisitante());
+        if (!partidosDirecto.get(posicionCarouselDirecto).getGolesLocal().isEmpty()) {
+            marcadorLocal.setText(partidosDirecto.get(posicionCarouselDirecto).getGolesLocal());
+        } else {
+            marcadorLocal.setText("0");
+        }
+        if (!partidosDirecto.get(posicionCarouselDirecto).getGolesVisitante().isEmpty()) {
+            marcadorVisitante.setText(partidosDirecto.get(posicionCarouselDirecto).getGolesVisitante());
+        } else {
+            marcadorVisitante.setText("0");
+        }
+
         ligaPartido.setText(partidosDirecto.get(posicionCarouselDirecto).getLiga());
 
         tablaPartidoDirecto.setOnClickListener(new View.OnClickListener() {
@@ -153,8 +359,12 @@ public class HomeFragment extends Fragment {
         posicionCarousel = 0;
         if (!proximosPartidos.isEmpty()) {
             rellenarProximoPartido(posicionCarousel);
+            cajaProximos.setVisibility(View.VISIBLE);
+            progressBarProximos.setVisibility(View.GONE);
+            noProximosPartidos.setVisibility(View.GONE);
 
             chevronLeft = view.findViewById(R.id.chevron_izquierda);
+            desactivarChevron(chevronLeft);
             chevronLeft.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -173,6 +383,7 @@ public class HomeFragment extends Fragment {
             if (proximosPartidos.size() < 2 ){
                 desactivarChevron(chevronRight);
             } else {
+                activarChevron(chevronRight);
                 chevronRight.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -189,9 +400,8 @@ public class HomeFragment extends Fragment {
             }
 
         } else {
-            RelativeLayout cajaPartido = view.findViewById(R.id.caja_partido);
-            cajaPartido.setVisibility(View.GONE);
-            TextView noProximosPartidos = view.findViewById(R.id.no_proximos_partidos);
+            progressBarProximos.setVisibility(View.GONE);
+            cajaProximos.setVisibility(View.GONE);
             noProximosPartidos.setVisibility(View.VISIBLE);
         }
     }
@@ -223,10 +433,18 @@ public class HomeFragment extends Fragment {
     }
 
     private void desactivarChevron(ImageButton chevron) {
-        chevron.setColorFilter(getResources().getColor(R.color.secondary_text));
+        try {
+            chevron.setColorFilter(getResources().getColor(R.color.secondary_text));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void activarChevron(ImageButton chevron) {
-        chevron.setColorFilter(getResources().getColor(R.color.primary_text));
+        try {
+            chevron.setColorFilter(getResources().getColor(R.color.primary_text));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

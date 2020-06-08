@@ -24,10 +24,11 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.CountDownLatch;
 
-public class Usuario implements Serializable {
+public class Usuario extends Thread implements Serializable {
 
-    private String id;
+    private String uid;
     private String nombre;
     private String apellidos;
     private String edad;
@@ -41,24 +42,37 @@ public class Usuario implements Serializable {
     private Agenda agenda;
     private ArrayList<Competicion> competicionesfavoritas;
 
+    private CountDownLatch countDownLatch;
+
     public Usuario(){
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         obtenerUsuario(uid);
         obtenerCompeticionesFavoritas(uid);
     }
 
+    public Usuario(CountDownLatch countDownLatch){
+        this.countDownLatch = countDownLatch;
+    }
+
     public Usuario(String uid){
         obtenerUsuario(uid);
     }
 
-    private void obtenerUsuario(final String uid){
+    @Override
+    public void run() {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        obtenerUsuario(uid);
+        obtenerCompeticionesFavoritas(uid);
+    }
+
+    private void obtenerUsuario(final String id){
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(USUARIOS).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+        databaseReference.child(USUARIOS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     try{
-                        id = dataSnapshot.getKey();
+                        uid = dataSnapshot.getKey();
                         obtenerImagen(uid);
                         nombre = dataSnapshot.child(USUARIO_NOMBRE).getValue().toString();
                         apellidos = dataSnapshot.child(USUARIO_APELLIDOS).getValue().toString();
@@ -134,6 +148,11 @@ public class Usuario implements Serializable {
                                 competicion.child(COMPETICION_CATEGORIA).getValue().toString()
                         ));
                     }
+                    try{
+                        countDownLatch.countDown();
+                    } catch (Exception e) {
+                        Log.d("USUARIO", "onDataChange: NO HAY COUNTDOWN");
+                    }
                 }
             }
 
@@ -150,14 +169,14 @@ public class Usuario implements Serializable {
         favorita.put(COMPETICION_SEDE, competicion.getSede());
         favorita.put(COMPETICION_CATEGORIA, competicion.getCategoria());
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(USUARIOS).child(id).child(USUARIO_COMPETICIONES_FAVORITAS)
+        databaseReference.child(USUARIOS).child(uid).child(USUARIO_COMPETICIONES_FAVORITAS)
                 .push()
                 .setValue(favorita);
     }
 
     public void eliminarCompeticionFavorita(final Competicion competicion) {
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
-                .child(USUARIOS).child(this.id).child(USUARIO_COMPETICIONES_FAVORITAS);
+                .child(USUARIOS).child(this.uid).child(USUARIO_COMPETICIONES_FAVORITAS);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -183,8 +202,9 @@ public class Usuario implements Serializable {
 
     //GETTERS
 
-    public String getId() {
-        return id;
+
+    public String getUid() {
+        return uid;
     }
 
     public String getTipoUsuario() {

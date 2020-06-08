@@ -57,7 +57,7 @@ public class PartidoActivity extends AppCompatActivity {
     private void isArbitrable() {
         if (!partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(ARBITRO)){
             for (Arbitro arbitro : partido.getArbitros()) {
-                if (arbitro.getId().equals(currentUser.getId())) {
+                if (arbitro.getUid().equals(currentUser.getUid())) {
                     floatingActionButton.setVisibility(View.VISIBLE);
                     floatingActionButton.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -138,7 +138,9 @@ public class PartidoActivity extends AppCompatActivity {
         if (resultCode == RESULT_OK) {
             partido = (Partido) data.getSerializableExtra("partido");
             bottomNavigationView.setSelectedItemId(R.id.nav_informacion);
-            floatingActionButton.setVisibility(View.GONE);
+            if (partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)) {
+                floatingActionButton.setVisibility(View.GONE);
+            }
         }
     }
 }

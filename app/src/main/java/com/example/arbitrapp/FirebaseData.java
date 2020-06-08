@@ -2,17 +2,24 @@ package com.example.arbitrapp;
 
 import android.app.Application;
 
+import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.modelos.Usuario;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public final class FirebaseData extends Application {
 
     public static Usuario currentUser = null;
+    public static ArrayList<Partido> partidosDirecto = new ArrayList<>();
+    public static ArrayList<Partido> proximosPartidos = new ArrayList<>();
 
     static Calendar cal = Calendar.getInstance();
     public static final String TEMPORADA_ACTUAL = String.valueOf(cal.get(Calendar.YEAR)-1)+"-"+String.valueOf(cal.get(Calendar.YEAR));
+
+    public static boolean CURRENT_USER = false;
+    public static boolean PARTIDOS_DIRECTO = false;
 
     //Variables constantes globales utilizadas para buscar en la base de datos
     public static final String USUARIOS = "usuarios";

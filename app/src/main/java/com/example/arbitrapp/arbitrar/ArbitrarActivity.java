@@ -124,6 +124,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
         rellenarDatosVisitante();
 
         DialogIniciarPartido dialogIniciarPartido = new DialogIniciarPartido();
+        dialogIniciarPartido.setCancelable(false);
         dialogIniciarPartido.show(getSupportFragmentManager(),"INICIAR DIALOG");
     }
 
@@ -171,7 +172,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
 
             for (Evento evento : partido.getEventos()) {
                 for (Usuario u : evento.getAutores()){
-                    if(u.getId().equals(t.getId())) {
+                    if(u.getUid().equals(t.getUid())) {
                         switch (evento.getAccion()) {
                             case EVENTO_AMARILLA:
                                 relativeLayout.setBackgroundColor(getResources().getColor(R.color.amarilloPastel));
@@ -225,7 +226,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
 
             for (Evento evento : partido.getEventos()) {
                 for (Usuario u : evento.getAutores()){
-                    if(u.getId().equals(j.getId())) {
+                    if(u.getUid().equals(j.getUid())) {
                         switch (evento.getAccion()) {
                             case EVENTO_GOL:
                                 ImageView iconoGol = row.findViewById(R.id.imageview_golFavor);
@@ -284,14 +285,18 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
         if (evento.getAccion().equals(EVENTO_GOL)) {
             if (evento.getEquipo().equals(EVENTO_LOCAL)) {
                 contadorLocal++;
+                partido.actualizarMarcador(EQUIPO_LOCAL,contadorLocal);
             } else {
                 contadorVisitante++;
+                partido.actualizarMarcador(EQUIPO_VISITANTE,contadorVisitante);
             }
         } else if (evento.getAccion().equals(EVENTO_GOL_PROPIA)) {
             if (evento.getEquipo().equals(EVENTO_LOCAL)) {
                 contadorVisitante++;
+                partido.actualizarMarcador(EQUIPO_VISITANTE,contadorVisitante);
             } else {
                 contadorLocal++;
+                partido.actualizarMarcador(EQUIPO_LOCAL,contadorLocal);
             }
         }
     }
@@ -363,6 +368,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
         if (iniciar) {
             cronoCorrido.setBase(SystemClock.elapsedRealtime());
             cronoCorrido.start();
+            partido.iniciarPartido();
         } else {
             Intent intent = new Intent();
             setResult(RESULT_CANCELED, intent);

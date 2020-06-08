@@ -29,6 +29,7 @@ public class Competicion implements Serializable {
     }
 
     public void obtenerEquipos(){
+        equipos.clear();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(EQUIPOS).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -51,6 +52,7 @@ public class Competicion implements Serializable {
     }
 
     public void obtenerJornadas() {
+        jornadas.clear();
         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(COMPETICIONES).child(temporada).child(sede).child(categoria).child(PARTIDOS)
                 .addListenerForSingleValueEvent(new ValueEventListener() {

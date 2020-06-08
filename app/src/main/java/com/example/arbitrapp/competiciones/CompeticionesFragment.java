@@ -235,7 +235,7 @@ public class CompeticionesFragment extends Fragment {
     }
 
     public void irACompeticion(final Competicion competicion){
-        if (competicion.getJornadas().isEmpty() || competicion.getEquipos().isEmpty()) {
+        //if (competicion.getJornadas().isEmpty() || competicion.getEquipos().isEmpty()) {
             competicion.obtenerJornadas();
             competicion.obtenerEquipos();
             tempDialog.show();
@@ -248,11 +248,10 @@ public class CompeticionesFragment extends Fragment {
                             .putExtra("competicion", competicion),0);
                 }
             }, 4000);
-        } else {
+        /*} else {
             startActivityForResult(new Intent(getContext(), CompeticionActivity.class)
                     .putExtra("competicion", competicion),0);
-        }
-
+        }*/
     }
 
     @Override

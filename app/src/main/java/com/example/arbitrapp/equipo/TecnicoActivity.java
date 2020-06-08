@@ -91,8 +91,8 @@ public class TecnicoActivity extends AppCompatActivity {
                 contadorPartidosTotal++;
                 if(tecnico.getEquipo().getNombre().equals(partido.getEquipoLocal().getNombre())){
                     for(Tecnico t : partido.getEquipoLocal().getTecnicosPartido()){
-                        Log.d("TECNICO", "rellenarEstadisticas: " + t.getId() + " VS " + tecnico.getId());
-                        if(t.getId().equals(tecnico.getId())){
+                        Log.d("TECNICO", "rellenarEstadisticas: " + t.getUid() + " VS " + tecnico.getUid());
+                        if(t.getUid().equals(tecnico.getUid())){
                             contadorJugados++;
                             if(Integer.valueOf(partido.getGolesLocal()) > Integer.valueOf(partido.getGolesVisitante())){
                                 contadorGanados++;
@@ -105,7 +105,7 @@ public class TecnicoActivity extends AppCompatActivity {
                     }
                 } else if (tecnico.getEquipo().getNombre().equals(partido.getEquipoVisitante().getNombre())){
                     for(Tecnico t : partido.getEquipoVisitante().getTecnicosPartido()){
-                        if(t.getId().equals(tecnico.getId())){
+                        if(t.getUid().equals(tecnico.getUid())){
                             contadorJugados++;
                             if(Integer.valueOf(partido.getGolesLocal()) < Integer.valueOf(partido.getGolesVisitante())){
                                 contadorGanados++;
@@ -121,7 +121,7 @@ public class TecnicoActivity extends AppCompatActivity {
                 //Eventos
                 for(Evento evento : partido.getEventos()){
                     for(Usuario u : evento.getAutores()){
-                        if(u.getId().equals(tecnico.getId())){
+                        if(u.getUid().equals(tecnico.getUid())){
                             switch (evento.getAccion()){
                                 case EVENTO_AMARILLA:
                                 case EVENTO_SEGUNDA_AMARILLA:

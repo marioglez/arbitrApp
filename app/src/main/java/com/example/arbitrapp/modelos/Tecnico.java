@@ -11,11 +11,13 @@ import com.google.firebase.database.ValueEventListener;
 import static com.example.arbitrapp.FirebaseData.*;
 
 import java.io.Serializable;
+import java.util.concurrent.CountDownLatch;
 
 public class Tecnico extends Usuario implements Serializable {
 
-    //private String equipo;
+    private Equipo equipoTecnico;
     private String cargo;
+    private CountDownLatch countDownLatch;
 
     public Tecnico(){
         super();
@@ -23,8 +25,14 @@ public class Tecnico extends Usuario implements Serializable {
         obtenerTecnico(uid);
     }
 
-    public Tecnico(String uid){
+    public Tecnico (String uid) {
         super(uid);
+        obtenerTecnico(uid);
+    }
+
+    public Tecnico(String uid, CountDownLatch countDownLatch){
+        super(uid);
+        this.countDownLatch = countDownLatch;
         obtenerTecnico(uid);
     }
 
@@ -37,6 +45,11 @@ public class Tecnico extends Usuario implements Serializable {
                     //equipo = dataSnapshot.child("equipo").getValue().toString();
                     cargo = dataSnapshot.child(TECNICO_CARGO).getValue().toString();
                 }
+                try {
+                    countDownLatch.countDown();
+                } catch (Exception e){
+
+                }
             }
 
             @Override
@@ -47,10 +60,6 @@ public class Tecnico extends Usuario implements Serializable {
     }
 
     //GETTERS
-
-    /*public String getEquipo() {
-        return equipo;
-    }*/
 
     public String getCargo() {
         return cargo;

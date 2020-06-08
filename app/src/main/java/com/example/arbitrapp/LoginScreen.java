@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -22,23 +20,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
-
-import static com.example.arbitrapp.FirebaseData.COMPETICIONES;
-import static com.example.arbitrapp.FirebaseData.PARTIDOS;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_FINALIZADO;
-import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class LoginScreen extends AppCompatActivity {
@@ -54,6 +39,7 @@ public class LoginScreen extends AppCompatActivity {
     private ArrayList<Partido> partidosDirecto;
 
     private FirebaseAuth mAuth;
+    private CountDownLatch countDownLatchUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,18 +86,14 @@ public class LoginScreen extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            currentUser = new Usuario();
-                            obtenerProximosPartidos();
-                            obtenerPartidosDirecto();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    startActivity(new Intent(LoginScreen.this, HomeScreen.class)
-                                            .putExtra("proximosPartidos",proximosPartidos)
-                                            .putExtra("partidosDirecto", partidosDirecto));
-                                }
-                            }, 3000);
-
+                            currentUser = new Usuario(countDownLatchUsuario);
+                            currentUser.start();
+                            try{
+                                countDownLatchUsuario.await();
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            irAHome();
                         } else {
                             botonLogin.setVisibility(View.VISIBLE);
                             progressBarLogin.setVisibility(View.INVISIBLE);
@@ -153,95 +135,7 @@ public class LoginScreen extends AppCompatActivity {
         return true;
     }
 
-    private void obtenerProximosPartidos() {
-        Calendar cal = Calendar.getInstance();
-        final int day = cal.get(Calendar.DAY_OF_YEAR);
-        final int year = cal.get(Calendar.YEAR);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    int partidosEncontrados = 0;
-                    int diasBuscados = 0;
-                    do {
-                        final int dia = day + diasBuscados;
-                        final String idPartidos = dayOfYear(year, dia);
-                        for (DataSnapshot sede : dataSnapshot.getChildren()) {
-                            for (DataSnapshot categoria : sede.getChildren()) {
-                                for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
-                                    for (DataSnapshot diaPartido : jornada.getChildren()) {
-                                        if (diaPartido.getKey().equals(idPartidos)) {
-                                            for (DataSnapshot partido : diaPartido.getChildren()) {
-                                                if (!partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_FINALIZADO)
-                                                        && !partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
-                                                    proximosPartidos.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
-                                                    partidosEncontrados++;
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        diasBuscados++;
-                    } while (partidosEncontrados<3 && diasBuscados<7);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private void obtenerPartidosDirecto() {
-        Calendar cal = Calendar.getInstance();
-        final int day = cal.get(Calendar.DAY_OF_YEAR);
-        final int year = cal.get(Calendar.YEAR);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    final String idPartidos = (String.valueOf(year) + String.valueOf(day));
-                    for (DataSnapshot sede : dataSnapshot.getChildren()) {
-                        for (DataSnapshot categoria : sede.getChildren()) {
-                            for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
-                                for (DataSnapshot diaPartido : jornada.getChildren()) {
-                                    if (diaPartido.getKey().equals(idPartidos)) {
-                                        for (DataSnapshot partido : diaPartido.getChildren()) {
-                                            if (partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
-                                                partidosDirecto.add(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    private String dayOfYear(int year, int dia){
-        //Comprobar si pasa del dia maximo del año
-        Calendar cal = new GregorianCalendar(year, 11, 31);
-        int totalDias = cal.get(Calendar.DAY_OF_YEAR);
-
-        if(dia>totalDias){
-            year += + 1;
-            dia -= totalDias;
-            return (String.valueOf(year) + String.valueOf(dia));
-        } else {
-            return (String.valueOf(year) + String.valueOf(dia));
-        }
+    private void irAHome() {
+        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
     }
 }

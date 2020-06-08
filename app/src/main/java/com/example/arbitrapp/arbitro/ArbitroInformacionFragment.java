@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ public class ArbitroInformacionFragment extends Fragment {
 
     private Arbitro arbitro;
     private TextView movil, email, partidosArbitrados, valoracion;
+    private ImageView iconoMovil, iconoEmail;
 
     public ArbitroInformacionFragment(Arbitro arbitro){
         this.arbitro = arbitro;
@@ -37,7 +39,9 @@ public class ArbitroInformacionFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_arbitro_informacion, container, false);
 
         movil = view.findViewById(R.id.textView_arbitro_movil);
+        iconoMovil = view.findViewById(R.id.icono_movil);
         email = view.findViewById(R.id.textView_arbitro_email);
+        iconoEmail = view.findViewById(R.id.icono_email);
         partidosArbitrados = view.findViewById(R.id.textView_arbitro_partidosArbitrados);
         valoracion = view.findViewById(R.id.textView_arbitro_valoracion);
 
@@ -55,8 +59,20 @@ public class ArbitroInformacionFragment extends Fragment {
                 llamarTelefono();
             }
         });
+        iconoMovil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                llamarTelefono();
+            }
+        });
         email.setText(arbitro.getEmail());
         email.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                enviarMail();
+            }
+        });
+        iconoEmail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 enviarMail();

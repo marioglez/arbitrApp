@@ -3,7 +3,6 @@ package com.example.arbitrapp.perfil;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -139,14 +138,14 @@ public class PerfilEstadisticasFragment extends Fragment {
                     contadorPartidosTotal++;
                     if(currentUser.getEquipo().getNombre().equals(partido.getEquipoLocal().getNombre())){
                         for(Jugador j : partido.getEquipoLocal().getTitulares()){
-                            if(j.getId().equals(currentUser.getId())){
+                            if(j.getUid().equals(currentUser.getUid())){
                                 contadorJugados++;
                                 contadorTitular++;
                                 break;
                             }
                         }
                         for(Jugador j : partido.getEquipoLocal().getSuplentes()){
-                            if(j.getId().equals(currentUser.getId())){
+                            if(j.getUid().equals(currentUser.getUid())){
                                 contadorJugados++;
                                 contadorSuplente++;
                                 break;
@@ -154,14 +153,14 @@ public class PerfilEstadisticasFragment extends Fragment {
                         }
                     } else if (currentUser.getEquipo().getNombre().equals(partido.getEquipoVisitante().getNombre())){
                         for(Jugador j : partido.getEquipoVisitante().getTitulares()){
-                            if(j.getId().equals(currentUser.getId())){
+                            if(j.getUid().equals(currentUser.getUid())){
                                 contadorJugados++;
                                 contadorTitular++;
                                 break;
                             }
                         }
                         for(Jugador j : partido.getEquipoVisitante().getSuplentes()){
-                            if(j.getId().equals(currentUser.getId())){
+                            if(j.getUid().equals(currentUser.getUid())){
                                 contadorJugados++;
                                 contadorSuplente++;
                                 break;
@@ -172,7 +171,7 @@ public class PerfilEstadisticasFragment extends Fragment {
                     //Eventos
                     for(Evento evento : partido.getEventos()){
                         for(Usuario u : evento.getAutores()){
-                            if(u.getId().equals(currentUser.getId())){
+                            if(u.getUid().equals(currentUser.getUid())){
                                 switch (evento.getAccion()){
                                     case EVENTO_GOL:
                                         contadorMarcados++;
@@ -231,7 +230,7 @@ public class PerfilEstadisticasFragment extends Fragment {
                 contadorPartidosTotal++;
                 if(currentUser.getEquipo().getNombre().equals(partido.getEquipoLocal().getNombre())){
                     for(Tecnico t : partido.getEquipoLocal().getTecnicosPartido()){
-                        if(t.getId().equals(currentUser.getId())){
+                        if(t.getUid().equals(currentUser.getUid())){
                             contadorJugados++;
                             if(Integer.valueOf(partido.getGolesLocal()) > Integer.valueOf(partido.getGolesVisitante())){
                                 contadorGanados++;
@@ -244,7 +243,7 @@ public class PerfilEstadisticasFragment extends Fragment {
                     }
                 } else if (currentUser.getEquipo().getNombre().equals(partido.getEquipoVisitante().getNombre())){
                     for(Tecnico t : partido.getEquipoVisitante().getTecnicosPartido()){
-                        if(t.getId().equals(currentUser.getId())){
+                        if(t.getUid().equals(currentUser.getUid())){
                             contadorJugados++;
                             if(Integer.valueOf(partido.getGolesLocal()) < Integer.valueOf(partido.getGolesVisitante())){
                                 contadorGanados++;
@@ -260,7 +259,7 @@ public class PerfilEstadisticasFragment extends Fragment {
                 //Eventos
                 for(Evento evento : partido.getEventos()){
                     for(Usuario u : evento.getAutores()){
-                        if(u.getId().equals(currentUser.getId())){
+                        if(u.getUid().equals(currentUser.getUid())){
                             switch (evento.getAccion()){
                                 case EVENTO_AMARILLA:
                                 case EVENTO_SEGUNDA_AMARILLA:

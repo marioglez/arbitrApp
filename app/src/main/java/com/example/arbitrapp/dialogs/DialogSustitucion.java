@@ -82,7 +82,7 @@ public class DialogSustitucion extends AppCompatDialogFragment {
             public void onClick(View v) {
                 for (Jugador jugador : jugadores) {
                     if (jugador.getNombreCompleto().equals(spinnerJugadores.getSelectedItem().toString())) {
-                        dialogSustitucionListener.applySustitucion(jugador.getId());
+                        dialogSustitucionListener.applySustitucion(jugador.getUid());
                         dismiss();
                         return;
                     }

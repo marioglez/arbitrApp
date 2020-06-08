@@ -28,16 +28,16 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.concurrent.CountDownLatch;
 
 import static com.example.arbitrapp.FirebaseData.COMPETICIONES;
 import static com.example.arbitrapp.FirebaseData.PARTIDOS;
+import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
+import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
 import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class HomeScreen extends AppCompatActivity {
-
-    private ArrayList<Partido> proximosPartidos;
-    private ArrayList<Partido> partidosDirecto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +46,6 @@ public class HomeScreen extends AppCompatActivity {
 
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
-        proximosPartidos = (ArrayList<Partido>) getIntent().getSerializableExtra("proximosPartidos");
-        partidosDirecto = (ArrayList<Partido>) getIntent().getSerializableExtra("partidosDirecto");
         //Toast.makeText(HomeScreen.this, "HOME: " + currentUser.getNombreCompleto(), Toast.LENGTH_LONG).show();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -55,7 +53,6 @@ public class HomeScreen extends AppCompatActivity {
 
         //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_home);
-
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -65,7 +62,7 @@ public class HomeScreen extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.nav_home:
-                    selectedFragment = new HomeFragment(proximosPartidos, partidosDirecto);
+                    selectedFragment = new HomeFragment();
                     break;
                 case R.id.nav_competiciones:
                     selectedFragment = new CompeticionesFragment();
