@@ -6,10 +6,12 @@ import java.util.ArrayList;
 public class Jornada implements Serializable {
 
     private String nombre;
+    private ArrayList<String> fechas;
     private ArrayList<Partido> partidos;
 
     public Jornada(String nombre){
         this.nombre = nombre;
+        this.fechas = new ArrayList<>();
         this.partidos = new ArrayList<>();
     }
 
@@ -17,6 +19,10 @@ public class Jornada implements Serializable {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public ArrayList<String> getFechas() {
+        return fechas;
     }
 
     public ArrayList<Partido> getPartidos() {

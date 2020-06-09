@@ -220,6 +220,8 @@ public class Partido extends Thread implements Serializable {
                 .child(PARTIDOS).child(this.jornadaPartido).child(this.diaPartido).child(this.idPartido);
 
         databaseReference.child(PARTIDO_ESTADO).setValue(PARTIDO_EN_CURSO);
+        databaseReference.child(EQUIPO_LOCAL).child(EQUIPO_GOLES).setValue(0);
+        databaseReference.child(EQUIPO_VISITANTE).child(EQUIPO_GOLES).setValue(0);
     }
 
     public void actualizarMarcador(String equipo, int goles) {
@@ -309,6 +311,26 @@ public class Partido extends Thread implements Serializable {
 
     public String getTemporada() {
         return temporada;
+    }
+
+    public String getSede() {
+        return sede;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public String getDiaPartido() {
+        return diaPartido;
+    }
+
+    public String getIdPartido() {
+        return idPartido;
+    }
+
+    public String getJornadaPartido() {
+        return jornadaPartido;
     }
 
     public String getFecha(){

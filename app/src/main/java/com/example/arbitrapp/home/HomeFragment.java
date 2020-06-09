@@ -29,7 +29,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.CountDownLatch;
@@ -350,7 +349,7 @@ public class HomeFragment extends Fragment {
         tablaPartidoDirecto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getContext(), PartidoActivity.class).putExtra("partido",partidosDirecto.get(posicionCarouselDirecto)));
+                startActivity(new Intent(getContext(), PartidoDirectoActivity.class).putExtra("partido",partidosDirecto.get(posicionCarouselDirecto)));
             }
         });
     }

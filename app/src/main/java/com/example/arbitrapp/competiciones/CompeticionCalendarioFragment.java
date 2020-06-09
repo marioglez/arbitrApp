@@ -77,6 +77,10 @@ public class CompeticionCalendarioFragment extends Fragment {
             TextView nombreJornada = row.findViewById(R.id.textview_competicion_jornada);
             nombreJornada.setText(jornada.getNombre());
 
+            TextView fechas = row.findViewById(R.id.textview_competicion_fecha);
+            String fechasCompleto = jornada.getFechas().get(0) + " - " + jornada.getFechas().get(jornada.getFechas().size()-1);
+            fechas.setText(fechasCompleto);
+
             TextView partidos = row.findViewById(R.id.textview_competicion_partidos);
             partidos.setText(String.valueOf(jornada.getPartidos().size()));
 

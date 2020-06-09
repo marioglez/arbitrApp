@@ -9,6 +9,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import static com.example.arbitrapp.FirebaseData.*;
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Competicion implements Serializable {
@@ -23,9 +26,6 @@ public class Competicion implements Serializable {
         this.temporada = temporada;
         this.sede = sede;
         this.categoria = categoria;
-
-        //obtenerEquipos();
-        //obtenerJornadas();
     }
 
     public void obtenerEquipos(){
@@ -63,6 +63,7 @@ public class Competicion implements Serializable {
                                 Jornada j = new Jornada(jornada.getKey());
                                 jornadas.add(j);
                                 for (DataSnapshot diaPartido : jornada.getChildren()){
+                                    j.getFechas().add(obtenerFecha(diaPartido.getKey()));
                                     for (DataSnapshot idPartido : diaPartido.getChildren()){
                                         j.setPartido(new Partido(temporada, sede, categoria, diaPartido.getKey(), idPartido.getKey()));
                                     }
@@ -76,6 +77,17 @@ public class Competicion implements Serializable {
 
                     }
                 });
+    }
+
+    private String obtenerFecha(String diaPartido) {
+        String year = diaPartido.substring(0,4);
+        String dayOfYear = diaPartido.substring(4);
+        int año = Integer.valueOf(year);
+        int diaAño = Integer.valueOf(dayOfYear);
+        Year y = Year.of(año);
+        LocalDate localDate = y.atDay(diaAño);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        return localDate.format(formatter);
     }
 
     //GETTERS
