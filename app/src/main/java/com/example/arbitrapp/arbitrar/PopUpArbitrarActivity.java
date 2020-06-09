@@ -13,6 +13,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import static com.example.arbitrapp.FirebaseData.*;
 
 import com.bumptech.glide.Glide;
@@ -24,6 +26,7 @@ import com.example.arbitrapp.modelos.Evento;
 import com.example.arbitrapp.modelos.Jugador;
 import com.example.arbitrapp.modelos.Tecnico;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGol.DialogGolListener, DialogEvento.DialogEventoListener, DialogSustitucion.DialogSustitucionListener {
 
@@ -33,6 +36,8 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     private String equipo;
     private int minuto;
     private ArrayList<Evento> eventos;
+    private HashMap<String, Boolean> eventosJugador;
+    private Boolean titular;
 
     private ImageView imagenPersona;
     private TextView nombrePersona, equipoPersona;
@@ -55,6 +60,8 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         tecnico = (Tecnico) getIntent().getSerializableExtra("tecnico");
         jugador = (Jugador) getIntent().getSerializableExtra("jugador");
         equipo = getIntent().getStringExtra("equipo");
+        eventosJugador = (HashMap<String, Boolean>) getIntent().getSerializableExtra("eventos");
+        titular = getIntent().getBooleanExtra("titular",false);
         String[] tiempo = getIntent().getStringExtra("minuto").split(":");
         minuto = Integer.parseInt(tiempo[0]) + 1;
         jugadores = (ArrayList<Jugador>) getIntent().getSerializableExtra("jugadores");
@@ -95,8 +102,12 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         tarjetaAmarilla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+            if (eventosJugador.get(EVENTO_AMARILLA)) {
+                Toast.makeText(PopUpArbitrarActivity.this, tecnico.getNombre() + " ya tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+            } else {
                 DialogEvento dialogEvento = new DialogEvento(EVENTO_AMARILLA);
                 dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
+            }
             }
         });
 
@@ -113,8 +124,13 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         dobleAmarilla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogEvento dialogEvento = new DialogEvento(EVENTO_SEGUNDA_AMARILLA);
-                dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
+                if (!eventosJugador.get(EVENTO_AMARILLA)) {
+                    Toast.makeText(PopUpArbitrarActivity.this, tecnico.getNombre() + " no tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+                } else {
+                    DialogEvento dialogEvento = new DialogEvento(EVENTO_SEGUNDA_AMARILLA);
+                    dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
+                }
+
             }
         });
     }
@@ -149,8 +165,14 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         gol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogGol dialogGol = new DialogGol();
-                dialogGol.show(getSupportFragmentManager(),"GOL DIALOG");
+                if (titular && eventosJugador.get(EVENTO_SUSTITUCION)) {
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " ha sido sustituido", Toast.LENGTH_SHORT).show();
+                } else if (!titular && !eventosJugador.get(EVENTO_SUSTITUCION)) {
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " no ha sido sustituido", Toast.LENGTH_SHORT).show();
+                } else {
+                    DialogGol dialogGol = new DialogGol();
+                    dialogGol.show(getSupportFragmentManager(),"GOL DIALOG");
+                }
             }
         });
 
@@ -158,8 +180,12 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         sustitucion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogSustitucion dialogSustitucion = new DialogSustitucion(jugadores);
-                dialogSustitucion.show(getSupportFragmentManager(),"SUSTITUCION DIALOG");
+                if (titular && eventosJugador.get(EVENTO_SUSTITUCION)) {
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " ya ha sido sustituido", Toast.LENGTH_SHORT).show();
+                } else {
+                    DialogSustitucion dialogSustitucion = new DialogSustitucion(jugadores);
+                    dialogSustitucion.show(getSupportFragmentManager(),"SUSTITUCION DIALOG");
+                }
             }
         });
 
@@ -176,8 +202,12 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         tarjetaAmarilla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogEvento dialogEvento = new DialogEvento(EVENTO_AMARILLA);
-                dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
+                if (eventosJugador.get(EVENTO_AMARILLA)) {
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " ya tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+                } else {
+                    DialogEvento dialogEvento = new DialogEvento(EVENTO_AMARILLA);
+                    dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
+                }
             }
         });
 
@@ -194,8 +224,12 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         dobleAmarilla.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogEvento dialogEvento = new DialogEvento(EVENTO_SEGUNDA_AMARILLA);
-                dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
+                if (!eventosJugador.get(EVENTO_AMARILLA)) {
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " no tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+                } else {
+                    DialogEvento dialogEvento = new DialogEvento(EVENTO_SEGUNDA_AMARILLA);
+                    dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
+                }
             }
         });
     }
@@ -241,8 +275,13 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     @Override
     public void applySustitucion(String resultado) {
         Log.d("RESULTADO SUSTITUCION", "applySustitucion: " + resultado);
-        String[] autores = {jugador.getUid(), resultado};
-        eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo));
+        if (titular) {
+            String[] autores = {jugador.getUid(), resultado};
+            eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo));
+        } else {
+            String[] autores = {resultado, jugador.getUid()};
+            eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo));
+        }
     }
 
     //FINALIZAR POPUP Y ENVIAR DATOS A ARBITRAR ACTIVITY

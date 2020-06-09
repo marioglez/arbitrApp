@@ -18,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import static com.example.arbitrapp.FirebaseData.*;
 import com.bumptech.glide.Glide;
@@ -36,6 +37,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public class ArbitrarActivity extends AppCompatActivity implements DialogFinalizarPartido.DialogFinalizarPartidoListener,
         DialogIniciarPartido.DialogIniciarPartidoListener, DialogSegundaPartePartido.DialogSegundaPartePartidoListener {
@@ -149,16 +152,16 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
         Equipo equipo = partido.getEquipoLocal();
         marcadorLocal.setText(String.valueOf(contadorLocal));
         rellenarTecnicos(equipo.getTecnicosPartido(), EVENTO_LOCAL, tablaTecnicosLocal);
-        rellenarJugadores(equipo.getTitulares(),equipo.getSuplentes(),EVENTO_LOCAL,tablaTitularesLocal);
-        rellenarJugadores(equipo.getSuplentes(),equipo.getTitulares(),EVENTO_LOCAL,tablaSuplentesLocal);
+        rellenarJugadores(equipo.getTitulares(),equipo.getSuplentes(),EVENTO_LOCAL,tablaTitularesLocal,true);
+        rellenarJugadores(equipo.getSuplentes(),equipo.getTitulares(),EVENTO_LOCAL,tablaSuplentesLocal,false);
     }
 
     private void rellenarDatosVisitante() {
         Equipo equipo = partido.getEquipoVisitante();
         marcadorVisitante.setText(String.valueOf(contadorVisitante));
         rellenarTecnicos(equipo.getTecnicosPartido(),EVENTO_VISITANTE,tablaTecnicosVisitante);
-        rellenarJugadores(equipo.getTitulares(),equipo.getSuplentes(),EVENTO_VISITANTE,tablaTitularesVisitante);
-        rellenarJugadores(equipo.getSuplentes(),equipo.getTitulares(),EVENTO_VISITANTE,tablaSuplentesVisitante);
+        rellenarJugadores(equipo.getTitulares(),equipo.getSuplentes(),EVENTO_VISITANTE,tablaTitularesVisitante,true);
+        rellenarJugadores(equipo.getSuplentes(),equipo.getTitulares(),EVENTO_VISITANTE,tablaSuplentesVisitante,false);
     }
 
     private void rellenarTecnicos(ArrayList<Tecnico> tecnicos, final String condicionEquipo, TableLayout tableLayout) {
@@ -170,16 +173,25 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
             nombre.setText(t.getNombreCompleto());
             RelativeLayout relativeLayout = row.findViewById(R.id.caja_tecnico);
 
+            //Mapa de eventos que tiene el tecnico
+            final HashMap<String, Boolean> eventos = new HashMap<>();
+            eventos.put(EVENTO_AMARILLA,false);
+            eventos.put(EVENTO_SEGUNDA_AMARILLA,false);
+            eventos.put(EVENTO_ROJA,false);
+
             for (Evento evento : partido.getEventos()) {
                 for (Usuario u : evento.getAutores()){
                     if(u.getUid().equals(t.getUid())) {
                         switch (evento.getAccion()) {
                             case EVENTO_AMARILLA:
+                                eventos.put(EVENTO_AMARILLA, true);
                                 relativeLayout.setBackgroundColor(getResources().getColor(R.color.amarilloPastel));
                                 Log.d("BUSCANDO EVENTO", "rellenarTecnicos: Amarilla EVENTO");
                                 break;
                             case EVENTO_ROJA:
                             case EVENTO_SEGUNDA_AMARILLA:
+                                eventos.put(EVENTO_ROJA,true);
+                                eventos.put(EVENTO_SEGUNDA_AMARILLA,true);
                                 relativeLayout.setBackgroundColor(getResources().getColor(R.color.rojoPastel));
                                 Log.d("BUSCANDO EVENTO", "rellenarTecnicos: roja EVENTO");
                                 break;
@@ -194,9 +206,14 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivityForResult(new Intent(ArbitrarActivity.this, PopUpArbitrarActivity.class)
-                            .putExtra("tecnico",t).putExtra("equipo",condicionEquipo)
-                            .putExtra("minuto",cronoCorrido.getText().toString()),0);
+                    if (eventos.get(EVENTO_SEGUNDA_AMARILLA) || eventos.get(EVENTO_ROJA)) {
+                        Toast.makeText(ArbitrarActivity.this, t.getNombre() + " ha sido expulsado",Toast.LENGTH_SHORT).show();
+                    } else {
+                        startActivityForResult(new Intent(ArbitrarActivity.this, PopUpArbitrarActivity.class)
+                                .putExtra("tecnico",t).putExtra("equipo",condicionEquipo)
+                                .putExtra("eventos", eventos)
+                                .putExtra("minuto",cronoCorrido.getText().toString()),0);
+                    }
                 }
             });
             tableLayout.addView(row);
@@ -204,7 +221,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
     }
 
     private void rellenarJugadores(ArrayList<Jugador> jugadores, final ArrayList<Jugador> sustitutos,
-                                   final String condicionEquipo, TableLayout tableLayout) {
+                                   final String condicionEquipo, TableLayout tableLayout, final boolean titulares) {
         tableLayout.removeAllViews();
         Collections.sort(jugadores,comparadorDorsales);
         for(final Jugador j : jugadores){
@@ -224,6 +241,13 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                 iconoRol.setVisibility(View.VISIBLE);
             }
 
+            //Mapa de eventos que tiene el tecnico
+            final HashMap<String, Boolean> eventos = new HashMap<>();
+            eventos.put(EVENTO_AMARILLA,false);
+            eventos.put(EVENTO_SEGUNDA_AMARILLA,false);
+            eventos.put(EVENTO_ROJA,false);
+            eventos.put(EVENTO_SUSTITUCION,false);
+
             for (Evento evento : partido.getEventos()) {
                 for (Usuario u : evento.getAutores()){
                     if(u.getUid().equals(j.getUid())) {
@@ -239,21 +263,25 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                                 Log.d("BUSCANDO EVENTO", "rellenarJugadores: GOL Propia EVENTO");
                                 break;
                             case EVENTO_AMARILLA:
+                                eventos.put(EVENTO_AMARILLA,true);
                                 ImageView iconoAmarilla = row.findViewById(R.id.imageview_amarilla);
                                 iconoAmarilla.setVisibility(View.VISIBLE);
                                 Log.d("BUSCANDO EVENTO", "rellenarJugadores: Amarilla EVENTO");
                                 break;
                             case EVENTO_ROJA:
+                                eventos.put(EVENTO_ROJA,true);
                                 ImageView iconoRoja = row.findViewById(R.id.imageview_roja);
                                 iconoRoja.setVisibility(View.VISIBLE);
                                 Log.d("BUSCANDO EVENTO", "rellenarJugadores: Roja EVENTO");
                                 break;
                             case EVENTO_SEGUNDA_AMARILLA:
+                                eventos.put(EVENTO_SEGUNDA_AMARILLA,true);
                                 ImageView iconoSegundaAmarilla = row.findViewById(R.id.imageview_segundaAmarilla);
                                 iconoSegundaAmarilla.setVisibility(View.VISIBLE);
                                 Log.d("BUSCANDO EVENTO", "rellenarJugadores: Segunda Amarilla EVENTO");
                                 break;
                             case EVENTO_SUSTITUCION:
+                                eventos.put(EVENTO_SUSTITUCION,true);
                                 ImageView iconoSustitucion = row.findViewById(R.id.imageview_sustitucion);
                                 iconoSustitucion.setVisibility(View.VISIBLE);
                                 Log.d("BUSCANDO EVENTO", "rellenarJugadores: Sustitución EVENTO");
@@ -271,10 +299,15 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
             row.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    startActivityForResult(new Intent(ArbitrarActivity.this, PopUpArbitrarActivity.class)
-                                    .putExtra("jugador",j).putExtra("jugadores",sustitutos)
-                                    .putExtra("equipo",condicionEquipo).putExtra("minuto", cronoCorrido.getText().toString())
-                            ,0);
+                    if (eventos.get(EVENTO_ROJA) || eventos.get(EVENTO_SEGUNDA_AMARILLA)) {
+                        Toast.makeText(ArbitrarActivity.this, j.getNombre() + " ha sido expulsado",Toast.LENGTH_SHORT).show();
+                    } else {
+                        startActivityForResult(new Intent(ArbitrarActivity.this, PopUpArbitrarActivity.class)
+                                        .putExtra("jugador",j).putExtra("jugadores",sustitutos)
+                                        .putExtra("eventos", eventos).putExtra("titular", titulares)
+                                        .putExtra("equipo",condicionEquipo).putExtra("minuto", cronoCorrido.getText().toString())
+                                ,0);
+                    }
                 }
             });
             tableLayout.addView(row);
@@ -417,6 +450,23 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
             for (Evento evento : eventos) {
                 partido.getEventos().add(evento);
                 actualizarMarcador(evento);
+                //ACTUALIZAR TITULARES Y SUPLENTES
+                /*if (evento.getAccion().equals(EVENTO_SUSTITUCION)) {
+                    if (evento.getEquipo().equals(EVENTO_LOCAL)) {
+
+                        Iterator<Jugador> iterator = partido.getEquipoLocal().getTitulares().iterator();
+                        while (iterator.hasNext()) {
+                            Jugador j = iterator.next();
+                            if (j.getUid().equals(evento.getAutores().get(0).getUid())) {
+                                iterator.remove();
+                            }
+                        }
+                        Jugador jugador = new Jugador(evento.getAutores().get(1).getUid());
+                        partido.getEquipoLocal().getTitulares().add(jugador);
+                    } else {
+
+                    }
+                }*/
             }
             rellenarDatosLocal();
             rellenarDatosVisitante();
