@@ -17,6 +17,7 @@ import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Competicion;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class CompeticionActivity extends AppCompatActivity {
@@ -32,7 +33,9 @@ public class CompeticionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_competicion);
 
         competicion = (Competicion) getIntent().getSerializableExtra("competicion");
-        favorito = esFavorito();
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+            favorito = esFavorito();
+        }
 
         //ACTION BAR
         setTitle(competicion.getCategoria() + " - " + competicion.getSede());
@@ -89,11 +92,15 @@ public class CompeticionActivity extends AppCompatActivity {
 
     //METODO PARA MOSTRAR OCULTAR MENU
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.actionbar_favoritos, menu);
-        if (favorito){
-            menu.findItem(R.id.favoritos).setIcon(getResources().getDrawable(R.drawable.ic_star_accent));
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+            getMenuInflater().inflate(R.menu.actionbar_favoritos, menu);
+            if (favorito){
+                menu.findItem(R.id.favoritos).setIcon(getResources().getDrawable(R.drawable.ic_star_accent));
+            }
+            return true;
+        } else {
+            return false;
         }
-        return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem menuItem) {

@@ -11,7 +11,8 @@
     <string name="loginPassword">Contraseña</string>
     <string name="loginButton">Iniciar Sesión</string>
     <string name="loginFail1">UPS...No has podido iniciar sesión</string>
-    <string name="loginFail2">Tu usuario y contraseña no coinciden Por favor, intentalo de nuevo</string>
+    <string name="loginFail2">Tu usuario y contraseña no coinciden. Por favor, intentalo de nuevo</string>
+    <string name="invitado">Acceder como invitado</string>
 
     //HOME
     <string name="competicionesIcon">Competiciones</string>

@@ -1,6 +1,8 @@
 package com.example.arbitrapp.perfil;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,11 +16,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import static com.example.arbitrapp.FirebaseData.*;
 
 import com.bumptech.glide.Glide;
+import com.example.arbitrapp.LoginScreen;
 import com.example.arbitrapp.R;
+import com.example.arbitrapp.home.HomeScreen;
 import com.example.arbitrapp.modelos.Agenda;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -34,26 +39,43 @@ public class PerfilFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        Log.d("PERFIL", "onCreateView: ");
-        if(currentUser.getAgenda() == null){
-            currentUser.setAgenda(new Agenda());
-        }
-
-        //Cargar Fragment
         final View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        imagenPerfil = view.findViewById((R.id.imagenPerfil));
-        nombrePerfil = view.findViewById(R.id.txtNombre);
-        tipoPerfil = view.findViewById(R.id.txtCategoria);
-        scrollView = view.findViewById(R.id.scrollViewPerfil);
-        //Barra de navegacion Perfil
-        bottomNavigationView = view.findViewById(R.id.perfil_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        //Fragment inicial
-        bottomNavigationView.setSelectedItemId(R.id.nav_datos);
+        if (currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Perfil no disponible")
+                    .setMessage("Inicia sesión para acceder a tu perfil")
+                    .setPositiveButton(R.string.loginButton, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getContext(), LoginScreen.class));
+                        }
+                    })
+                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            startActivity(new Intent(getContext(), HomeScreen.class));
+                        }
+                    })
+                    .setIcon(R.drawable.ic_tarjeta_login)
+                    .setCancelable(false)
+                    .show();
+        } else {
+            if(currentUser.getAgenda() == null){
+                currentUser.setAgenda(new Agenda());
+            }
 
-        pintarDatos(view);
+            imagenPerfil = view.findViewById((R.id.imagenPerfil));
+            nombrePerfil = view.findViewById(R.id.txtNombre);
+            tipoPerfil = view.findViewById(R.id.txtCategoria);
+            scrollView = view.findViewById(R.id.scrollViewPerfil);
+            //Barra de navegacion Perfil
+            bottomNavigationView = view.findViewById(R.id.perfil_navigation);
+            bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+            //Fragment inicial
+            bottomNavigationView.setSelectedItemId(R.id.nav_datos);
 
+            pintarDatos(view);
+        }
         return view;
     }
 

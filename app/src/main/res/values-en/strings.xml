@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //ActionBar Titles
+    <string name="app_name">arbitrApp</string>
+    <string name="home_name">Home</string>
+
+    <string name="splash1">arbitr</string>
+    <string name="splash2">App</string>
+
+    //LOGIN
+    <string name="loginEmail">User</string>
+    <string name="loginPassword">Password</string>
+    <string name="loginButton">Log in</string>
+    <string name="loginFail1">UPS...you could not login</string>
+    <string name="loginFail2">Your username and password do not match. Please try again</string>
+    <string name="invitado">Login as a guest</string>
+
+    //HOME
+    <string name="competicionesIcon">Competitions</string>
+    <string name="homeIcon">Home</string>
+    <string name="perfilIcon">Profile</string>
+
+    //PERFIL
+    <string name="navDatos">Data</string>
+    <string name="navAgenda">Schedule</string>
+    <string name="navEstadisticas">statistics</string>
+    <string name="nombrePerfil">Nombre Apellido1 Apellido2</string>
+    <string name="categoriaPerfil">Category</string>
+    <string name="datosNombre">Name</string>
+    <string name="datosApellidos">surname</string>
+    <string name="datosEdad">Age</string>
+    <string name="datosNacionalidad">Nacionality</string>
+    <string name="datosMovil">Mobile</string>
+    <string name="datosEmail">Email</string>
+    <string name="partidosArbitrados">Games refereed</string>
+    <string name="valoracionGeneral">Overall rating</string>
+    <string name="valoracionRecibidas">Ratings received</string>
+    <string name="proximosPartidos">Upcoming matches</string>
+    <string name="partidosDirecto">Live matches</string>
+    <string name="noProximosPartidos">No matches coming soon</string>
+    <string name="noPartidosDirecto">No live matches</string>
+    <string name="hoy">TODAY</string>
+    <string name="mañana">TOMORROW</string>
+    <string name="semana">WEEK</string>
+    <string name="como_llegar">HOW TO GET</string>
+
+    //PARTIDO
+    <string name="equipo">Team</string>
+    <string name="rol">rol</string>
+    <string name="informacion">INFORMATION</string>
+    <string name="local">LOCAL</string>
+    <string name="visitante">VISITOR</string>
+    <string name="estadoPartido">Status</string>
+    <string name="localPartido">Local Team</string>
+    <string name="visitantePartido">Visitor Team</string>
+    <string name="lugarPartido">Place</string>
+    <string name="fechaPartido">Date</string>
+    <string name="horaPartido">Hour</string>
+    <string name="resultadoPartido">Result</string>
+    <string name="arbitraje">Arbitration</string>
+    <string name="cuerpo_tecnico">Technical body</string>
+    <string name="jugadores">Players</string>
+    <string name="jugadores_titulares">Titular Players</string>
+    <string name="jugadores_suplentes">Substitute Players</string>
+    <string name="sin_partidos_jugados">No games played</string>
+    <string name="sin_partidos_pendientes">No pending matches</string>
+    <string name="sin_arbitros_asignados">No matches assigned</string>
+
+    //ACTA
+    <string name="alineaciones">Lineups</string>
+    <string name="partido">Game</string>
+
+    //EQUIPO
+    <string name="categoria">Category</string>
+    <string name="ciudad">City</string>
+    <string name="Campo">Field</string>
+    <string name="plantilla_equipo">Squad</string>
+    <string name="estadisticas_equipo">Statistics</string>
+    <string name="calendario_equipo">Calendar</string>
+    <string name="tipo_miembro">member type</string>
+    <string name="calendario_jugados">Played</string>
+    <string name="calendario_pendientes">Pendings</string>
+    //estadisticas
+    <string name="partidos">Games</string>
+    <string name="goles">Goals</string>
+    <string name="tarjetas">Cards</string>
+    <string name="total">Total</string>
+    <string name="jugados">Played</string>
+    <string name="sinJugar">without playing</string>
+    <string name="victorias">Victorys</string>
+    <string name="empates">Draws</string>
+    <string name="derrotas">Defeats</string>
+    <string name="ganados">wons</string>
+    <string name="perdidos">Lost</string>
+    <string name="empatados">Tied</string>
+    <string name="favor">Scored</string>
+    <string name="contra">Against</string>
+    <string name="amarillas">Yellow</string>
+    <string name="rojas">Red</string>
+    //persona
+    <string name="titular">Titular</string>
+    <string name="suplente">Substitutes</string>
+    <string name="marcados">Scored</string>
+    <string name="recibidos">Against</string>
+    <string name="propiaPuerta">Own</string>
+
+    //ARBITRO
+    <string name="informacion_arbitro">Information</string>
+    <string name="agenda_arbitro">Schedule</string>
+
+    //COMPETICIONES
+    <string name="temporada">Season</string>
+    <string name="sede">Campus</string>
+    <string name="buscar">SEARCH</string>
+    <string name="favoritos">Favorites</string>
+    <string name="equipos">Teams</string>
+    <string name="clasificacion">Clasification</string>
+    //clasificacion
+    <string name="leyenda">Legend</string>
+    <string name="puntos">Points</string>
+    <string name="leyenda1">League Champion</string>
+    <string name="leyenda2">Promotion</string>
+    <string name="leyenda3">Relegation</string>
+    //jornada
+    <string name="jornada">Journey</string>
+    <string name="Partidos">Games:</string>
+    <string name="PJ">EG:</string>
+    <string name="PNJ">NPG:</string>
+    <string name="PS">SG:</string>
+    <string name="PA">PG:</string>
+
+    //ARBITRAR
+    <string name="tiempoCorrido">Time run</string>
+    <string name="tiempoParado">Standing  time</string>
+    <string name="gol">Goal</string>
+    <string name="GOL">GOAL</string>
+    <string name="golPropia">Own goal</string>
+    <string name="sustitucion">Substitution</string>
+    <string name="amarilla">Yellow card</string>
+    <string name="roja">Red card</string>
+    <string name="segundaAmarilla">Double yellow</string>
+    <string name="lesion">Injury</string>
+    <string name="terminar">End up</string>
+    <string name="aFavor">In favor</string>
+    <string name="enContra">Own</string>
+    <string name="evento">Event</string>
+    <string name="motivo">Reason</string>
+    <string name="confirmar">Confirm</string>
+    <string name="finalizarPartido">End match</string>
+    <string name="arbitrarPartido">Referee match</string>
+    <string name="segundaParte">Second part</string>
+    <string name="iniciar">Start</string>
+    <string name="finalizar">Conclude</string>
+    <string name="cancelar">Cancel</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="alineacion">Alignment</string>
+
+    //CAMPOS
+    <string name="nombreCampo">Field name</string>
+    <string name="direccion">Direction</string>
+    <string name="capacidad">Capacity</string>
+</resources>

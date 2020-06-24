@@ -55,6 +55,7 @@ public class Usuario extends Thread implements Serializable {
     }
 
     public Usuario(String uid){
+        Log.d("USUARIO UID", "Usuario: "+uid);
         obtenerUsuario(uid);
     }
 
@@ -66,6 +67,7 @@ public class Usuario extends Thread implements Serializable {
     }
 
     private void obtenerUsuario(final String id){
+        Log.d("USUARIO UID", "obtenerUsuario: ");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(USUARIOS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

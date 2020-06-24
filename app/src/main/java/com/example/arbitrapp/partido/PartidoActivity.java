@@ -55,18 +55,20 @@ public class PartidoActivity extends AppCompatActivity {
     }
 
     private void isArbitrable() {
-        if (!partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(ARBITRO)){
-            for (Arbitro arbitro : partido.getArbitros()) {
-                if (arbitro.getUid().equals(currentUser.getUid())) {
-                    floatingActionButton.setVisibility(View.VISIBLE);
-                    floatingActionButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            startActivityForResult(new Intent(PartidoActivity.this, ArbitrarActivity.class)
-                                    .putExtra("partido",partido),0);
-                        }
-                    });
-                    return;
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)){
+            if (!partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(ARBITRO)){
+                for (Arbitro arbitro : partido.getArbitros()) {
+                    if (arbitro.getUid().equals(currentUser.getUid())) {
+                        floatingActionButton.setVisibility(View.VISIBLE);
+                        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                startActivityForResult(new Intent(PartidoActivity.this, ArbitrarActivity.class)
+                                        .putExtra("partido",partido),0);
+                            }
+                        });
+                        return;
+                    }
                 }
             }
         }

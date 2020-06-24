@@ -65,6 +65,9 @@ public final class FirebaseData extends Application {
     public static final String COMPETICION_CATEGORIA = "categoria";
 
     //USUARIOS
+    public static final String USUARIO_INVITADO = "Invitado";
+    public static final String USUARIO_INVITADO_EMAIL = "invitado@arbitrapp.com";
+    public static final String USUARIO_INVITADO_CLAVE = "invitado1";
     public static final String USUARIO_NOMBRE = "nombre";
     public static final String USUARIO_APELLIDOS = "apellidos";
     public static final String USUARIO_NACIMIENTO = "nacimiento";

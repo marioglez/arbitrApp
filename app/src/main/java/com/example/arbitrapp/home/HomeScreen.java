@@ -1,9 +1,11 @@
 package com.example.arbitrapp.home;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -35,6 +37,7 @@ import static com.example.arbitrapp.FirebaseData.PARTIDOS;
 import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
 import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
 import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
+import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class HomeScreen extends AppCompatActivity {
@@ -81,17 +84,24 @@ public class HomeScreen extends AppCompatActivity {
 
     //METODO PARA MOSTRAR OCULTAR MENU
     public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.actionbar_perfil, menu);
+        if (currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+            getMenuInflater().inflate(R.menu.actionbar_perfil_invitado, menu);
+        } else {
+            getMenuInflater().inflate(R.menu.actionbar_perfil, menu);
+        }
         return true;
     }
 
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-        int id = menuItem.getItemId();
+        /*int id = menuItem.getItemId();
         if (id == R.id.cerrar_sesion){
-            Log.d("ARBITRAPP", "onOptionItemSelected: CERRAR SESION!");
+            currentUser = null;
             FirebaseAuth.getInstance().signOut();
             startActivity(new Intent(HomeScreen.this, LoginScreen.class));
-        }
+        }*/
+        currentUser = null;
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(HomeScreen.this, LoginScreen.class));
         return super.onOptionsItemSelected(menuItem);
     }
 }

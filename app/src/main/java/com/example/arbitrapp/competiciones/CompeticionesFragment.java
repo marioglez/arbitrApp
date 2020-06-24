@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TableLayout;
@@ -71,7 +72,11 @@ public class CompeticionesFragment extends Fragment {
         tablaFavoritos = view.findViewById(R.id.tablaFavoritos);
 
         obtenerTemporadas();
-        pintarFavoritos();
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+            LinearLayout bandaFavoritos = view.findViewById(R.id.banda_favoritos);
+            bandaFavoritos.setVisibility(View.VISIBLE);
+            pintarFavoritos();
+        }
 
         spinnerTemporada.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -257,6 +262,8 @@ public class CompeticionesFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        pintarFavoritos();
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+            pintarFavoritos();
+        }
     }
 }

@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
         fechaPartido = view.findViewById(R.id.fecha_partido);
         comoLlegar = view.findViewById(R.id.comoLlegar_partido);
         
-        if (partidosDirecto.isEmpty() || proximosPartidos.isEmpty()) {
+        if (partidosDirecto.isEmpty() && proximosPartidos.isEmpty()) {
             obtenerEnDirecto();
             obtenerProximosPartidos();
         } else {

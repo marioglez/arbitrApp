@@ -24,6 +24,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
+
+import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO_CLAVE;
+import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO_EMAIL;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class LoginScreen extends AppCompatActivity {
@@ -31,12 +34,11 @@ public class LoginScreen extends AppCompatActivity {
     private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=\\S+$Z)(?=.{8,20})");
 
     private EditText usuario, contrasena;
-    private Button botonLogin;
+    private Button botonLogin, botonInvitado;
     private ProgressBar progressBarLogin;
     private ImageView imagen_logo, imagen_error;
     private TextView texto_error1, texto_error2;
-    private ArrayList<Partido> proximosPartidos;
-    private ArrayList<Partido> partidosDirecto;
+
 
     private FirebaseAuth mAuth;
     private CountDownLatch countDownLatchUsuario;
@@ -46,41 +48,74 @@ public class LoginScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
 
-        proximosPartidos = new ArrayList<>();
-        partidosDirecto = new ArrayList<>();
         // Initialize Firebase Auth
         mAuth = FirebaseAuth.getInstance();
 
         usuario = findViewById(R.id.usuario);
         contrasena = findViewById(R.id.contraseña);
         botonLogin = findViewById(R.id.button_login);
+        botonInvitado = findViewById(R.id.button_invitado);
         progressBarLogin = findViewById(R.id.progressBar_login);
         imagen_logo = findViewById(R.id.logoApp);
         imagen_error = findViewById(R.id.image_fail);
         texto_error1 = findViewById(R.id.txt_fail1);
         texto_error2 = findViewById(R.id.txt_fail2);
+
+        botonInvitado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                signIn(USUARIO_INVITADO_EMAIL,USUARIO_INVITADO_CLAVE);
+            }
+        });
     }
 
     public void iniciarSesion (View view){
         String nombre = usuario.getText().toString();
         String clave = contrasena.getText().toString();
 
-        botonLogin.setVisibility(View.INVISIBLE);
-        progressBarLogin.setVisibility(View.VISIBLE);
-
-        /*COMPROBAR AMBOS CAMPOS A LA VEZ
-        boolean emailOK = validarEmail(nombre);
-        boolean passwordOK = validarPassword(clave);
-
-        if(!emailOK || !passwordOK){
-            return;
-        }
-        */
-
         if(!validarEmail(nombre) || !validarPassword(clave)){
             return;
+        } else {
+            botonLogin.setVisibility(View.INVISIBLE);
+            progressBarLogin.setVisibility(View.VISIBLE);
+            signIn(nombre, clave);
         }
+    }
 
+    @Override
+    public void onBackPressed() {}
+
+    private boolean validarEmail(String email){
+        if(email.isEmpty()){
+            usuario.setError("Introduzca el email");
+            return false;
+        } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+            //Formato de email no valido
+            usuario.setError("Email no válido");
+            return false;
+        }
+        //SI NO FALLA
+        return true;
+    }
+
+    private boolean validarPassword(String password){
+        if(password.isEmpty()){
+            contrasena.setError("Introduzca la contraseña");
+            return false;
+        } /*else if (!PASSWORD_PATTERN.matcher(password).matches()) {
+            //Formato de contraseña no valido
+            contrasena.setError("Contraseña Débil");
+            return false;
+        }*/
+        //SI NO FALLA
+        return true;
+    }
+
+    private void irAHome() {
+        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
+    }
+
+    public void signIn(String nombre, String clave) {
         mAuth.signInWithEmailAndPassword(nombre, clave)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -98,44 +133,12 @@ public class LoginScreen extends AppCompatActivity {
                             botonLogin.setVisibility(View.VISIBLE);
                             progressBarLogin.setVisibility(View.INVISIBLE);
                             imagen_logo.setVisibility(View.INVISIBLE);
+                            botonInvitado.setVisibility(View.INVISIBLE);
                             imagen_error.setVisibility(View.VISIBLE);
                             texto_error1.setVisibility(View.VISIBLE);
                             texto_error2.setVisibility(View.VISIBLE);
                         }
                     }
                 });
-    }
-
-    @Override
-    public void onBackPressed() {}
-
-    private boolean validarEmail(String email){
-        if(email.isEmpty()){
-            usuario.setError("Email no puede estar vacío");
-            return false;
-        } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            //Formato de email no valido
-            usuario.setError("Email no válido");
-            return false;
-        }
-        //SI NO FALLA
-        return true;
-    }
-
-    private boolean validarPassword(String password){
-        if(password.isEmpty()){
-            contrasena.setError("Contraseña vacía");
-            return false;
-        } /*else if (!PASSWORD_PATTERN.matcher(password).matches()) {
-            //Formato de contraseña no valido
-            contrasena.setError("Contraseña Débil");
-            return false;
-        }*/
-        //SI NO FALLA
-        return true;
-    }
-
-    private void irAHome() {
-        startActivity(new Intent(LoginScreen.this, HomeScreen.class));
     }
 }
