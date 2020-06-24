@@ -73,7 +73,7 @@ public class CompeticionEquiposFragment extends Fragment {
             TextView ciudad = row.findViewById(R.id.equipo_ciudad);
             ciudad.setText(equipo.getCiudad());
             TextView fundacion = row.findViewById(R.id.equipo_fundacion);
-            fundacion.setText(equipo.getAño());
+            fundacion.setText(equipo.getAno());
 
             //Ir al Equipo concreto
             row.setOnClickListener(new View.OnClickListener() {

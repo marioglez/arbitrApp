@@ -82,10 +82,10 @@ public class Competicion implements Serializable {
     private String obtenerFecha(String diaPartido) {
         String year = diaPartido.substring(0,4);
         String dayOfYear = diaPartido.substring(4);
-        int año = Integer.valueOf(year);
-        int diaAño = Integer.valueOf(dayOfYear);
-        Year y = Year.of(año);
-        LocalDate localDate = y.atDay(diaAño);
+        int ano = Integer.valueOf(year);
+        int diaAno = Integer.valueOf(dayOfYear);
+        Year y = Year.of(ano);
+        LocalDate localDate = y.atDay(diaAno);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         return localDate.format(formatter);
     }

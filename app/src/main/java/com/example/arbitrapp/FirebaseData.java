@@ -80,7 +80,7 @@ public final class FirebaseData extends Application {
 
 
     //ARBITROS
-    public static final String ARBITRO = "Árbitro";
+    public static final String ARBITRO = "Arbitro";
     public static final String ARBITRO_CATEGORIA = "categoria";
 
     //JUGADORES

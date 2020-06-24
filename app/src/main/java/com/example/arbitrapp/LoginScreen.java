@@ -52,7 +52,7 @@ public class LoginScreen extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         usuario = findViewById(R.id.usuario);
-        contrasena = findViewById(R.id.contraseña);
+        contrasena = findViewById(R.id.contrasena);
         botonLogin = findViewById(R.id.button_login);
         botonInvitado = findViewById(R.id.button_invitado);
         progressBarLogin = findViewById(R.id.progressBar_login);

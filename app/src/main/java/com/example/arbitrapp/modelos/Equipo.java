@@ -22,7 +22,7 @@ import java.util.concurrent.CountDownLatch;
 public class Equipo implements Serializable {
 
     private String nombre;
-    private String año;
+    private String ano;
     private String ciudad;
     private Campo campo;
     private String sede;
@@ -70,7 +70,7 @@ public class Equipo implements Serializable {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     nombre = dataSnapshot.getKey();
-                    año = dataSnapshot.child(EQUIPO_ANO).getValue().toString();
+                    ano = dataSnapshot.child(EQUIPO_ANO).getValue().toString();
                     obtenerEscudo(nombreEquipo);
                     ciudad = dataSnapshot.child(EQUIPO_CIUDAD).getValue().toString();
                     campo = new Campo(dataSnapshot.child(EQUIPO_CAMPO).getValue().toString());
@@ -272,8 +272,8 @@ public class Equipo implements Serializable {
         return nombre;
     }
 
-    public String getAño() {
-        return año;
+    public String getAno() {
+        return ano;
     }
 
     public String getCiudad() {

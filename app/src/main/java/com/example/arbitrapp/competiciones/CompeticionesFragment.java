@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Competicion;
-import com.example.arbitrapp.modelos.Usuario;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
