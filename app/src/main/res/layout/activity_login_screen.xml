@@ -25,7 +25,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:contentDescription="@string/app_name"
-                app:srcCompat="@drawable/ic_arbitro" />
+                app:srcCompat="@drawable/logo" />
         </TableRow>
 
     </TableLayout>
@@ -132,6 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/invitado"
+        android:textSize="11dp"
         app:layout_constraintEnd_toStartOf="@+id/txt_fail1"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/txt_fail2"
