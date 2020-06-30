@@ -15,6 +15,7 @@
     <string name="loginFail1">UPS…you could not login</string>
     <string name="loginFail2">Your username and password do not match. Please try again</string>
     <string name="invitado">Login as a guest</string>
+    <string name="loginInvitado">Logging in as guest…</string>
     <string name="forgotPassword"><u>Forgot password</u></string>
     //RESET PASSWORD
     <string name="resetPassword">Reset password</string>

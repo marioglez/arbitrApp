@@ -14,6 +14,7 @@
     <string name="loginFail1">UPS…No has podido iniciar sesión</string>
     <string name="loginFail2">Tu usuario y contraseña no coinciden. Por favor, intentalo de nuevo</string>
     <string name="invitado">Acceder como invitado</string>
+    <string name="loginInvitado">Iniciando sesión como invitado…</string>
     <string name="forgotPassword"><u>Olvide mi contraseña</u></string>
     //RESET PASSWORD
     <string name="resetPassword">Restablecer contraseña</string>

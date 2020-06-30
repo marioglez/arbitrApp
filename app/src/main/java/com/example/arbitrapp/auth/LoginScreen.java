@@ -1,8 +1,9 @@
-package com.example.arbitrapp;
+package com.example.arbitrapp.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -13,15 +14,14 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.arbitrapp.R;
 import com.example.arbitrapp.home.HomeScreen;
-import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.modelos.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-import java.util.ArrayList;
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
 
@@ -38,7 +38,7 @@ public class LoginScreen extends AppCompatActivity {
     private ProgressBar progressBarLogin;
     private ImageView imagen_logo, imagen_error;
     private TextView texto_error1, texto_error2, resetPassword;
-
+    private ProgressDialog progressDialog;
 
     private FirebaseAuth mAuth;
     private CountDownLatch countDownLatchUsuario;
@@ -84,9 +84,13 @@ public class LoginScreen extends AppCompatActivity {
             }
         });
 
+        progressDialog = new ProgressDialog(this);
         botonInvitado.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressDialog.setMessage(getResources().getString(R.string.loginInvitado));
+                progressDialog.setCanceledOnTouchOutside(false);
+                progressDialog.show();
                 signIn(USUARIO_INVITADO_EMAIL,USUARIO_INVITADO_CLAVE);
             }
         });
@@ -143,6 +147,7 @@ public class LoginScreen extends AppCompatActivity {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
+                        progressDialog.dismiss();
                         if (task.isSuccessful()) {
                             currentUser = new Usuario(countDownLatchUsuario);
                             currentUser.start();

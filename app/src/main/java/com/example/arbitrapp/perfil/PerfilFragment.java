@@ -1,11 +1,9 @@
 package com.example.arbitrapp.perfil;
 
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,7 +19,7 @@ import androidx.fragment.app.Fragment;
 import static com.example.arbitrapp.FirebaseData.*;
 
 import com.bumptech.glide.Glide;
-import com.example.arbitrapp.LoginScreen;
+import com.example.arbitrapp.auth.LoginScreen;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.home.HomeScreen;
 import com.example.arbitrapp.modelos.Agenda;

@@ -1,42 +1,21 @@
 package com.example.arbitrapp.home;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.arbitrapp.competiciones.CompeticionesFragment;
-import com.example.arbitrapp.LoginScreen;
+import com.example.arbitrapp.auth.LoginScreen;
 import com.example.arbitrapp.R;
-import com.example.arbitrapp.modelos.Partido;
-import com.example.arbitrapp.modelos.Usuario;
 import com.example.arbitrapp.perfil.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.concurrent.CountDownLatch;
-
-import static com.example.arbitrapp.FirebaseData.COMPETICIONES;
-import static com.example.arbitrapp.FirebaseData.PARTIDOS;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
-import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
 import static com.example.arbitrapp.FirebaseData.USUARIO_ADMIN;
 import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO;
 import static com.example.arbitrapp.FirebaseData.currentUser;

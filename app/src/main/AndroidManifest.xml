@@ -20,7 +20,7 @@
         android:roundIcon="@mipmap/ic_arbitrapp_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ResetPasswordActivity"></activity>
+        <activity android:name=".auth.ResetPasswordActivity"></activity>
         <activity android:name=".home.PartidoDirectoActivity" />
         <activity android:name=".equipo.CampoActivity" />
         <!--
@@ -58,10 +58,10 @@
         <activity android:name=".partido.PartidoActivity" />
         <activity android:name=".home.HomeScreen" />
         <activity
-            android:name=".LoginScreen"
+            android:name=".auth.LoginScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name=".SplashScreen"
+            android:name=".auth.SplashScreen"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
