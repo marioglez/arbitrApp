@@ -14,8 +14,7 @@ import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Competicion;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO;
-import static com.example.arbitrapp.FirebaseData.currentUser;
+import static com.example.arbitrapp.FirebaseData.*;
 
 public class CompeticionActivity extends AppCompatActivity {
 
@@ -30,7 +29,7 @@ public class CompeticionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_competicion);
 
         competicion = (Competicion) getIntent().getSerializableExtra("competicion");
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)  || currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             favorito = esFavorito();
         }
 
@@ -89,7 +88,7 @@ public class CompeticionActivity extends AppCompatActivity {
 
     //METODO PARA MOSTRAR OCULTAR MENU
     public boolean onCreateOptionsMenu(Menu menu){
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             getMenuInflater().inflate(R.menu.actionbar_favoritos, menu);
             if (favorito){
                 menu.findItem(R.id.favoritos).setIcon(getResources().getDrawable(R.drawable.ic_star_accent));

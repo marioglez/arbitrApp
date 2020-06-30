@@ -65,6 +65,8 @@ public class JornadaActivity extends AppCompatActivity {
             if (p.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
                 ImageView completado = row.findViewById(R.id.imageview_completado);
                 completado.setVisibility(View.VISIBLE);
+                RelativeLayout comoLlegar = row.findViewById(R.id.comoLlegar);
+                comoLlegar.setVisibility(View.GONE);
             }
 
             TableLayout tableLayout = row.findViewById(R.id.tabla_partido);

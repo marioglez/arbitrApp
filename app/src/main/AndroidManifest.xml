@@ -43,6 +43,9 @@
         <activity
             android:name=".partido.PopUpEditarAlineacionActivity"
             android:theme="@style/AppTheme.PopUpEditarAlineacionTheme" />
+        <activity
+            android:name=".partido.PopUpArbitrosActivity"
+            android:theme="@style/AppTheme.PopUpEditarAlineacionTheme" />
         <activity android:name=".arbitrar.ArbitrarActivity" />
         <activity android:name=".competiciones.JornadaActivity" />
         <activity android:name=".competiciones.CompeticionActivity" />

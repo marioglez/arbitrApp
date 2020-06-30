@@ -41,7 +41,7 @@ public class PerfilFragment extends Fragment {
 
         final View view = inflater.inflate(R.layout.fragment_perfil, container, false);
 
-        if (currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+        if (currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             new AlertDialog.Builder(getContext())
                     .setTitle("Perfil no disponible")
                     .setMessage("Inicia sesión para acceder a tu perfil")

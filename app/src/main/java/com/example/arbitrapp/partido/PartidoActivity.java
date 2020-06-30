@@ -4,15 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ScrollView;
 import android.widget.Toast;
 import static com.example.arbitrapp.FirebaseData.*;
 
@@ -26,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class PartidoActivity extends AppCompatActivity {
 
     Partido partido;
-    private ScrollView scrollView;
     BottomNavigationView bottomNavigationView;
     private FloatingActionButton floatingActionButton;
 
@@ -42,7 +37,6 @@ public class PartidoActivity extends AppCompatActivity {
         //boton flecha atras
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        scrollView = findViewById(R.id.scrollViewPartido);
         floatingActionButton = findViewById(R.id.floating_action_button_partido);
         //Barra de navegacion en partido
         bottomNavigationView = findViewById(R.id.partido_navigation);
@@ -55,7 +49,7 @@ public class PartidoActivity extends AppCompatActivity {
     }
 
     private void isArbitrable() {
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)){
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)){
             if (!partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(ARBITRO)){
                 for (Arbitro arbitro : partido.getArbitros()) {
                     if (arbitro.getUid().equals(currentUser.getUid())) {
@@ -117,15 +111,12 @@ public class PartidoActivity extends AppCompatActivity {
 
             switch (item.getItemId()){
                 case R.id.nav_informacion:
-                    scrollView.smoothScrollTo(0,0);
                     selectedFragment = new PartidoInformacionFragment(partido);
                     break;
                 case R.id.nav_local:
-                    scrollView.smoothScrollTo(0,0);
                     selectedFragment = new PartidoEquipoFragment(partido.getEquipoLocal(), partido);
                     break;
                 case R.id.nav_visitante:
-                    scrollView.smoothScrollTo(0,0);
                     selectedFragment = new PartidoEquipoFragment(partido.getEquipoVisitante(), partido);
                     break;
             }

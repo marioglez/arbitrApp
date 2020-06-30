@@ -12,6 +12,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Chronometer;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -38,7 +39,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class ArbitrarActivity extends AppCompatActivity implements DialogFinalizarPartido.DialogFinalizarPartidoListener,
         DialogIniciarPartido.DialogIniciarPartidoListener, DialogSegundaPartePartido.DialogSegundaPartePartidoListener {
@@ -61,6 +61,8 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_arbitrar);
+        //Evitar que la pantalla se bloquee
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         partido = (Partido) getIntent().getSerializableExtra("partido");
 

@@ -37,6 +37,7 @@ import static com.example.arbitrapp.FirebaseData.PARTIDOS;
 import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
 import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
 import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
+import static com.example.arbitrapp.FirebaseData.USUARIO_ADMIN;
 import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
@@ -84,7 +85,7 @@ public class HomeScreen extends AppCompatActivity {
 
     //METODO PARA MOSTRAR OCULTAR MENU
     public boolean onCreateOptionsMenu(Menu menu){
-        if (currentUser.getTipoUsuario().equals(USUARIO_INVITADO)) {
+        if (currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             getMenuInflater().inflate(R.menu.actionbar_perfil_invitado, menu);
         } else {
             getMenuInflater().inflate(R.menu.actionbar_perfil, menu);

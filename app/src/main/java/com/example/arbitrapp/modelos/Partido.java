@@ -287,6 +287,26 @@ public class Partido extends Thread implements Serializable {
         }
     }
 
+    public boolean guardarArbitros() {
+        try {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child(COMPETICIONES).child(this.temporada).child(this.sede).child(this.categoria)
+                    .child(PARTIDOS).child(this.jornadaPartido).child(this.diaPartido).child(this.idPartido)
+                    .child(PARTIDO_ARBITRAJE);
+            databaseReference.removeValue();
+
+            for (Arbitro arbitro : arbitros) {
+                Map<String, String> miembro = new HashMap<>();
+                miembro.put(ID, arbitro.getUid());
+                databaseReference.push().setValue(miembro);
+            }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     //GETTERS
 
     public String getUid() {
@@ -365,6 +385,10 @@ public class Partido extends Thread implements Serializable {
 
     public ArrayList<Arbitro> getArbitros() {
         return arbitros;
+    }
+
+    public void setArbitros(ArrayList<Arbitro> arbitros) {
+        this.arbitros = arbitros;
     }
 
     public ArrayList<Evento> getEventos() {

@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,11 +25,19 @@ import com.example.arbitrapp.R;
 import com.example.arbitrapp.arbitro.ArbitroActivity;
 import com.example.arbitrapp.modelos.Arbitro;
 import com.example.arbitrapp.modelos.Partido;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import static com.example.arbitrapp.FirebaseData.*;
 
 public class PartidoInformacionFragment extends Fragment {
 
     private Partido partido;
-    private Arbitro arbitro;
+    private ArrayList<Arbitro> arbitros;
     private TextView estado, local, visitante, lugar, fecha, hora, resultado, sinArbitros;
     private RelativeLayout relativeLayout;
     private TableLayout tablaArbitros;
@@ -109,10 +118,61 @@ public class PartidoInformacionFragment extends Fragment {
 
             tablaArbitros.addView(row);
         }
+        //Añadir Arbitros
+        if (currentUser.getTipoUsuario().equals(USUARIO_ADMIN) && partido.getArbitros().size()<MAX_ARBITROS) {
+            obtenerArbitros();
+            rellenarArbitrosRestantes();
+        }
+    }
+
+    private void obtenerArbitros() {
+        arbitros = new ArrayList<>();
+        Query query = FirebaseDatabase.getInstance().getReference(USUARIOS)
+                .orderByChild(USUARIO_TIPO).equalTo(ARBITRO);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.exists()){
+                    for (DataSnapshot arbitro : dataSnapshot.getChildren() ){
+                        arbitros.add(new Arbitro(arbitro.getKey()));
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void rellenarArbitrosRestantes() {
+        for (int i = partido.getArbitros().size();i<MAX_ARBITROS;i++) {
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            final TableRow row = (TableRow) inflater.inflate(R.layout.tabla_arbitro, relativeLayout, false);
+
+            TextView tipoArbitro = row.findViewById(R.id.tipo_arbitro);
+            tipoArbitro.setVisibility(View.GONE);
+
+            TextView nombreArbitro = row.findViewById(R.id.nombre_arbitro);
+            nombreArbitro.setText(R.string.anadirArbitro);
+            nombreArbitro.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+
+            //Lista de arbitros
+            row.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    startActivityForResult(new Intent(getContext(), PopUpArbitrosActivity.class)
+                            .putExtra("arbitros",arbitros)
+                            .putExtra("seleccionados",partido.getArbitros()),0);
+                }
+            });
+
+            tablaArbitros.addView(row);
+        }
     }
 
     private void irAArbitro(final Arbitro arbitro) {
-        this.arbitro = arbitro;
         if (arbitro.getPartidos().isEmpty()){
             //ESPERAR POR LOS DATOS
             final ProgressDialog tempDialog;
@@ -137,10 +197,28 @@ public class PartidoInformacionFragment extends Fragment {
         } else {
             startActivity(new Intent(getContext(), ArbitroActivity.class).putExtra("arbitro", arbitro));
         }
-
     }
 
-    public void cargarPantalla() {
-        startActivity(new Intent(getContext(), ArbitroActivity.class).putExtra("arbitro", arbitro));
+    private void guardarArbitros() {
+        boolean resultado;
+        resultado = partido.guardarArbitros();
+
+        if (resultado) {
+            Toast.makeText(getContext(),"Árbitros actualizados con éxito",Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(getContext(),"Error al actualizar árbitros",Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        try {
+            partido.setArbitros((ArrayList<Arbitro>) data.getSerializableExtra("resultado"));
+            rellenarArbitros();
+            guardarArbitros();
+        } catch (Exception e) {
+            Log.w("PARTIDO ARBITROS", "onActivityResult: No se han modificado los árbitros");
+        }
     }
 }

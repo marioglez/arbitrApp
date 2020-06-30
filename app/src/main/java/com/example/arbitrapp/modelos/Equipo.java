@@ -118,7 +118,7 @@ public class Equipo implements Serializable {
     }
 
     public void obtenerPlantilla(){
-        final Equipo equipo = this;
+        //final Equipo equipo = this;
         if (this.tecnicos.isEmpty() || this.jugadores.isEmpty()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child(EQUIPOS).child(nombre).addListenerForSingleValueEvent(new ValueEventListener() {

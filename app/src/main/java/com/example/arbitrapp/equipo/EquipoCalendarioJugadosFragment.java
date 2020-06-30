@@ -69,6 +69,8 @@ public class EquipoCalendarioJugadosFragment extends Fragment {
 
                 ImageView completado = row.findViewById(R.id.imageview_completado);
                 completado.setVisibility(View.VISIBLE);
+                RelativeLayout btnComoLlegar = row.findViewById(R.id.comoLlegar);
+                btnComoLlegar.setVisibility(View.GONE);
 
                 TableLayout tableLayout = row.findViewById(R.id.tabla_partido);
                 tableLayout.setOnClickListener(new View.OnClickListener() {

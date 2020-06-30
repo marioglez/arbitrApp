@@ -99,17 +99,6 @@ public class HomeFragment extends Fragment {
         return view;
     }
 
-    /*@Override
-    public void onStart() {
-        super.onStart();
-        Log.w("HOME FRAGMENT", "onStart: " + partidosDirecto.size() + proximosPartidos.size());
-        if (!partidosDirecto.isEmpty() || !proximosPartidos.isEmpty()){
-            Log.w("HOME ", "onResume: pintar");
-            pintarPartidosDirecto();
-            pintarProximosPartidos();
-        }
-    }*/
-
     private void obtenerEnDirecto() {
         Calendar cal = Calendar.getInstance();
         final int day = cal.get(Calendar.DAY_OF_YEAR);

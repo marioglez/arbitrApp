@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -56,6 +57,7 @@ public class PartidoEquipoFragment extends Fragment {
     private ImageButton editarTecnicos, editarTitulares, editarSuplentes;
     private TableLayout tablaTecnicos, tablaTitulares, tablaSuplentes;
     private FloatingActionButton botonGuardar;
+    private ScrollView scrollView;
 
     public PartidoEquipoFragment(Equipo equipo, Partido partido){
         this.equipo = equipo;
@@ -76,6 +78,8 @@ public class PartidoEquipoFragment extends Fragment {
         tablaTitulares = view.findViewById(R.id.tablaTitulares);
         tablaSuplentes = view.findViewById(R.id.tablaSuplentes);
         botonGuardar = view.findViewById(R.id.floating_action_button_guardar_alineacion);
+        scrollView = view.findViewById(R.id.tabla_alineaciones);
+        scrollView.smoothScrollTo(0,0);
 
         nombreEquipo.setText(equipo.getNombre());
         try {
@@ -250,6 +254,7 @@ public class PartidoEquipoFragment extends Fragment {
 
         if (resultado) {
             Toast.makeText(getContext(),"Alineación actualizada con éxito",Toast.LENGTH_LONG).show();
+            botonGuardar.setVisibility(View.GONE);
         } else {
             Toast.makeText(getContext(),"Error al actualizar alineación",Toast.LENGTH_LONG).show();
         }

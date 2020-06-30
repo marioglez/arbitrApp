@@ -63,7 +63,9 @@
     <string name="jugadores_suplentes">Jugadores Suplentes</string>
     <string name="sin_partidos_jugados">No hay partidos jugados</string>
     <string name="sin_partidos_pendientes">No hay partidos pendientes</string>
+    <string name="arbitros">Árbitros</string>
     <string name="sin_arbitros_asignados">No hay arbitros asignados</string>
+    <string name="anadirArbitro">Añadir árbitro</string>
 
     //ACTA
     <string name="alineaciones">Alineaciones</string>

@@ -14,18 +14,12 @@
         android:background="?android:attr/windowBackground"
         app:menu="@menu/partido_navigation" />
 
-    <ScrollView
-        android:id="@+id/scrollViewPartido"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/partido_navigation"
-        android:layout_marginTop="0dp">
 
-        <FrameLayout
-            android:id="@+id/fragment_partido_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
-    </ScrollView>
+    <FrameLayout
+        android:id="@+id/fragment_partido_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/partido_navigation"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_action_button_partido"

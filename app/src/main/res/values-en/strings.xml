@@ -64,7 +64,9 @@
     <string name="jugadores_suplentes">Substitute Players</string>
     <string name="sin_partidos_jugados">No games played</string>
     <string name="sin_partidos_pendientes">No pending matches</string>
-    <string name="sin_arbitros_asignados">No matches assigned</string>
+    <string name="arbitros">Referees</string>
+    <string name="sin_arbitros_asignados">No referees assigned</string>
+    <string name="anadirArbitro">Add referee</string>
 
     //ACTA
     <string name="alineaciones">Lineups</string>

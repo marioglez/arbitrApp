@@ -65,6 +65,7 @@ public final class FirebaseData extends Application {
     public static final String COMPETICION_CATEGORIA = "categoria";
 
     //USUARIOS
+    public static final String USUARIO_ADMIN = "Admin";
     public static final String USUARIO_INVITADO = "Invitado";
     public static final String USUARIO_INVITADO_EMAIL = "invitado@arbitrapp.com";
     public static final String USUARIO_INVITADO_CLAVE = "invitado1";
@@ -112,6 +113,7 @@ public final class FirebaseData extends Application {
     public static final String EQUIPO_CUERPO_TECNICO = "Cuerpo Técnico";
     public static final int MAX_JUG_TITULARES = 11;
     public static final int MAX_JUG_SUPLENTES = 5;
+    public static final int MAX_ARBITROS = 3;
 
     //ESTADOS DE PARTIDO
     public static final String PARTIDO_EN_CURSO = "En curso";

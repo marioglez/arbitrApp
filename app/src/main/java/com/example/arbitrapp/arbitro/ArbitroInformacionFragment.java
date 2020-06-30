@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import static com.example.arbitrapp.FirebaseData.*;
 public class ArbitroInformacionFragment extends Fragment {
 
     private Arbitro arbitro;
+    private TableRow tableRowMovil, tableRowEmail;
     private TextView movil, email, partidosArbitrados, valoracion;
     private ImageView iconoMovil, iconoEmail;
 
@@ -38,8 +40,10 @@ public class ArbitroInformacionFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_arbitro_informacion, container, false);
 
+        tableRowMovil = view.findViewById(R.id.tablerow_movil);
         movil = view.findViewById(R.id.textView_arbitro_movil);
         iconoMovil = view.findViewById(R.id.icono_movil);
+        tableRowEmail = view.findViewById(R.id.tablerow_email);
         email = view.findViewById(R.id.textView_arbitro_email);
         iconoEmail = view.findViewById(R.id.icono_email);
         partidosArbitrados = view.findViewById(R.id.textView_arbitro_partidosArbitrados);
@@ -52,32 +56,39 @@ public class ArbitroInformacionFragment extends Fragment {
 
     private void rellenarInformacion(){
         int contadorPartidosArbitrados = 0;
-        movil.setText(arbitro.getMovil());
-        movil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                llamarTelefono();
-            }
-        });
-        iconoMovil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                llamarTelefono();
-            }
-        });
-        email.setText(arbitro.getEmail());
-        email.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enviarMail();
-            }
-        });
-        iconoEmail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                enviarMail();
-            }
-        });
+        if (!currentUser.getTipoUsuario().equals(JUGADOR)) {
+            movil.setText(arbitro.getMovil());
+            movil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    llamarTelefono();
+                }
+            });
+            iconoMovil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    llamarTelefono();
+                }
+            });
+            email.setText(arbitro.getEmail());
+            email.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    enviarMail();
+                }
+            });
+            iconoEmail.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    enviarMail();
+                }
+            });
+        } else {
+            tableRowMovil.setVisibility(View.GONE);
+            tableRowEmail.setVisibility(View.GONE
+            );
+        }
+
         for(Partido partido : arbitro.getPartidos()){
             if(partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
                 contadorPartidosArbitrados++;
