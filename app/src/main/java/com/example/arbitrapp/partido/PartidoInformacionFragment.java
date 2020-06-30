@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -41,6 +42,7 @@ public class PartidoInformacionFragment extends Fragment {
     private TextView estado, local, visitante, lugar, fecha, hora, resultado, sinArbitros;
     private RelativeLayout relativeLayout;
     private TableLayout tablaArbitros;
+    private ImageButton btnEditarArbitros;
 
     public PartidoInformacionFragment(Partido p){
         this.partido = p;
@@ -58,10 +60,20 @@ public class PartidoInformacionFragment extends Fragment {
         fecha = view.findViewById(R.id.textView_fecha_partido);
         hora = view.findViewById(R.id.textView_hora_partido);
         resultado = view.findViewById(R.id.textView_resultado_partido);
-        sinArbitros = view.findViewById(R.id.sin_arbitros);
-
+        btnEditarArbitros = view.findViewById(R.id.imageButton_arbitros);
         relativeLayout = view.findViewById(R.id.layout_arbitros);
         tablaArbitros = view.findViewById(R.id.tablaArbitros);
+        
+        if (currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
+            obtenerArbitros();
+            btnEditarArbitros.setVisibility(View.VISIBLE);
+            btnEditarArbitros.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mostrarArbitros();
+                }
+            });
+        }
 
         rellenarInfoPartido();
 
@@ -78,11 +90,7 @@ public class PartidoInformacionFragment extends Fragment {
         String resultadoPartido = partido.getGolesLocal() + " - " +partido.getGolesVisitante();
         resultado.setText(resultadoPartido);
 
-        if (!partido.getArbitros().isEmpty()) {
-            rellenarArbitros();
-        } else {
-            sinArbitros.setVisibility(View.VISIBLE);
-        }
+        rellenarArbitros();
 
     }
 
@@ -119,10 +127,7 @@ public class PartidoInformacionFragment extends Fragment {
             tablaArbitros.addView(row);
         }
         //Añadir Arbitros
-        if (currentUser.getTipoUsuario().equals(USUARIO_ADMIN) && partido.getArbitros().size()<MAX_ARBITROS) {
-            obtenerArbitros();
-            rellenarArbitrosRestantes();
-        }
+        rellenarArbitrosRestantes();
     }
 
     private void obtenerArbitros() {
@@ -162,14 +167,18 @@ public class PartidoInformacionFragment extends Fragment {
             //Lista de arbitros
             row.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    startActivityForResult(new Intent(getContext(), PopUpArbitrosActivity.class)
-                            .putExtra("arbitros",arbitros)
-                            .putExtra("seleccionados",partido.getArbitros()),0);
+                    mostrarArbitros();
                 }
             });
 
             tablaArbitros.addView(row);
         }
+    }
+
+    private void mostrarArbitros() {
+        startActivityForResult(new Intent(getContext(), PopUpArbitrosActivity.class)
+                .putExtra("arbitros",arbitros)
+                .putExtra("seleccionados",partido.getArbitros()),0);
     }
 
     private void irAArbitro(final Arbitro arbitro) {
