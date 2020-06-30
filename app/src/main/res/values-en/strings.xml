@@ -8,12 +8,17 @@
     <string name="splash2">App</string>
 
     //LOGIN
+    <string name="email">Email</string>
     <string name="loginEmail">User</string>
     <string name="loginPassword">Password</string>
     <string name="loginButton">Log in</string>
-    <string name="loginFail1">UPS...you could not login</string>
+    <string name="loginFail1">UPS…you could not login</string>
     <string name="loginFail2">Your username and password do not match. Please try again</string>
     <string name="invitado">Login as a guest</string>
+    <string name="forgotPassword"><u>Forgot password</u></string>
+    //RESET PASSWORD
+    <string name="resetPassword">Reset password</string>
+    <string name="resetSending">Sending email…</string>
 
     //HOME
     <string name="competicionesIcon">Competitions</string>

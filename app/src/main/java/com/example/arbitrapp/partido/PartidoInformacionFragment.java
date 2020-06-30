@@ -63,7 +63,7 @@ public class PartidoInformacionFragment extends Fragment {
         btnEditarArbitros = view.findViewById(R.id.imageButton_arbitros);
         relativeLayout = view.findViewById(R.id.layout_arbitros);
         tablaArbitros = view.findViewById(R.id.tablaArbitros);
-        
+
         if (currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             obtenerArbitros();
             btnEditarArbitros.setVisibility(View.VISIBLE);

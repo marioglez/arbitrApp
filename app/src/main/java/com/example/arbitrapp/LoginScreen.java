@@ -37,7 +37,7 @@ public class LoginScreen extends AppCompatActivity {
     private Button botonLogin, botonInvitado;
     private ProgressBar progressBarLogin;
     private ImageView imagen_logo, imagen_error;
-    private TextView texto_error1, texto_error2;
+    private TextView texto_error1, texto_error2, resetPassword;
 
 
     private FirebaseAuth mAuth;
@@ -52,7 +52,23 @@ public class LoginScreen extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         usuario = findViewById(R.id.usuario);
+        usuario.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    validarEmail(usuario.getText().toString());
+                }
+            }
+        });
         contrasena = findViewById(R.id.contrasena);
+        contrasena.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus) {
+                    validarPassword(contrasena.getText().toString());
+                }
+            }
+        });
         botonLogin = findViewById(R.id.button_login);
         botonInvitado = findViewById(R.id.button_invitado);
         progressBarLogin = findViewById(R.id.progressBar_login);
@@ -60,6 +76,13 @@ public class LoginScreen extends AppCompatActivity {
         imagen_error = findViewById(R.id.image_fail);
         texto_error1 = findViewById(R.id.txt_fail1);
         texto_error2 = findViewById(R.id.txt_fail2);
+        resetPassword = findViewById(R.id.textview_resetPassword);
+        resetPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                resetPassword();
+            }
+        });
 
         botonInvitado.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,5 +163,9 @@ public class LoginScreen extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    private void resetPassword() {
+        startActivity(new Intent(LoginScreen.this, ResetPasswordActivity.class));
     }
 }
