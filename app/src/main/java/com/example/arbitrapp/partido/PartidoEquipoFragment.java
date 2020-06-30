@@ -221,7 +221,7 @@ public class PartidoEquipoFragment extends Fragment {
                     tempDialog.dismiss();
                     startActivity(new Intent(getContext(), EquipoActivity.class).putExtra("equipo", equipo));
                 }
-            }, 4000);
+            }, 5000);
         } else {
             startActivity(new Intent(getContext(), EquipoActivity.class).putExtra("equipo", equipo));
         }

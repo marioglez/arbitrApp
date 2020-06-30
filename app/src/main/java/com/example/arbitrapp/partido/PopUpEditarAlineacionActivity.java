@@ -159,12 +159,12 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
                 resultado.add(jugadores.get(checkBox.getId()));
             }
         }
-        if (resultCode==1 && resultado.size() < MAX_JUG_TITULARES) {
+        if (resultCode==1 && resultado.size() <= MAX_JUG_TITULARES) {
             Intent intent = new Intent();
             intent.putExtra("resultado",resultado);
             setResult(resultCode,intent);
             finish();
-        } else if (resultCode==2 && resultado.size() < MAX_JUG_SUPLENTES ) {
+        } else if (resultCode==2 && resultado.size() <= MAX_JUG_SUPLENTES ) {
             Intent intent = new Intent();
             intent.putExtra("resultado",resultado);
             setResult(resultCode,intent);

@@ -111,9 +111,9 @@ public class PerfilEstadisticasFragment extends Fragment {
             }
         }
 
-        ratingBar.setRating(3);
+        ratingBar.setRating(4);
         partidosArbitrados.setText(String.valueOf(contadorPartidosArbitrados));
-        valoracionesRecibidas.setText(String.valueOf(0));
+        valoracionesRecibidas.setText(String.valueOf(contadorPartidosArbitrados));
     }
 
     private void rellenarEstadisticasJugador(View view) {

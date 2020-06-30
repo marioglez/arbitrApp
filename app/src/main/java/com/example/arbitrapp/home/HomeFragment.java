@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
                         public void run() {
                             pintarPartidosDirecto();
                         }
-                    }, 3000);
+                    }, 4000);
                 }
             }
 
@@ -191,7 +191,7 @@ public class HomeFragment extends Fragment {
                         public void run() {
                             pintarProximosPartidos();
                         }
-                    }, 3000);
+                    }, 4000);
                 }
             }
 

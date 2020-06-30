@@ -1,7 +1,6 @@
 package com.example.arbitrapp.modelos;
 
 import androidx.annotation.NonNull;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

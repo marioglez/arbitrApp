@@ -84,6 +84,8 @@ public class ArbitroInformacionFragment extends Fragment {
             }
         }
         partidosArbitrados.setText(String.valueOf(contadorPartidosArbitrados));
+        String valoracionText = 4 + "/5";
+        valoracion.setText(valoracionText);
     }
 
     private void enviarMail() {

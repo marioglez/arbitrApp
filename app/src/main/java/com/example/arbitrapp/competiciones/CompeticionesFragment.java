@@ -251,7 +251,7 @@ public class CompeticionesFragment extends Fragment {
                     startActivityForResult(new Intent(getContext(), CompeticionActivity.class)
                             .putExtra("competicion", competicion),0);
                 }
-            }, 4000);
+            }, 6000);
         /*} else {
             startActivityForResult(new Intent(getContext(), CompeticionActivity.class)
                     .putExtra("competicion", competicion),0);

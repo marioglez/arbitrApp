@@ -95,7 +95,7 @@ public class CompeticionEquiposFragment extends Fragment {
                             tempDialog.dismiss();
                             startActivity(new Intent(getContext(), EquipoActivity.class).putExtra("equipo", equipo));
                         }
-                    }, 3000);
+                    }, 5000);
                 }
             });
 
