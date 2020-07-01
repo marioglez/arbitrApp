@@ -71,7 +71,7 @@ public class CompeticionesFragment extends Fragment {
         tablaFavoritos = view.findViewById(R.id.tablaFavoritos);
 
         obtenerTemporadas();
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) && !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             LinearLayout bandaFavoritos = view.findViewById(R.id.banda_favoritos);
             bandaFavoritos.setVisibility(View.VISIBLE);
             pintarFavoritos();
@@ -261,7 +261,7 @@ public class CompeticionesFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) && !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             pintarFavoritos();
         }
     }

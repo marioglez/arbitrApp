@@ -4,375 +4,375 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textviewPartidos"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
-        android:padding="5dp"
-        android:paddingStart="10dp"
-        android:text="@string/partidos"
-        android:textColor="@color/primary_text"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:layout_height="wrap_content">
 
-    <TableLayout
-        android:id="@+id/tablaEquipoPartidos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textviewPartidos">
-
-        <TableRow
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_light"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:layout_width="0dp"
+                android:id="@+id/textviewPartidos"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
+                android:background="@color/colorAccent"
+                android:padding="5dp"
                 android:paddingStart="10dp"
-                android:text="@string/total"
-                android:textColor="@color/primary_text" />
+                android:text="@string/partidos"
+                android:textColor="@color/primary_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/tablaEquipoPartidos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textviewPartidos">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/jugados"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosJugados"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/sinJugar"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosSinJugar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/victorias"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosVictorias"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/empates"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosEmpates"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/derrotas"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_partidosDerrotas"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+                </TableRow>
+            </TableLayout>
 
             <TextView
-                android:id="@+id/textView_partidosTotal"
-                android:layout_width="0dp"
+                android:id="@+id/textviewGoles"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/total"
-                android:textColor="@color/primary_text" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
+                android:layout_below="@id/tablaEquipoPartidos"
+                android:background="@color/colorAccent"
+                android:padding="5dp"
                 android:paddingStart="10dp"
-                android:text="@string/jugados"
-                android:textColor="@color/primary_text" />
+                android:text="@string/goles"
+                android:textColor="@color/primary_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TableLayout
+                android:id="@+id/tablaEquipoGoles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textviewGoles">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/favor"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_golesFavor"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/contra"
+                        android:textColor="@color/primary_text" />
+
+                    <TextView
+                        android:id="@+id/textView_golesContra"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
+
+                </TableRow>
+
+            </TableLayout>
 
             <TextView
-                android:id="@+id/textView_partidosJugados"
-                android:layout_width="0dp"
+                android:id="@+id/textviewTarjetas"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/jugados"
-                android:textColor="@color/primary_text" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_light"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
+                android:layout_below="@id/tablaEquipoGoles"
+                android:background="@color/colorAccent"
+                android:padding="5dp"
                 android:paddingStart="10dp"
-                android:text="@string/sinJugar"
-                android:textColor="@color/primary_text" />
+                android:text="@string/tarjetas"
+                android:textColor="@color/primary_text"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView_partidosSinJugar"
-                android:layout_width="0dp"
+            <TableLayout
+                android:id="@+id/tablaEquipoTarjetas"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/sinJugar"
-                android:textColor="@color/primary_text" />
-        </TableRow>
+                android:layout_below="@id/textviewTarjetas">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/victorias"
-                android:textColor="@color/primary_text" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/total"
+                        android:textColor="@color/primary_text" />
 
-            <TextView
-                android:id="@+id/textView_partidosVictorias"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/victorias"
-                android:textColor="@color/primary_text" />
-        </TableRow>
+                    <TextView
+                        android:id="@+id/textView_tarjetasTotal"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_light"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
+                </TableRow>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/empates"
-                android:textColor="@color/primary_text" />
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
 
-            <TextView
-                android:id="@+id/textView_partidosEmpates"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/empates"
-                android:textColor="@color/primary_text" />
-        </TableRow>
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/amarillas"
+                        android:textColor="@color/primary_text" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
+                    <TextView
+                        android:id="@+id/textView_tarjetasAmarillas"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/derrotas"
-                android:textColor="@color/primary_text" />
+                </TableRow>
 
-            <TextView
-                android:id="@+id/textView_partidosDerrotas"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/derrotas"
-                android:textColor="@color/primary_text" />
-        </TableRow>
-    </TableLayout>
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/primary_light"
+                    android:paddingStart="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingEnd="0dp"
+                    android:paddingBottom="5dp">
 
-    <TextView
-        android:id="@+id/textviewGoles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tablaEquipoPartidos"
-        android:background="@color/colorAccent"
-        android:padding="5dp"
-        android:paddingStart="10dp"
-        android:text="@string/goles"
-        android:textColor="@color/primary_text"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:paddingStart="10dp"
+                        android:text="@string/rojas"
+                        android:textColor="@color/primary_text" />
 
-    <TableLayout
-        android:id="@+id/tablaEquipoGoles"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textviewGoles">
+                    <TextView
+                        android:id="@+id/textView_tarjetasRojas"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="50"
+                        android:gravity="end"
+                        android:paddingEnd="10dp"
+                        android:textColor="@color/primary_text" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_light"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
+                </TableRow>
 
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/favor"
-                android:textColor="@color/primary_text" />
+            </TableLayout>
 
-            <TextView
-                android:id="@+id/textView_golesFavor"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/favor"
-                android:textColor="@color/primary_text" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/contra"
-                android:textColor="@color/primary_text" />
-
-            <TextView
-                android:id="@+id/textView_golesContra"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/contra"
-                android:textColor="@color/primary_text" />
-
-        </TableRow>
-
-    </TableLayout>
-
-    <TextView
-        android:id="@+id/textviewTarjetas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tablaEquipoGoles"
-        android:background="@color/colorAccent"
-        android:padding="5dp"
-        android:paddingStart="10dp"
-        android:text="@string/tarjetas"
-        android:textColor="@color/primary_text"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
-    <TableLayout
-        android:id="@+id/tablaEquipoTarjetas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textviewTarjetas">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_light"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/total"
-                android:textColor="@color/primary_text" />
-
-            <TextView
-                android:id="@+id/textView_tarjetasTotal"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/total"
-                android:textColor="@color/primary_text" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/amarillas"
-                android:textColor="@color/primary_text" />
-
-            <TextView
-                android:id="@+id/textView_tarjetasAmarillas"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/amarillas"
-                android:textColor="@color/primary_text" />
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/primary_light"
-            android:paddingStart="10dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="0dp"
-            android:paddingBottom="5dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:paddingStart="10dp"
-                android:text="@string/rojas"
-                android:textColor="@color/primary_text" />
-
-            <TextView
-                android:id="@+id/textView_tarjetasRojas"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="end"
-                android:paddingEnd="10dp"
-                android:text="@string/rojas"
-                android:textColor="@color/primary_text" />
-
-        </TableRow>
-
-    </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

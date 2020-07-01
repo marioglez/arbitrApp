@@ -98,7 +98,11 @@ public class PartidoEquipoFragment extends Fragment {
             }
         });
 
-        rellenarInfoEquipo(view);
+        try {
+            rellenarInfoEquipo();
+        } catch (Exception e) {
+            recargarDatos();
+        }
 
         if (!partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(TECNICO)
                 && currentUser.getEquipo().getNombre().equals(equipo.getNombre())) {
@@ -148,7 +152,7 @@ public class PartidoEquipoFragment extends Fragment {
         return view;
     }
 
-    private void rellenarInfoEquipo(final View view){
+    private void rellenarInfoEquipo(){
         limpiarTabla(tablaTecnicos);
         limpiarTabla(tablaTitulares);
         limpiarTabla(tablaSuplentes);
@@ -225,7 +229,7 @@ public class PartidoEquipoFragment extends Fragment {
                     tempDialog.dismiss();
                     startActivity(new Intent(getContext(), EquipoActivity.class).putExtra("equipo", equipo));
                 }
-            }, 5000);
+            }, 3000);
         } else {
             startActivity(new Intent(getContext(), EquipoActivity.class).putExtra("equipo", equipo));
         }
@@ -260,6 +264,27 @@ public class PartidoEquipoFragment extends Fragment {
         }
     }
 
+    private void recargarDatos() {
+        final Partido p = new Partido(partido.getTemporada(),partido.getSede(),partido.getCategoria(),partido.getDiaPartido(),partido.getIdPartido());
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Recuperando datos...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                partido = p;
+                if (equipo.getNombre().equals(partido.getEquipoLocal().getNombre())) {
+                    equipo = partido.getEquipoLocal();
+                } else {
+                    equipo = partido.getEquipoVisitante();
+                }
+                rellenarInfoEquipo();
+                progressDialog.dismiss();
+            }
+        }, 3000);
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -267,15 +292,15 @@ public class PartidoEquipoFragment extends Fragment {
             switch (resultCode) {
                 case 0:
                     equipo.setTecnicosPartido((ArrayList<Tecnico>) data.getSerializableExtra("resultado"));
-                    rellenarInfoEquipo(view);
+                    rellenarInfoEquipo();
                     break;
                 case 1:
                     equipo.setTitulares((ArrayList<Jugador>) data.getSerializableExtra("resultado"));
-                    rellenarInfoEquipo(view);
+                    rellenarInfoEquipo();
                     break;
                 case 2:
                     equipo.setSuplentes((ArrayList<Jugador>) data.getSerializableExtra("resultado"));
-                    rellenarInfoEquipo(view);
+                    rellenarInfoEquipo();
                     break;
             }
             if (botonGuardar.getVisibility() != View.VISIBLE) {

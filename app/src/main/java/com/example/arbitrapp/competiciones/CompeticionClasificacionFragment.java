@@ -69,31 +69,12 @@ public class CompeticionClasificacionFragment extends Fragment {
                         } else if(resultado==0){
                             puntos+=1;
                         }
-                    } else {
+                    } else if (partido.getEquipoVisitante().getNombre().equals(equipo.getNombre())){
                         if (resultado<0) {
                             puntos+=3;
                         } else if(resultado==0){
                             puntos+=1;
                         }
-                    }
-                }
-            }
-        }
-
-        for (Partido partido : equipo.getPartidos()){
-            if (partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
-                int resultado = Integer.valueOf(partido.getGolesLocal()) - Integer.valueOf(partido.getGolesVisitante());
-                if(partido.getEquipoLocal().getNombre().equals(equipo.getNombre())){
-                    if (resultado>0) {
-                        puntos+=3;
-                    } else if(resultado==0){
-                        puntos+=1;
-                    }
-                } else {
-                    if (resultado<0) {
-                        puntos+=3;
-                    } else if(resultado==0){
-                        puntos+=1;
                     }
                 }
             }
@@ -115,6 +96,10 @@ public class CompeticionClasificacionFragment extends Fragment {
             casilla.setText(String.valueOf(contadorEquipos));
             if (contadorEquipos==1){
                 casilla.setBackgroundColor(getResources().getColor(R.color.oro));
+            }else if (contadorEquipos==2) {
+                casilla.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+            } else if (contadorEquipos == competicion.getEquipos().size()) {
+                casilla.setBackgroundColor(getResources().getColor(R.color.error));
             }
             TextView nombreEquipo = row.findViewById(R.id.clasificacion_nombreEquipo);
             nombreEquipo.setText(equipo.getNombre());

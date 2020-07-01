@@ -49,7 +49,7 @@ public class PartidoActivity extends AppCompatActivity {
     }
 
     private void isArbitrable() {
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)){
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) && !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)){
             if (!partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(ARBITRO)){
                 for (Arbitro arbitro : partido.getArbitros()) {
                     if (arbitro.getUid().equals(currentUser.getUid())) {
@@ -120,7 +120,11 @@ public class PartidoActivity extends AppCompatActivity {
                     selectedFragment = new PartidoEquipoFragment(partido.getEquipoVisitante(), partido);
                     break;
             }
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_partido_container, selectedFragment).commit();
+            try {
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_partido_container, selectedFragment).commit();
+            } catch (Exception e) {
+                Toast.makeText(PartidoActivity.this, "No se ha podido acceder",Toast.LENGTH_LONG).show();
+            }
             return true;
         }
     };

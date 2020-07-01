@@ -37,7 +37,6 @@ public class Usuario extends Thread implements Serializable {
     private String email;
     private String movil;
     private String imagen;
-    //Esto deberia ir en cada tipo de usuario
     private Equipo equipo;
     private Agenda agenda;
     private ArrayList<Competicion> competicionesfavoritas;

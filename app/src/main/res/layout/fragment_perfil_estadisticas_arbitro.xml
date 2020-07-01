@@ -68,7 +68,6 @@
                 android:layout_weight="50"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="TextView"
                 android:textColor="@color/secondary_text" />
         </TableRow>
 
@@ -91,7 +90,6 @@
                 android:layout_weight="50"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="TextView"
                 android:textColor="@color/secondary_text" />
         </TableRow>
 

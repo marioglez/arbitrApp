@@ -4,86 +4,87 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imagenFondo"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@color/primary_text" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imagen_arbitro"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/arbitro"
-        app:civ_border_width="1dp"
-        app:civ_border_color="#ffffff"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/textview_nombre_arbitro"
+    <RelativeLayout
+        android:id="@+id/cabeceraArbitro"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imagen_arbitro"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/nombrePerfil"
-        android:textColor="@color/icons"
-        android:textSize="20sp" />
+        android:background="@color/primary_text">
 
-    <TextView
-        android:id="@+id/textview_categoria_arbitro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_nombre_arbitro"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/categoriaPerfil"
-        android:textColor="@color/colorAccent"
-        android:textSize="16sp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imagen_arbitro"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/arbitro"
+            app:civ_border_width="1dp"
+            app:civ_border_color="#ffffff"
+            android:layout_centerHorizontal="true"/>
 
-    <TableLayout
-        android:id="@+id/tabla_perfil_arbitro"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textview_categoria_arbitro">
-
-        <TableRow
+        <TextView
+            android:id="@+id/textview_nombre_arbitro"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagen_arbitro"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/nombrePerfil"
+            android:textColor="@color/icons"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textview_nacionalidad_arbitro"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:text="@string/datosNacionalidad"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textview_categoria_arbitro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_nombre_arbitro"
+            android:layout_centerHorizontal="true"
+            android:padding="5dp"
+            android:gravity="center"
+            android:text="@string/categoriaPerfil"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textview_edad_arbitro"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:text="@string/datosEdad"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp" />
-        </TableRow>
+        <TableLayout
+            android:id="@+id/tabla_perfil_arbitro"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_categoria_arbitro">
 
-    </TableLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="5dp">
+
+                <TextView
+                    android:id="@+id/textview_nacionalidad_arbitro"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="@string/datosNacionalidad"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textview_edad_arbitro"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="@string/datosEdad"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/arbitro_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tabla_perfil_arbitro"
+        android:layout_below="@id/cabeceraArbitro"
         android:layout_marginTop="0dp"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/arbitro_navigation" />

@@ -33,7 +33,7 @@
                     android:text="@string/jornada"
                     android:textColor="@color/primary_text"
                     android:textStyle="bold"
-                    android:textSize="24sp" />
+                    android:textSize="22sp" />
 
                 <ImageView
                     android:visibility="invisible"

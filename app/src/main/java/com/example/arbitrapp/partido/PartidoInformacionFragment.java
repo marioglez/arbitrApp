@@ -64,7 +64,7 @@ public class PartidoInformacionFragment extends Fragment {
         relativeLayout = view.findViewById(R.id.layout_arbitros);
         tablaArbitros = view.findViewById(R.id.tablaArbitros);
 
-        if (currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
+        if (currentUser.getTipoUsuario().equals(USUARIO_ADMIN) && !partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)) {
             obtenerArbitros();
             btnEditarArbitros.setVisibility(View.VISIBLE);
             btnEditarArbitros.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +126,10 @@ public class PartidoInformacionFragment extends Fragment {
 
             tablaArbitros.addView(row);
         }
-        //Añadir Arbitros
-        rellenarArbitrosRestantes();
+        if (currentUser.getTipoUsuario().equals(USUARIO_ADMIN) && !partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)) {
+            //Añadir Arbitros sin asignar
+            rellenarArbitrosRestantes();
+        }
     }
 
     private void obtenerArbitros() {

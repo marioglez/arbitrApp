@@ -1,8 +1,10 @@
 package com.example.arbitrapp.equipo;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +14,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import static com.example.arbitrapp.FirebaseData.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -20,7 +23,6 @@ import androidx.fragment.app.Fragment;
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.ComparadorDorsales;
-import com.example.arbitrapp.modelos.ComparadorPuntos;
 import com.example.arbitrapp.modelos.Equipo;
 import com.example.arbitrapp.modelos.Jugador;
 import com.example.arbitrapp.modelos.Tecnico;
@@ -57,6 +59,7 @@ public class EquipoPlantillaFragment extends Fragment {
     }
 
     private void rellenarTecnicos(){
+        tablaTecnicos.removeAllViews();
         for(final Tecnico tecnico : equipo.getTecnicos()){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             final TableRow row = (TableRow) inflater.inflate(R.layout.tabla_miembro_equipo, relativeLayout, false);
@@ -84,8 +87,8 @@ public class EquipoPlantillaFragment extends Fragment {
             //Ir al Tecnico concreto
             row.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    startActivity(new Intent(getContext(), TecnicoActivity.class)
-                            .putExtra("tecnico", tecnico).putExtra("partidos", equipo.getPartidos()));
+                    startActivityForResult(new Intent(getContext(), TecnicoActivity.class)
+                            .putExtra("tecnico", tecnico).putExtra("partidos", equipo.getPartidos()),0);
                 }
             });
 
@@ -94,6 +97,7 @@ public class EquipoPlantillaFragment extends Fragment {
     }
 
     private void rellenarJugadores(){
+        tablaJugadores.removeAllViews();
         for(final Jugador jugador : equipo.getJugadores()){
             LayoutInflater inflater = LayoutInflater.from(getContext());
             final TableRow row = (TableRow) inflater.inflate(R.layout.tabla_jugador_equipo, relativeLayout, false);
@@ -124,12 +128,41 @@ public class EquipoPlantillaFragment extends Fragment {
             //Ir al Jugador concreto
             row.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    startActivity(new Intent(getContext(), JugadorActivity.class)
-                            .putExtra("jugador", jugador).putExtra("partidos", equipo.getPartidos()));
+                    startActivityForResult(new Intent(getContext(), JugadorActivity.class)
+                            .putExtra("jugador", jugador).putExtra("partidos", equipo.getPartidos()),0);
                 }
             });
 
             tablaJugadores.addView(row);
+        }
+    }
+
+    private void recargarDatosEquipo() {
+        equipo.obtenerPartidos(TEMPORADA_ACTUAL);
+        equipo.obtenerPlantilla();
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Recargando datos...");
+        progressDialog.setCanceledOnTouchOutside(false);
+        progressDialog.show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                rellenarTecnicos();
+                rellenarJugadores();
+                progressDialog.dismiss();
+            }
+        }, 5000);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode==1) {
+            Toast.makeText(getContext(),"No se ha podido acceder al miembro",Toast.LENGTH_LONG).show();
+            //Recagar los datos del equipo
+            //recargarDatosEquipo();
+        } else {
+            Log.d("EQUIPO PLANTILLA", "onActivityResult: OKEY");
         }
     }
 }

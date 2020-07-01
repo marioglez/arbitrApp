@@ -29,7 +29,7 @@ public class CompeticionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_competicion);
 
         competicion = (Competicion) getIntent().getSerializableExtra("competicion");
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)  || currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO)  && !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             favorito = esFavorito();
         }
 
@@ -88,7 +88,7 @@ public class CompeticionActivity extends AppCompatActivity {
 
     //METODO PARA MOSTRAR OCULTAR MENU
     public boolean onCreateOptionsMenu(Menu menu){
-        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
+        if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) && !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             getMenuInflater().inflate(R.menu.actionbar_favoritos, menu);
             if (favorito){
                 menu.findItem(R.id.favoritos).setIcon(getResources().getDrawable(R.drawable.ic_star_accent));

@@ -6,81 +6,92 @@
     android:layout_height="match_parent"
     tools:context=".equipo.CampoActivity">
 
-    <ImageView
-        android:id="@+id/imageView_campo"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_campo" />
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/nombre_campo"
-        android:layout_below="@id/imageView_campo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:gravity="center"
-        android:text="@string/nombreCampo"
-        android:textSize="24sp"
-        android:textColor="@color/primary_text"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/ciudad_campo"
-        android:layout_below="@id/nombre_campo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:gravity="center"
-        android:text="@string/ciudad"
-        android:textSize="20sp"
-        android:textColor="@color/secondary_text"/>
+            <ImageView
+                android:id="@+id/imageView_campo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/ic_campo" />
 
-    <TextView
-        android:id="@+id/direccion_campo"
-        android:layout_below="@id/ciudad_campo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:gravity="center"
-        android:text="@string/direccion"
-        android:textSize="20sp"
-        android:textColor="@color/secondary_text"/>
+            <TextView
+                android:id="@+id/nombre_campo"
+                android:layout_below="@id/imageView_campo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="@string/nombreCampo"
+                android:textSize="24sp"
+                android:textColor="@color/primary_text"/>
 
-    <TextView
-        android:id="@+id/capacidad_campo"
-        android:layout_below="@id/direccion_campo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:gravity="center"
-        android:text="@string/capacidad"
-        android:textSize="20sp"
-        android:textColor="@color/secondary_text"/>
+            <TextView
+                android:id="@+id/ciudad_campo"
+                android:layout_below="@id/nombre_campo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="@string/ciudad"
+                android:textSize="20sp"
+                android:textColor="@color/secondary_text"/>
 
-    <RelativeLayout
-        android:id="@+id/campo_comoLlegar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/capacidad_campo"
-        android:padding="10dp"
-        android:layout_centerInParent="true">
+            <TextView
+                android:id="@+id/direccion_campo"
+                android:layout_below="@id/ciudad_campo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="@string/direccion"
+                android:textSize="20sp"
+                android:textColor="@color/secondary_text"/>
 
-        <TextView
-            android:id="@+id/txt_como_llegar"
-            android:layout_width="120dp"
-            android:layout_height="30dp"
-            android:layout_alignParentStart="true"
-            android:background="@color/maps"
-            android:gravity="center"
-            android:text="@string/como_llegar"
-            android:textColor="@color/icons" />
+            <TextView
+                android:id="@+id/capacidad_campo"
+                android:layout_below="@id/direccion_campo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:gravity="center"
+                android:text="@string/capacidad"
+                android:textSize="20sp"
+                android:textColor="@color/secondary_text"/>
 
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_toRightOf="@id/txt_como_llegar"
-            android:background="@color/maps"
-            app:srcCompat="@drawable/ic_navigation_black_24dp" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/campo_comoLlegar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/capacidad_campo"
+                android:padding="10dp"
+                android:layout_centerInParent="true">
+
+                <TextView
+                    android:id="@+id/txt_como_llegar"
+                    android:layout_width="120dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentStart="true"
+                    android:background="@color/maps"
+                    android:gravity="center"
+                    android:text="@string/como_llegar"
+                    android:textColor="@color/icons" />
+
+                <ImageButton
+                    android:id="@+id/imageButton"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_toRightOf="@id/txt_como_llegar"
+                    android:background="@color/maps"
+                    app:srcCompat="@drawable/ic_navigation_black_24dp" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

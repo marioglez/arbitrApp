@@ -2,16 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/layout_equipos"
-        android:layout_width="wrap_content"
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <TableLayout
-            android:id="@+id/tablaEquipos"
+        <RelativeLayout
+            android:id="@+id/layout_equipos"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <TableLayout
+                android:id="@+id/tablaEquipos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </ScrollView>
 
 </RelativeLayout>

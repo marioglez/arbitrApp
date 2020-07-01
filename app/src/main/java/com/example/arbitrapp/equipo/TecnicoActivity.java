@@ -2,6 +2,7 @@ package com.example.arbitrapp.equipo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -55,7 +56,11 @@ public class TecnicoActivity extends AppCompatActivity {
         tarjetasAmarillas = findViewById(R.id.textView_tarjetasAmarillas);
         tarjetasRojas = findViewById(R.id.textView_tarjetasRojas);
 
-        rellenarInfo();
+        try {
+            rellenarInfo();
+        } catch (Exception e) {
+            finalizarActividad();
+        }
     }
 
     //Boton flecha atras
@@ -146,5 +151,11 @@ public class TecnicoActivity extends AppCompatActivity {
         tarjetasTotal.setText(String.valueOf(contadorAmarillas+contadorRojas));
         tarjetasAmarillas.setText(String.valueOf(contadorAmarillas));
         tarjetasRojas.setText(String.valueOf(contadorRojas));
+    }
+
+    private void finalizarActividad() {
+        Intent returnIntent = new Intent();
+        setResult(1, returnIntent);
+        finish();
     }
 }

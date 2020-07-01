@@ -52,7 +52,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/total"
                         android:textColor="@color/primary_text" />
 
                 </TableRow>
@@ -80,7 +79,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/jugados"
                         android:textColor="@color/primary_text" />
 
                 </TableRow>
@@ -109,7 +107,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/ganados"
                         android:textColor="@color/primary_text" />
                 </TableRow>
 
@@ -136,7 +133,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/perdidos"
                         android:textColor="@color/primary_text" />
                 </TableRow>
 
@@ -164,7 +160,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/empatados"
                         android:textColor="@color/primary_text" />
                 </TableRow>
 
@@ -213,7 +208,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/total"
                         android:textColor="@color/primary_text" />
 
                 </TableRow>
@@ -241,7 +235,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/amarillas"
                         android:textColor="@color/primary_text" />
 
                 </TableRow>
@@ -270,7 +263,6 @@
                         android:layout_weight="50"
                         android:gravity="end"
                         android:paddingEnd="10dp"
-                        android:text="@string/rojas"
                         android:textColor="@color/primary_text" />
 
                 </TableRow>
