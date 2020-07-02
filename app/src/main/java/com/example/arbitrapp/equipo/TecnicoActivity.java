@@ -96,7 +96,6 @@ public class TecnicoActivity extends AppCompatActivity {
                 contadorPartidosTotal++;
                 if(tecnico.getEquipo().getNombre().equals(partido.getEquipoLocal().getNombre())){
                     for(Tecnico t : partido.getEquipoLocal().getTecnicosPartido()){
-                        Log.d("TECNICO", "rellenarEstadisticas: " + t.getUid() + " VS " + tecnico.getUid());
                         if(t.getUid().equals(tecnico.getUid())){
                             contadorJugados++;
                             if(Integer.valueOf(partido.getGolesLocal()) > Integer.valueOf(partido.getGolesVisitante())){

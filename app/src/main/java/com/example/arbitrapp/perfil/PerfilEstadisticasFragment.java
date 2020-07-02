@@ -24,16 +24,14 @@ import com.example.arbitrapp.modelos.Tecnico;
 import com.example.arbitrapp.modelos.Usuario;
 
 public class PerfilEstadisticasFragment extends Fragment {
-
-    private Arbitro arbitro;
     private View view;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        if (currentUser.getTipoUsuario().equals(ARBITRO)) {
-            arbitro = new Arbitro();
+        if (currentUser.getTipoUsuario().equals(ARBITRO) && currentArbitro == null) {
+            currentArbitro = new Arbitro();
         }
 
         final ProgressDialog tempDialog;
@@ -49,7 +47,7 @@ public class PerfilEstadisticasFragment extends Fragment {
         switch (currentUser.getTipoUsuario()){
             case ARBITRO:
                 view =  inflater.inflate(R.layout.fragment_perfil_estadisticas_arbitro, container, false);
-                if (arbitro.getPartidos().isEmpty()) {
+                if (currentArbitro.getPartidos().isEmpty()) {
                     tempDialog.show();
                     new Handler().postDelayed(new Runnable() {
                         @Override
@@ -105,15 +103,21 @@ public class PerfilEstadisticasFragment extends Fragment {
         TextView partidosArbitrados = view.findViewById(R.id.textView_arbitro_partidos_arbitrados);
         TextView valoracionesRecibidas = view.findViewById(R.id.textView_arbitro_valoraciones_recibidas);
 
-        for ( Partido partido : arbitro.getPartidos()){
+        for ( Partido partido : currentArbitro.getPartidos()){
             if(partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
                 contadorPartidosArbitrados++;
             }
         }
-
-        ratingBar.setRating(4);
+        for (Integer i : currentArbitro.getValoraciones()) {
+            contadorValoracionesRecibidas += i;
+        }
+        try {
+            ratingBar.setRating(contadorValoracionesRecibidas/currentArbitro.getValoraciones().size());
+        }catch (Exception e) {
+            ratingBar.setRating(0);
+        }
         partidosArbitrados.setText(String.valueOf(contadorPartidosArbitrados));
-        valoracionesRecibidas.setText(String.valueOf(contadorPartidosArbitrados));
+        valoracionesRecibidas.setText(String.valueOf(currentArbitro.getValoraciones().size()));
     }
 
     private void rellenarEstadisticasJugador(View view) {

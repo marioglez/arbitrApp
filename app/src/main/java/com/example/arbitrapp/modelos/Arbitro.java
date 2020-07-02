@@ -18,6 +18,7 @@ public class Arbitro extends Usuario implements Serializable {
 
     private String categoria;
     private ArrayList<Partido> partidos = new ArrayList<>();
+    private ArrayList<Integer> valoraciones = new ArrayList<>();
     private Partido partido;
 
     private CountDownLatch countDownLatch;
@@ -68,6 +69,7 @@ public class Arbitro extends Usuario implements Serializable {
 
     public void obtenerPartidos(){
         partidos.clear();
+        valoraciones.clear();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(COMPETICIONES).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -80,13 +82,18 @@ public class Arbitro extends Usuario implements Serializable {
                                     for (DataSnapshot diaPartido : jornada.getChildren()){
                                         for (DataSnapshot idPartido : diaPartido.getChildren()){
                                             for (DataSnapshot arbitro : idPartido.child(PARTIDO_ARBITRAJE).getChildren()){
-                                                if (arbitro.child(ID).getValue().toString().equals(Arbitro.super.getUid())){
+                                                if (arbitro.getKey().equals(Arbitro.super.getUid())){
                                                     partidos.add(new Partido(
                                                             temporada.getKey(),
                                                             sede.getKey(),
                                                             categoria.getKey(),
                                                             diaPartido.getKey(),
                                                             idPartido.getKey()));
+                                                    try {
+                                                        valoraciones.add(Integer.valueOf(arbitro.child(ARBITRO_VALORACION).getValue().toString()));
+                                                    } catch (Exception e) {
+                                                        Log.d("ARBITRO", "onDataChange: NO HAY VALORACION EN ESTE PARTIDO");
+                                                    }
                                                 }
                                             }
                                         }
@@ -106,6 +113,11 @@ public class Arbitro extends Usuario implements Serializable {
     }
 
     //GETTERS
+
+
+    public ArrayList<Integer> getValoraciones() {
+        return valoraciones;
+    }
 
     public String getCategoria() {
         return categoria;

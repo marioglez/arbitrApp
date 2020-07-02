@@ -14,11 +14,9 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Partido;
@@ -28,19 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.concurrent.CountDownLatch;
-
-import static com.example.arbitrapp.FirebaseData.COMPETICIONES;
-import static com.example.arbitrapp.FirebaseData.PARTIDOS;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_EN_CURSO;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_ESTADO;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_FINALIZADO;
-import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
-import static com.example.arbitrapp.FirebaseData.partidosDirecto;
-import static com.example.arbitrapp.FirebaseData.proximosPartidos;
+import static com.example.arbitrapp.FirebaseData.*;
 
 public class HomeFragment extends Fragment {
 
@@ -205,51 +194,6 @@ public class HomeFragment extends Fragment {
         }
     }
 
-    private void obtenerPartidosDirecto() {
-        Calendar cal = Calendar.getInstance();
-        final int day = cal.get(Calendar.DAY_OF_YEAR);
-        final int year = cal.get(Calendar.YEAR);
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(TEMPORADA_ACTUAL).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    final String idPartidos = (String.valueOf(year) + String.valueOf(day));
-                    for (DataSnapshot sede : dataSnapshot.getChildren()) {
-                        for (DataSnapshot categoria : sede.getChildren()) {
-                            for (DataSnapshot jornada : categoria.child(PARTIDOS).getChildren()) {
-                                for (DataSnapshot diaPartido : jornada.getChildren()) {
-                                    if (diaPartido.getKey().equals(idPartidos)) {
-                                        for (DataSnapshot partido : diaPartido.getChildren()) {
-                                            if (partido.child(PARTIDO_ESTADO).getValue().toString().equals(PARTIDO_EN_CURSO)) {
-                                                partidosDirecto.add(new Partido(countDownLatchDirecto, TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()));
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    countDownLatchDirecto = new CountDownLatch(partidosDirecto.size());
-                    for (Partido p : partidosDirecto) {
-                        p.start();
-                    }
-                    try {
-                        countDownLatchDirecto.await();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    pintarPartidosDirecto();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
     private void pintarPartidosDirecto() {
         posicionCarouselDirecto = 0;
         if (!partidosDirecto.isEmpty()) {
@@ -320,8 +264,8 @@ public class HomeFragment extends Fragment {
         }catch (Exception e){
             Log.d("HOME DIRECTO", "pintarDatos: ERROR AL PINTAR ESCUDO");
         }
-        nombreLocal.setText(partidosDirecto.get(posicionCarouselDirecto).getEquipoLocal().getNombre());
-        nombreVisitante.setText(partidosDirecto.get(posicionCarouselDirecto).getEquipoVisitante().getNombre());
+        nombreLocal.setText(partidosDirecto.get(posicionCarouselDirecto).getEquipoLocal().getSiglas());
+        nombreVisitante.setText(partidosDirecto.get(posicionCarouselDirecto).getEquipoVisitante().getSiglas());
         if (!partidosDirecto.get(posicionCarouselDirecto).getGolesLocal().isEmpty()) {
             marcadorLocal.setText(partidosDirecto.get(posicionCarouselDirecto).getGolesLocal());
         } else {
@@ -395,8 +339,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void rellenarProximoPartido(final int posicion) {
-        String tituloProximoPartido = proximosPartidos.get(posicion).getEquipoLocal().getNombre() + " Vs "
-                + proximosPartidos.get(posicion).getEquipoVisitante().getNombre();
+        String tituloProximoPartido = proximosPartidos.get(posicion).getEquipoLocal().getSiglas() + " Vs "
+                + proximosPartidos.get(posicion).getEquipoVisitante().getSiglas();
         tituloPartido.setText(tituloProximoPartido);
         competicionPartido.setText(proximosPartidos.get(posicion).getLiga());
         lugarPartido.setText(proximosPartidos.get(posicion).getLugar());

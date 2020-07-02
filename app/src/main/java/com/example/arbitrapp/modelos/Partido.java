@@ -85,7 +85,7 @@ public class Partido extends Thread implements Serializable {
                                         try {
                                             for (DataSnapshot arbitro : partido.child(PARTIDO_ARBITRAJE).getChildren()){
                                                 countDownLatchArbitros = new CountDownLatch((int)countDownLatchArbitros.getCount()+1);
-                                                Arbitro a = new Arbitro(arbitro.child(ID).getValue().toString(),countDownLatchArbitros);
+                                                Arbitro a = new Arbitro(arbitro.getKey(),countDownLatchArbitros);
                                                 arbitros.add(a);
                                             }
                                         } catch (Exception e) {
@@ -153,7 +153,7 @@ public class Partido extends Thread implements Serializable {
                                         //Arbitros
                                         try {
                                             for (DataSnapshot arbitro : partido.child(PARTIDO_ARBITRAJE).getChildren()){
-                                                Arbitro a = new Arbitro(arbitro.child(ID).getValue().toString());
+                                                Arbitro a = new Arbitro(arbitro.getKey());
                                                 arbitros.add(a);
                                             }
                                         } catch (Exception e) {
@@ -232,6 +232,23 @@ public class Partido extends Thread implements Serializable {
         databaseReference.child(equipo).child(EQUIPO_GOLES).setValue(goles);
     }
 
+    public void actualizarEventos(Evento e) {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                .child(COMPETICIONES).child(this.temporada).child(this.sede).child(this.categoria)
+                .child(PARTIDOS).child(this.jornadaPartido).child(this.diaPartido).child(this.idPartido).child(PARTIDO_EVENTOS);
+
+        Map<String, String> evento = new HashMap<>();
+        String autores = "";
+        for (Usuario usuario : e.getAutores()) {
+            autores += usuario.getUid() + "-";
+        }
+        evento.put(EVENTO_AUTOR,autores);
+        evento.put(EVENTO_EQUIPO, e.getEquipo());
+        evento.put(EVENTO_MINUTO, e.getMinuto());
+        evento.put(EVENTO_TIPO,e.getAccion());
+        databaseReference.push().setValue(evento);
+    }
+
     public void guardarPartido() {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
                 .child(COMPETICIONES).child(this.temporada).child(this.sede).child(this.categoria)
@@ -298,8 +315,24 @@ public class Partido extends Thread implements Serializable {
             for (Arbitro arbitro : arbitros) {
                 Map<String, String> miembro = new HashMap<>();
                 miembro.put(ID, arbitro.getUid());
-                databaseReference.push().setValue(miembro);
+                databaseReference.child(arbitro.getUid()).setValue(miembro);
             }
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean valorarArbitro(String arbitroUid, float valoracion) {
+        try {
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
+                    .child(COMPETICIONES).child(this.temporada).child(this.sede).child(this.categoria)
+                    .child(PARTIDOS).child(this.jornadaPartido).child(this.diaPartido).child(this.idPartido)
+                    .child(PARTIDO_ARBITRAJE).child(arbitroUid);
+            Map<String, Object> map = new HashMap<>();
+            map.put(ARBITRO_VALORACION, valoracion);
+            databaseReference.updateChildren(map);
             return true;
         } catch (Exception e) {
             e.printStackTrace();

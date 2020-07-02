@@ -452,6 +452,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
             for (Evento evento : eventos) {
                 partido.getEventos().add(evento);
                 actualizarMarcador(evento);
+                partido.actualizarEventos(evento);
                 //ACTUALIZAR TITULARES Y SUPLENTES
                 /*if (evento.getAccion().equals(EVENTO_SUSTITUCION)) {
                     if (evento.getEquipo().equals(EVENTO_LOCAL)) {

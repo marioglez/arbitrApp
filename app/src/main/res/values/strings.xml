@@ -72,6 +72,8 @@
     <string name="arbitros">Árbitros</string>
     <string name="sin_arbitros_asignados">No hay arbitros asignados</string>
     <string name="anadirArbitro">Añadir árbitro</string>
+    <string name="valorarArbitro">Valorar árbitro</string>
+    <string name="valorar">Valorar</string>
 
     //ACTA
     <string name="alineaciones">Alineaciones</string>

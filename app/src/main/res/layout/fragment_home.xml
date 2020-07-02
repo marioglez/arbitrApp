@@ -366,13 +366,15 @@
                     android:id="@+id/comoLlegar_partido"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:layout_below="@+id/tabla_proximo_partido"
                     android:layout_centerHorizontal="true">
 
                     <TextView
                         android:id="@+id/txt_como_llegar"
-                        android:layout_width="120dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:padding="5dp"
                         android:layout_alignParentStart="true"
                         android:background="@color/maps"
                         android:gravity="center"
@@ -381,8 +383,9 @@
 
                     <ImageButton
                         android:id="@+id/imageButton"
-                        android:layout_width="30dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="30dp"
+                        android:padding="5dp"
                         android:layout_toRightOf="@id/txt_como_llegar"
                         android:background="@color/maps"
                         app:srcCompat="@drawable/ic_navigation_black_24dp" />

@@ -96,7 +96,7 @@ public class Agenda implements Serializable {
                                         if (diaPartido.getKey().equals(idPartidos)) {
                                             for (DataSnapshot partido : diaPartido.getChildren()) {
                                                 for (DataSnapshot arbitro : partido.child(PARTIDO_ARBITRAJE).getChildren()) {
-                                                    if (currentUser.getUid().equals(arbitro.child(ID).getValue().toString())) {
+                                                    if (currentUser.getUid().equals(arbitro.getKey())) {
                                                         pertenezcoPartido(new Partido(TEMPORADA_ACTUAL, sede.getKey(), categoria.getKey(), idPartidos, partido.getKey()), diaSemana);
                                                         Log.d("PERTENEZCO", "onDataChange: pertenezco al partido como arbitro" + idPartidos);
                                                     }

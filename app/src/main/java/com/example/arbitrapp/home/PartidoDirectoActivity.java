@@ -2,7 +2,6 @@ package com.example.arbitrapp.home;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,7 +13,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.ComparadorDorsales;
@@ -29,20 +27,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static com.example.arbitrapp.FirebaseData.COMPETICIONES;
-import static com.example.arbitrapp.FirebaseData.EVENTO_AMARILLA;
-import static com.example.arbitrapp.FirebaseData.EVENTO_GOL;
-import static com.example.arbitrapp.FirebaseData.EVENTO_GOL_PROPIA;
-import static com.example.arbitrapp.FirebaseData.EVENTO_LESION;
-import static com.example.arbitrapp.FirebaseData.EVENTO_ROJA;
-import static com.example.arbitrapp.FirebaseData.EVENTO_SEGUNDA_AMARILLA;
-import static com.example.arbitrapp.FirebaseData.EVENTO_SUSTITUCION;
-import static com.example.arbitrapp.FirebaseData.PARTIDOS;
-import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
+import static com.example.arbitrapp.FirebaseData.*;
 
 public class PartidoDirectoActivity extends AppCompatActivity {
 

@@ -3,21 +3,19 @@ package com.example.arbitrapp.home;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
 import com.example.arbitrapp.competiciones.CompeticionesFragment;
 import com.example.arbitrapp.auth.LoginScreen;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.perfil.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-
 import static com.example.arbitrapp.FirebaseData.USUARIO_ADMIN;
 import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO;
+import static com.example.arbitrapp.FirebaseData.currentArbitro;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class HomeScreen extends AppCompatActivity {
@@ -26,10 +24,7 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
         //getSupportActionBar().setDisplayShowTitleEnabled(false);
-
-        //Toast.makeText(HomeScreen.this, "HOME: " + currentUser.getNombreCompleto(), Toast.LENGTH_LONG).show();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -73,13 +68,8 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public boolean onOptionsItemSelected(MenuItem menuItem) {
-        /*int id = menuItem.getItemId();
-        if (id == R.id.cerrar_sesion){
-            currentUser = null;
-            FirebaseAuth.getInstance().signOut();
-            startActivity(new Intent(HomeScreen.this, LoginScreen.class));
-        }*/
         currentUser = null;
+        currentArbitro = null;
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(HomeScreen.this, LoginScreen.class));
         return super.onOptionsItemSelected(menuItem);

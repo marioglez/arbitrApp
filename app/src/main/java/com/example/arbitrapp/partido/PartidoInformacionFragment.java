@@ -120,7 +120,12 @@ public class PartidoInformacionFragment extends Fragment {
             //Ir al Arbitro concreto
             row.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    irAArbitro(arbitro);
+                    if (partido.getEstadoPartido().equals(PARTIDO_FINALIZADO) && currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
+                        valorarArbitro(arbitro.getUid());
+                    } else {
+                        irAArbitro(arbitro);
+                    }
+
                 }
             });
 
@@ -183,6 +188,11 @@ public class PartidoInformacionFragment extends Fragment {
                 .putExtra("seleccionados",partido.getArbitros()),0);
     }
 
+    private void valorarArbitro(String arbitroUid) {
+        startActivityForResult(new Intent(getContext(), PopUpValorarArbitroActivity.class)
+                .putExtra("arbitro",arbitroUid),1);
+    }
+
     private void irAArbitro(final Arbitro arbitro) {
         if (arbitro.getPartidos().isEmpty()){
             //ESPERAR POR LOS DATOS
@@ -211,10 +221,7 @@ public class PartidoInformacionFragment extends Fragment {
     }
 
     private void guardarArbitros() {
-        boolean resultado;
-        resultado = partido.guardarArbitros();
-
-        if (resultado) {
+        if (partido.guardarArbitros()) {
             Toast.makeText(getContext(),"Árbitros actualizados con éxito",Toast.LENGTH_LONG).show();
         } else {
             Toast.makeText(getContext(),"Error al actualizar árbitros",Toast.LENGTH_LONG).show();
@@ -224,12 +231,25 @@ public class PartidoInformacionFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        try {
-            partido.setArbitros((ArrayList<Arbitro>) data.getSerializableExtra("resultado"));
-            rellenarArbitros();
-            guardarArbitros();
-        } catch (Exception e) {
-            Log.w("PARTIDO ARBITROS", "onActivityResult: No se han modificado los árbitros");
+        if (requestCode==0) {
+            try {
+                partido.setArbitros((ArrayList<Arbitro>) data.getSerializableExtra("resultado"));
+                rellenarArbitros();
+                guardarArbitros();
+            } catch (Exception e) {
+                Log.w("PARTIDO ARBITROS", "onActivityResult: No se han modificado los árbitros");
+            }
+        } else if (requestCode == 1) {
+            try {
+                if(partido.valorarArbitro(data.getStringExtra("arbitro"),data.getFloatExtra("valoracion",0))) {
+                    Toast.makeText(getContext(),"Árbitro Valorado con éxito",Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(getContext(),"No se ha podido realizar la valoración",Toast.LENGTH_LONG).show();
+                }
+            } catch (Exception e) {
+                Log.w("PARTIDO ARBITROS", "onActivityResult: No se ha valorado el árbitro");
+            }
         }
+
     }
 }

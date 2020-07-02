@@ -116,7 +116,7 @@ public class PerfilAgendaFragment extends Fragment {
                 TableRow row = (TableRow) inflater.inflate(R.layout.tabla_partido, relativeLayout, false);
 
                 TextView tituloCaja =  row.findViewById(R.id.textView_equipos);
-                String nombrePartido = p.getEquipoLocal().getNombre() + " Vs " + p.getEquipoVisitante().getNombre();
+                String nombrePartido = p.getEquipoLocal().getSiglas() + " Vs " + p.getEquipoVisitante().getSiglas();
                 tituloCaja.setText(nombrePartido);
 
                 TextView competicion = row.findViewById(R.id.textView_liga);
@@ -177,7 +177,7 @@ public class PerfilAgendaFragment extends Fragment {
                 TableRow row = (TableRow) inflater.inflate(R.layout.tabla_partido, relativeLayout, false);
 
                 TextView tituloCaja =  row.findViewById(R.id.textView_equipos);
-                String nombrePartido = p.getEquipoLocal().getNombre() + " Vs " + p.getEquipoVisitante().getNombre();
+                String nombrePartido = p.getEquipoLocal().getSiglas() + " Vs " + p.getEquipoVisitante().getSiglas();
                 tituloCaja.setText(nombrePartido);
 
                 TextView competicion = row.findViewById(R.id.textView_liga);
@@ -238,7 +238,7 @@ public class PerfilAgendaFragment extends Fragment {
                 TableRow row = (TableRow) inflater.inflate(R.layout.tabla_partido, relativeLayout, false);
 
                 TextView tituloCaja =  row.findViewById(R.id.textView_equipos);
-                String nombrePartido = p.getEquipoLocal().getNombre() + " Vs " + p.getEquipoVisitante().getNombre();
+                String nombrePartido = p.getEquipoLocal().getSiglas() + " Vs " + p.getEquipoVisitante().getSiglas();
                 tituloCaja.setText(nombrePartido);
 
                 TextView competicion = row.findViewById(R.id.textView_liga);

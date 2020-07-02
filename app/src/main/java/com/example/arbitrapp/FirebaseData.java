@@ -2,6 +2,7 @@ package com.example.arbitrapp;
 
 import android.app.Application;
 
+import com.example.arbitrapp.modelos.Arbitro;
 import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.modelos.Usuario;
 import com.google.firebase.database.FirebaseDatabase;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 public final class FirebaseData extends Application {
 
     public static Usuario currentUser = null;
+    public static Arbitro currentArbitro = null;
     public static ArrayList<Partido> partidosDirecto = new ArrayList<>();
     public static ArrayList<Partido> proximosPartidos = new ArrayList<>();
 
@@ -44,6 +46,7 @@ public final class FirebaseData extends Application {
     //EQUIPOS
     public static final String EQUIPOS = "equipos";
     public static final String EQUIPO_ANO = "año";
+    public static final String EQUIPO_SIGLAS = "siglas";
     public static final String EQUIPO_CIUDAD = "ciudad";
     public static final String EQUIPO_CAMPO = "campo";
     public static final String EQUIPO_CATEGORIA = "categoria";
@@ -83,6 +86,7 @@ public final class FirebaseData extends Application {
     //ARBITROS
     public static final String ARBITRO = "Arbitro";
     public static final String ARBITRO_CATEGORIA = "categoria";
+    public static final String ARBITRO_VALORACION = "valoracion";
 
     //JUGADORES
     public static final String JUGADOR = "Jugador";

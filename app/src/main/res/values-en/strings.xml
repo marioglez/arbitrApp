@@ -73,6 +73,8 @@
     <string name="arbitros">Referees</string>
     <string name="sin_arbitros_asignados">No referees assigned</string>
     <string name="anadirArbitro">Add referee</string>
+    <string name="valorarArbitro">Rate referee</string>
+    <string name="valorar">Rate</string>
 
     //ACTA
     <string name="alineaciones">Lineups</string>

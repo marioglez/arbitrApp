@@ -49,13 +49,17 @@ public class ArbitroInformacionFragment extends Fragment {
         partidosArbitrados = view.findViewById(R.id.textView_arbitro_partidosArbitrados);
         valoracion = view.findViewById(R.id.textView_arbitro_valoracion);
 
-        rellenarInformacion();
+        try {
+            rellenarInformacion();
+        } catch (Exception e) {
+            Toast.makeText(getContext(),"Error al obtener la información del árbitro",Toast.LENGTH_LONG).show();
+        }
 
         return view;
     }
 
     private void rellenarInformacion(){
-        int contadorPartidosArbitrados = 0;
+        int contadorPartidosArbitrados = 0, contadorValoracionesRecibidas=0;
         if (!currentUser.getTipoUsuario().equals(JUGADOR)) {
             movil.setText(arbitro.getMovil());
             movil.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +99,11 @@ public class ArbitroInformacionFragment extends Fragment {
             }
         }
         partidosArbitrados.setText(String.valueOf(contadorPartidosArbitrados));
-        String valoracionText = 4 + "/5";
+        for (Integer i : arbitro.getValoraciones()) {
+            contadorValoracionesRecibidas += i;
+        }
+        int media = contadorValoracionesRecibidas/arbitro.getValoraciones().size();
+        String valoracionText = media + "/5";
         valoracion.setText(valoracionText);
     }
 

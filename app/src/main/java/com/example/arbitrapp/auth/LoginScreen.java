@@ -2,7 +2,6 @@ package com.example.arbitrapp.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +12,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.home.HomeScreen;
 import com.example.arbitrapp.modelos.Usuario;
@@ -21,17 +19,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-
 import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
-
 import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO_CLAVE;
 import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO_EMAIL;
 import static com.example.arbitrapp.FirebaseData.currentUser;
 
 public class LoginScreen extends AppCompatActivity {
 
-    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=\\S+$Z)(?=.{8,20})");
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=\\S+$).{6,}$");
 
     private EditText usuario, contrasena;
     private Button botonLogin, botonInvitado;
@@ -80,7 +76,7 @@ public class LoginScreen extends AppCompatActivity {
         resetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                resetPassword();
+                goToResetPassword();
             }
         });
 
@@ -109,9 +105,6 @@ public class LoginScreen extends AppCompatActivity {
         }
     }
 
-    @Override
-    public void onBackPressed() {}
-
     private boolean validarEmail(String email){
         if(email.isEmpty()){
             usuario.setError("Introduzca el email");
@@ -129,11 +122,11 @@ public class LoginScreen extends AppCompatActivity {
         if(password.isEmpty()){
             contrasena.setError("Introduzca la contraseña");
             return false;
-        } /*else if (!PASSWORD_PATTERN.matcher(password).matches()) {
+        } else if (!PASSWORD_PATTERN.matcher(password).matches()) {
             //Formato de contraseña no valido
-            contrasena.setError("Contraseña Débil");
+            contrasena.setError("Formato de contraseña no válido");
             return false;
-        }*/
+        }
         //SI NO FALLA
         return true;
     }
@@ -170,7 +163,10 @@ public class LoginScreen extends AppCompatActivity {
                 });
     }
 
-    private void resetPassword() {
+    private void goToResetPassword() {
         startActivity(new Intent(LoginScreen.this, ResetPasswordActivity.class));
     }
+
+    @Override
+    public void onBackPressed() {}
 }

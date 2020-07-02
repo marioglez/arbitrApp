@@ -2,12 +2,9 @@ package com.example.arbitrapp.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-
 import static com.example.arbitrapp.FirebaseData.*;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.home.HomeScreen;
 import com.example.arbitrapp.modelos.Usuario;

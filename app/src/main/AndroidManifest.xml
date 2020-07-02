@@ -21,8 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".auth.ResetPasswordActivity"></activity>
-        <activity android:name=".home.PartidoDirectoActivity" />
-        <activity android:name=".equipo.CampoActivity" />
+        <activity android:name=".home.PartidoDirectoActivity" android:configChanges="orientation|screenSize"/>
+        <activity android:name=".equipo.CampoActivity" android:configChanges="orientation|screenSize"/>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -37,32 +37,42 @@
 
         <activity
             android:name=".MapsActivity"
-            android:label="@string/title_activity_maps" />
+            android:label="@string/title_activity_maps"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".arbitrar.PopUpArbitrarActivity"
-            android:theme="@style/AppTheme.PopUpArbitrarTheme" />
+            android:theme="@style/AppTheme.PopUpArbitrarTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".partido.PopUpEditarAlineacionActivity"
-            android:theme="@style/AppTheme.PopUpEditarAlineacionTheme" />
+            android:theme="@style/AppTheme.PopUpEditarAlineacionTheme"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".partido.PopUpArbitrosActivity"
-            android:theme="@style/AppTheme.PopUpEditarAlineacionTheme" />
-        <activity android:name=".arbitrar.ArbitrarActivity" />
-        <activity android:name=".competiciones.JornadaActivity" />
-        <activity android:name=".competiciones.CompeticionActivity" />
-        <activity android:name=".equipo.TecnicoActivity" />
-        <activity android:name=".equipo.JugadorActivity" />
-        <activity android:name=".arbitro.ArbitroActivity" />
-        <activity android:name=".partido.ActaActivity" />
-        <activity android:name=".equipo.EquipoActivity" />
-        <activity android:name=".partido.PartidoActivity" />
-        <activity android:name=".home.HomeScreen" />
+            android:theme="@style/AppTheme.PopUpEditarAlineacionTheme"
+            android:configChanges="orientation|screenSize"/>
+        <activity
+            android:name=".partido.PopUpValorarArbitroActivity"
+            android:theme="@style/AppTheme.PopUpEditarAlineacionTheme"
+            android:configChanges="orientation|screenSize"/>
+        <activity android:name=".arbitrar.ArbitrarActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".competiciones.JornadaActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".competiciones.CompeticionActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".equipo.TecnicoActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".equipo.JugadorActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".arbitro.ArbitroActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".partido.ActaActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".equipo.EquipoActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".partido.PartidoActivity" android:configChanges="orientation|screenSize" />
+        <activity android:name=".home.HomeScreen" android:configChanges="orientation|screenSize" />
         <activity
             android:name=".auth.LoginScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".auth.SplashScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:configChanges="orientation|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

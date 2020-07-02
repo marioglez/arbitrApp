@@ -3,85 +3,86 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imagenFondo"
-        android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@color/primary_text" />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imagen_persona"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/arbitro"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/icons"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/textview_nombre_persona"
+    <RelativeLayout
+        android:id="@+id/cabeceraTecnico"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imagen_persona"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/nombrePerfil"
-        android:textColor="@color/icons"
-        android:textSize="20sp" />
+        android:background="@color/primary_text">
 
-    <TextView
-        android:id="@+id/textview_rol_persona"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_nombre_persona"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/rol"
-        android:textColor="@color/colorAccent"
-        android:textSize="16sp" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imagen_persona"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/arbitro"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/icons"
+            android:layout_centerHorizontal="true"/>
 
-    <TableLayout
-        android:id="@+id/tabla_perfil_persona"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/textview_rol_persona">
-
-        <TableRow
+        <TextView
+            android:id="@+id/textview_nombre_persona"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp">
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagen_persona"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/nombrePerfil"
+            android:textColor="@color/icons"
+            android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/textview_nacionalidad_persona"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:text="@string/datosNacionalidad"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp" />
+        <TextView
+            android:id="@+id/textview_rol_persona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_nombre_persona"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/rol"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/textview_edad_persona"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="50"
-                android:gravity="center"
-                android:text="@string/datosEdad"
-                android:textColor="@color/secondary_text"
-                android:textSize="16sp" />
-        </TableRow>
+        <TableLayout
+            android:id="@+id/tabla_perfil_persona"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textview_rol_persona">
 
-    </TableLayout>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/textview_nacionalidad_persona"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="@string/datosNacionalidad"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/textview_edad_persona"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="50"
+                    android:gravity="center"
+                    android:text="@string/datosEdad"
+                    android:textColor="@color/secondary_text"
+                    android:textSize="16sp" />
+            </TableRow>
+
+        </TableLayout>
+
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tabla_perfil_persona">
+        android:layout_below="@id/cabeceraTecnico">
 
         <RelativeLayout
             android:layout_width="match_parent"
