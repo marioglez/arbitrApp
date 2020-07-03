@@ -9,11 +9,9 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.ComparadorEventos;
 import com.example.arbitrapp.modelos.Evento;
@@ -23,9 +21,9 @@ import java.util.Collections;
 
 public class ActaPartidoFragment extends Fragment {
 
-    Partido partido;
-    RelativeLayout relativeLayout;
-    TableLayout tablaEventos;
+    private Partido partido;
+    private RelativeLayout relativeLayout;
+    private TableLayout tablaEventos;
 
     public ActaPartidoFragment(Partido p){
         this.partido = p;

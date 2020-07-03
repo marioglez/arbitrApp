@@ -17,11 +17,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.equipo.EquipoActivity;
@@ -31,33 +29,18 @@ import com.example.arbitrapp.modelos.Jugador;
 import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.modelos.Tecnico;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
 import java.util.Collections;
-
-import static com.example.arbitrapp.FirebaseData.EQUIPO_CUERPO_TECNICO;
-import static com.example.arbitrapp.FirebaseData.EQUIPO_LOCAL;
-import static com.example.arbitrapp.FirebaseData.EQUIPO_SUPLENTES;
-import static com.example.arbitrapp.FirebaseData.EQUIPO_TITULARES;
-import static com.example.arbitrapp.FirebaseData.EQUIPO_VISITANTE;
-import static com.example.arbitrapp.FirebaseData.PARTIDO_FINALIZADO;
-import static com.example.arbitrapp.FirebaseData.TECNICO;
-import static com.example.arbitrapp.FirebaseData.TEMPORADA_ACTUAL;
-import static com.example.arbitrapp.FirebaseData.currentUser;
+import static com.example.arbitrapp.FirebaseData.*;
 
 public class PartidoEquipoFragment extends Fragment {
 
-    private View view;
     private Equipo equipo;
     private Partido partido;
     private RelativeLayout relativeLayout;
-    private ImageView imageView;
-    private TextView nombreEquipo;
     private TextView numeroTecnicos, numeroJugadores;
-    private ImageButton editarTecnicos, editarTitulares, editarSuplentes;
     private TableLayout tablaTecnicos, tablaTitulares, tablaSuplentes;
     private FloatingActionButton botonGuardar;
-    private ScrollView scrollView;
 
     public PartidoEquipoFragment(Equipo equipo, Partido partido){
         this.equipo = equipo;
@@ -67,18 +50,18 @@ public class PartidoEquipoFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_partido_equipo, container, false);
+        View view = inflater.inflate(R.layout.fragment_partido_equipo, container, false);
 
         relativeLayout = view.findViewById(R.id.layout_partido_equipo);
-        imageView = view.findViewById(R.id.imagenEscudo);
-        nombreEquipo = view.findViewById(R.id.nombreEquipo);
+        ImageView imageView = view.findViewById(R.id.imagenEscudo);
+        TextView nombreEquipo = view.findViewById(R.id.nombreEquipo);
         numeroTecnicos = view.findViewById(R.id.textview_numero_tecnicos);
         numeroJugadores = view.findViewById(R.id.textview_numero_jugadores);
         tablaTecnicos = view.findViewById(R.id.tablaTecnicos);
         tablaTitulares = view.findViewById(R.id.tablaTitulares);
         tablaSuplentes = view.findViewById(R.id.tablaSuplentes);
         botonGuardar = view.findViewById(R.id.floating_action_button_guardar_alineacion);
-        scrollView = view.findViewById(R.id.tabla_alineaciones);
+        ScrollView scrollView = view.findViewById(R.id.tabla_alineaciones);
         scrollView.smoothScrollTo(0,0);
 
         nombreEquipo.setText(equipo.getNombre());
@@ -109,7 +92,7 @@ public class PartidoEquipoFragment extends Fragment {
 
             obtenerPlantillaEquipo();
 
-            editarTecnicos = view.findViewById(R.id.imageButton_tecnicos);
+            ImageButton editarTecnicos = view.findViewById(R.id.imageButton_tecnicos);
             editarTecnicos.setVisibility(View.VISIBLE);
             editarTecnicos.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -121,7 +104,7 @@ public class PartidoEquipoFragment extends Fragment {
                 }
             });
 
-            editarTitulares = view.findViewById(R.id.imageButton_titulares);
+            ImageButton editarTitulares = view.findViewById(R.id.imageButton_titulares);
             editarTitulares.setVisibility(View.VISIBLE);
             editarTitulares.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -134,7 +117,7 @@ public class PartidoEquipoFragment extends Fragment {
                 }
             });
 
-            editarSuplentes = view.findViewById(R.id.imageButton_suplentes);
+            ImageButton editarSuplentes = view.findViewById(R.id.imageButton_suplentes);
             editarSuplentes.setVisibility(View.VISIBLE);
             editarSuplentes.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -200,9 +183,9 @@ public class PartidoEquipoFragment extends Fragment {
             dorsal.setText(j.getDorsal());
             tablaSuplentes.addView(row);
         }
-        String textTecnicos = "Técnicos: " + String.valueOf(contadorTecnicos);
+        String textTecnicos = getResources().getString(R.string.tecnicosPartido) + " " + contadorTecnicos;
         numeroTecnicos.setText(textTecnicos);
-        String textJugadores = "Jugadores: " + String.valueOf(contadorTitulares+contadorSuplentes);
+        String textJugadores = getResources().getString(R.string.jugadoresPartido) + " " + contadorTitulares+contadorSuplentes;
         numeroJugadores.setText(textJugadores);
     }
 
@@ -211,16 +194,10 @@ public class PartidoEquipoFragment extends Fragment {
             equipo.obtenerPartidos(TEMPORADA_ACTUAL);
             obtenerPlantillaEquipo();
 
-            //ESPERAR POR LOS DATOS
-            final ProgressDialog tempDialog;
-            int i = 0;
-
             //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-            tempDialog = new ProgressDialog(getContext());
-            tempDialog.setMessage("Recuperando Equipo...");
+            final ProgressDialog tempDialog = new ProgressDialog(getContext());
+            tempDialog.setMessage(getResources().getString(R.string.dialogEquipo));
             tempDialog.setCancelable(false);
-            tempDialog.setProgress(i);
-            tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
             tempDialog.show();
             new Handler().postDelayed(new Runnable() {
@@ -257,17 +234,17 @@ public class PartidoEquipoFragment extends Fragment {
         }
 
         if (resultado) {
-            Toast.makeText(getContext(),"Alineación actualizada con éxito",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.alineacionOK),Toast.LENGTH_LONG).show();
             botonGuardar.setVisibility(View.GONE);
         } else {
-            Toast.makeText(getContext(),"Error al actualizar alineación",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.alineacionError),Toast.LENGTH_LONG).show();
         }
     }
 
     private void recargarDatos() {
         final Partido p = new Partido(partido.getTemporada(),partido.getSede(),partido.getCategoria(),partido.getDiaPartido(),partido.getIdPartido());
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Recuperando datos...");
+        progressDialog.setMessage(getResources().getString(R.string.dialogDatos));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         new Handler().postDelayed(new Runnable() {
@@ -313,7 +290,7 @@ public class PartidoEquipoFragment extends Fragment {
                 });
             }
         } catch (Exception e) {
-            Log.w("PARTIDO EQUIPO", "onActivityResult: No se ha modificado alineacion");
+            Log.d("PARTIDO EQUIPO", "onActivityResult: No se ha modificado alineacion");
         }
     }
 }

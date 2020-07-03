@@ -13,10 +13,7 @@ import com.example.arbitrapp.R;
 import com.example.arbitrapp.perfil.PerfilFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import static com.example.arbitrapp.FirebaseData.USUARIO_ADMIN;
-import static com.example.arbitrapp.FirebaseData.USUARIO_INVITADO;
-import static com.example.arbitrapp.FirebaseData.currentArbitro;
-import static com.example.arbitrapp.FirebaseData.currentUser;
+import static com.example.arbitrapp.FirebaseData.*;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -24,7 +21,6 @@ public class HomeScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-        //getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);

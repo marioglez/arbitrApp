@@ -1,6 +1,5 @@
 package com.example.arbitrapp.competiciones;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;

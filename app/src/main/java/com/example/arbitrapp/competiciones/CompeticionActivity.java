@@ -21,7 +21,6 @@ public class CompeticionActivity extends AppCompatActivity {
     private Competicion competicion;
     private boolean favorito;
     private ScrollView scrollView;
-    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,16 +32,12 @@ public class CompeticionActivity extends AppCompatActivity {
             favorito = esFavorito();
         }
 
-        //ACTION BAR
         setTitle(competicion.getCategoria() + " - " + competicion.getSede());
-        //boton flecha atras
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         scrollView = findViewById(R.id.scrollViewCompeticion);
-        //Barra de navegacion en partido
-        bottomNavigationView = findViewById(R.id.competicion_navigation);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.competicion_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_competicion_equipos);
     }
 
@@ -86,7 +81,6 @@ public class CompeticionActivity extends AppCompatActivity {
         }
     };
 
-    //METODO PARA MOSTRAR OCULTAR MENU
     public boolean onCreateOptionsMenu(Menu menu){
         if (!currentUser.getTipoUsuario().equals(USUARIO_INVITADO) && !currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             getMenuInflater().inflate(R.menu.actionbar_favoritos, menu);
@@ -107,7 +101,7 @@ public class CompeticionActivity extends AppCompatActivity {
 
             if(constantStateDrawableA.equals(menuItem.getIcon().getConstantState())) {
                 menuItem.setIcon(R.drawable.ic_star_accent);
-                Toast.makeText(CompeticionActivity.this, "Competición añadida a Favoritos",Toast.LENGTH_LONG).show();
+                Toast.makeText(CompeticionActivity.this, getResources().getString(R.string.competicionFavorita),Toast.LENGTH_LONG).show();
                 currentUser.addCompeticionFavorita(competicion);
             } else {
                 menuItem.setIcon(R.drawable.ic_star_border_black_24dp);

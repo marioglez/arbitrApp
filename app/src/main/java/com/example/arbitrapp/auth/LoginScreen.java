@@ -107,11 +107,11 @@ public class LoginScreen extends AppCompatActivity {
 
     private boolean validarEmail(String email){
         if(email.isEmpty()){
-            usuario.setError("Introduzca el email");
+            usuario.setError(getResources().getString(R.string.introEmail));
             return false;
         } else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             //Formato de email no valido
-            usuario.setError("Email no válido");
+            usuario.setError(getResources().getString(R.string.emailError));
             return false;
         }
         //SI NO FALLA
@@ -120,11 +120,11 @@ public class LoginScreen extends AppCompatActivity {
 
     private boolean validarPassword(String password){
         if(password.isEmpty()){
-            contrasena.setError("Introduzca la contraseña");
+            contrasena.setError(getResources().getString(R.string.introPass));
             return false;
         } else if (!PASSWORD_PATTERN.matcher(password).matches()) {
             //Formato de contraseña no valido
-            contrasena.setError("Formato de contraseña no válido");
+            contrasena.setError(getResources().getString(R.string.passError));
             return false;
         }
         //SI NO FALLA

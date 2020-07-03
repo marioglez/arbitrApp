@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 import static com.example.arbitrapp.FirebaseData.*;
-
 import com.example.arbitrapp.arbitrar.ArbitrarActivity;
 import com.example.arbitrapp.modelos.Arbitro;
 import com.example.arbitrapp.modelos.Partido;
@@ -32,17 +31,12 @@ public class PartidoActivity extends AppCompatActivity {
 
         partido = (Partido) getIntent().getSerializableExtra("partido");
 
-        //ACTION BAR
-        setTitle("PARTIDO");
-        //boton flecha atras
+        setTitle(getResources().getString(R.string.partidoActivity));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         floatingActionButton = findViewById(R.id.floating_action_button_partido);
-        //Barra de navegacion en partido
         bottomNavigationView = findViewById(R.id.partido_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
-        //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_informacion);
 
         isArbitrable();
@@ -86,7 +80,6 @@ public class PartidoActivity extends AppCompatActivity {
         finish();
     }
 
-    //METODO PARA MOSTRAR OCULTAR MENU
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.actionbar_partido, menu);
         return true;
@@ -98,7 +91,7 @@ public class PartidoActivity extends AppCompatActivity {
             if(partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
                 startActivity(new Intent(PartidoActivity.this, ActaActivity.class).putExtra("partido", partido));
             } else {
-                Toast.makeText(PartidoActivity.this, "Acta no disponible", Toast.LENGTH_LONG).show();
+                Toast.makeText(PartidoActivity.this, getResources().getString(R.string.actaError), Toast.LENGTH_LONG).show();
             }
         }
         return super.onOptionsItemSelected(menuItem);
@@ -120,11 +113,8 @@ public class PartidoActivity extends AppCompatActivity {
                     selectedFragment = new PartidoEquipoFragment(partido.getEquipoVisitante(), partido);
                     break;
             }
-            try {
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_partido_container, selectedFragment).commit();
-            } catch (Exception e) {
-                Toast.makeText(PartidoActivity.this, "No se ha podido acceder",Toast.LENGTH_LONG).show();
-            }
+
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_partido_container, selectedFragment).commit();
             return true;
         }
     };

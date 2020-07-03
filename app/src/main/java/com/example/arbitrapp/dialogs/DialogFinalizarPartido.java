@@ -11,16 +11,14 @@ import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import static com.example.arbitrapp.FirebaseData.*;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-
 import com.example.arbitrapp.R;
 
 public class DialogFinalizarPartido extends AppCompatDialogFragment {
 
-    private RelativeLayout aceptar, cancelar;
+    private RelativeLayout aceptar;
     private Spinner spinner_finalizar;
     private DialogFinalizarPartidoListener dialogFinalizarPartidoListener;
 
@@ -34,7 +32,7 @@ public class DialogFinalizarPartido extends AppCompatDialogFragment {
         builder.setView(view);
 
         spinner_finalizar = view.findViewById(R.id.spinner_finalizar);
-        String[] opcionesFinalizar = {"Estado del partido", PARTIDO_FINALIZADO,PARTIDO_SIN_JUGAR,PARTIDO_APLAZADO,PARTIDO_SUSPENDIDO};
+        String[] opcionesFinalizar = {getResources().getString(R.string.partidoEstado), PARTIDO_FINALIZADO,PARTIDO_SIN_JUGAR,PARTIDO_APLAZADO,PARTIDO_SUSPENDIDO};
         ArrayAdapter<String> adapterFinalizar = new ArrayAdapter<String>(getContext(),R.layout.spinner_item,opcionesFinalizar);
         spinner_finalizar.setAdapter(adapterFinalizar);
 
@@ -47,7 +45,7 @@ public class DialogFinalizarPartido extends AppCompatDialogFragment {
             }
         });
 
-        cancelar = view.findViewById(R.id.finalizar_cancelar);
+        RelativeLayout cancelar = view.findViewById(R.id.finalizar_cancelar);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

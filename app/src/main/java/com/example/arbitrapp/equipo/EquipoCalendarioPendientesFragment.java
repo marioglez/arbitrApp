@@ -10,11 +10,9 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.partido.PartidoActivity;
@@ -41,12 +39,12 @@ public class EquipoCalendarioPendientesFragment extends Fragment {
         sinPartidos = view.findViewById(R.id.textview_sin_partidos);
         tablaPartidos = view.findViewById(R.id.tabla_equipo_calendario_pendientes);
 
-        rellenarAgenda();
+        rellenarPartidos();
 
         return view;
     }
 
-    private void rellenarAgenda(){
+    private void rellenarPartidos(){
         for(final Partido p : partidos){
             if(!p.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
                 sinPartidos.setVisibility(View.GONE);

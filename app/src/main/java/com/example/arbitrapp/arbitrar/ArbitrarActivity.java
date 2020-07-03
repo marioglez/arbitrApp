@@ -53,7 +53,6 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
     private TableLayout tablaTitularesLocal, tablaSuplentesLocal, tablaTecnicosLocal;
     private TableLayout tablaTitularesVisitante, tablaSuplentesVisitante, tablaTecnicosVisitante;
     private RelativeLayout relativeLayout;
-    private FloatingActionButton floatingActionButton;
     private ComparadorDorsales comparadorDorsales;
     private int contadorLocal, contadorVisitante;
 
@@ -67,7 +66,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
         partido = (Partido) getIntent().getSerializableExtra("partido");
 
         relativeLayout = findViewById(R.id.layout_arbitrar);
-        floatingActionButton = findViewById(R.id.floating_action_button_arbitrar);
+        FloatingActionButton floatingActionButton = findViewById(R.id.floating_action_button_arbitrar);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,8 +116,6 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                 } else if (cronoCorrido.getText().toString().equals("00:20")) {
                     cronoCorrido.stop();
                     cronoParado.stop();
-                    //btnCrono.setImageResource(R.drawable.ic_play_circle);
-                    //btnCrono.setClickable(false);
                     btnCrono.setVisibility(View.INVISIBLE);
                     empezarDescuento(true);
                 }
@@ -190,14 +187,12 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                             case EVENTO_AMARILLA:
                                 eventos.put(EVENTO_AMARILLA, true);
                                 relativeLayout.setBackgroundColor(getResources().getColor(R.color.amarilloPastel));
-                                Log.d("BUSCANDO EVENTO", "rellenarTecnicos: Amarilla EVENTO");
                                 break;
                             case EVENTO_ROJA:
                             case EVENTO_SEGUNDA_AMARILLA:
                                 eventos.put(EVENTO_ROJA,true);
                                 eventos.put(EVENTO_SEGUNDA_AMARILLA,true);
                                 relativeLayout.setBackgroundColor(getResources().getColor(R.color.rojoPastel));
-                                Log.d("BUSCANDO EVENTO", "rellenarTecnicos: roja EVENTO");
                                 break;
                             default:
                                 Log.d("BUSCANDO EVENTO", "rellenarTecnicos: NO HAY EVENTO");
@@ -211,7 +206,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                 @Override
                 public void onClick(View v) {
                     if (eventos.get(EVENTO_SEGUNDA_AMARILLA) || eventos.get(EVENTO_ROJA)) {
-                        Toast.makeText(ArbitrarActivity.this, t.getNombre() + " ha sido expulsado",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ArbitrarActivity.this, t.getNombre() + " " + getResources().getString(R.string.expulsado),Toast.LENGTH_SHORT).show();
                     } else {
                         startActivityForResult(new Intent(ArbitrarActivity.this, PopUpArbitrarActivity.class)
                                 .putExtra("tecnico",t).putExtra("equipo",condicionEquipo)
@@ -238,7 +233,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
             if(j.isCapitan()){
                 ImageView iconoRol = row.findViewById(R.id.imageview_rol);
                 iconoRol.setVisibility(View.VISIBLE);
-            } else if(j.getPosicion().equals("Portero")){
+            } else if(j.getPosicion().equals(JUGADOR_PORTERO)){
                 ImageView iconoRol = row.findViewById(R.id.imageview_rol);
                 iconoRol.setImageResource(R.drawable.ic_guantes);
                 iconoRol.setColorFilter(getResources().getColor(R.color.primary_text));
@@ -259,41 +254,34 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                             case EVENTO_GOL:
                                 ImageView iconoGol = row.findViewById(R.id.imageview_golFavor);
                                 iconoGol.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: GOL EVENTO");
                                 break;
                             case EVENTO_GOL_PROPIA:
                                 ImageView iconoGolPropia = row.findViewById(R.id.imageview_golPropia);
                                 iconoGolPropia.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: GOL Propia EVENTO");
                                 break;
                             case EVENTO_AMARILLA:
                                 eventos.put(EVENTO_AMARILLA,true);
                                 ImageView iconoAmarilla = row.findViewById(R.id.imageview_amarilla);
                                 iconoAmarilla.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Amarilla EVENTO");
                                 break;
                             case EVENTO_ROJA:
                                 eventos.put(EVENTO_ROJA,true);
                                 ImageView iconoRoja = row.findViewById(R.id.imageview_roja);
                                 iconoRoja.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Roja EVENTO");
                                 break;
                             case EVENTO_SEGUNDA_AMARILLA:
                                 eventos.put(EVENTO_SEGUNDA_AMARILLA,true);
                                 ImageView iconoSegundaAmarilla = row.findViewById(R.id.imageview_segundaAmarilla);
                                 iconoSegundaAmarilla.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Segunda Amarilla EVENTO");
                                 break;
                             case EVENTO_SUSTITUCION:
                                 eventos.put(EVENTO_SUSTITUCION,true);
                                 ImageView iconoSustitucion = row.findViewById(R.id.imageview_sustitucion);
                                 iconoSustitucion.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Sustitución EVENTO");
                                 break;
                             case EVENTO_LESION:
                                 ImageView iconoLesion = row.findViewById(R.id.imageview_lesion);
                                 iconoLesion.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarTecnicos: Lesión EVENTO");
                                 break;
                         }
                     }
@@ -304,7 +292,7 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                 @Override
                 public void onClick(View v) {
                     if (eventos.get(EVENTO_ROJA) || eventos.get(EVENTO_SEGUNDA_AMARILLA)) {
-                        Toast.makeText(ArbitrarActivity.this, j.getNombre() + " ha sido expulsado",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ArbitrarActivity.this, j.getNombre() + " " + getResources().getString(R.string.expulsado),Toast.LENGTH_SHORT).show();
                     } else {
                         startActivityForResult(new Intent(ArbitrarActivity.this, PopUpArbitrarActivity.class)
                                         .putExtra("jugador",j).putExtra("jugadores",sustitutos)
@@ -450,33 +438,16 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
         super.onActivityResult(requestCode, resultCode, data);
         try {
             ArrayList<Evento> eventos = (ArrayList<Evento>) data.getSerializableExtra("eventos");
-            Log.d("DEVUELVE", "onActivityResult: " + eventos);
             for (Evento evento : eventos) {
                 partido.getEventos().add(evento);
                 actualizarMarcador(evento);
                 partido.actualizarEventos(evento);
                 //ACTUALIZAR TITULARES Y SUPLENTES
-                /*if (evento.getAccion().equals(EVENTO_SUSTITUCION)) {
-                    if (evento.getEquipo().equals(EVENTO_LOCAL)) {
-
-                        Iterator<Jugador> iterator = partido.getEquipoLocal().getTitulares().iterator();
-                        while (iterator.hasNext()) {
-                            Jugador j = iterator.next();
-                            if (j.getUid().equals(evento.getAutores().get(0).getUid())) {
-                                iterator.remove();
-                            }
-                        }
-                        Jugador jugador = new Jugador(evento.getAutores().get(1).getUid());
-                        partido.getEquipoLocal().getTitulares().add(jugador);
-                    } else {
-
-                    }
-                }*/
             }
             rellenarDatosLocal();
             rellenarDatosVisitante();
         } catch (Exception e) {
-            Log.d("DEVUELVE", "onActivityResult: NO hay nuevos eventos");
+            Log.d("ARBITRAR", "onActivityResult: NO hay nuevos eventos");
         }
     }
 }

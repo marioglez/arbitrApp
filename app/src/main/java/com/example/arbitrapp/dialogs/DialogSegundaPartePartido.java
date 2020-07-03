@@ -16,7 +16,6 @@ import com.example.arbitrapp.R;
 
 public class DialogSegundaPartePartido extends AppCompatDialogFragment {
 
-    private RelativeLayout aceptar;
     private DialogSegundaPartePartidoListener dialogSegundaPartePartidoListener;
 
     @NonNull
@@ -28,7 +27,7 @@ public class DialogSegundaPartePartido extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog_segunda_parte_partido, null);
         builder.setView(view);
 
-        aceptar = view.findViewById(R.id.iniciar_segundaParte);
+        RelativeLayout aceptar = view.findViewById(R.id.iniciar_segundaParte);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

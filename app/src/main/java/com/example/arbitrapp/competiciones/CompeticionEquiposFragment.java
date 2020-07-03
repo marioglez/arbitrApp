@@ -14,7 +14,6 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import static com.example.arbitrapp.FirebaseData.*;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -80,14 +79,10 @@ public class CompeticionEquiposFragment extends Fragment {
                 public void onClick(View v) {
                     equipo.obtenerPlantilla();
                     equipo.obtenerPartidos(temporada);
-                    final ProgressDialog tempDialog;
-                    int i = 0;
                     //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-                    tempDialog = new ProgressDialog(getContext());
-                    tempDialog.setMessage("Recuperando Equipo...");
+                    final ProgressDialog tempDialog = new ProgressDialog(getContext());
+                    tempDialog.setMessage(getResources().getString(R.string.dialogEquipo));
                     tempDialog.setCancelable(false);
-                    tempDialog.setProgress(i);
-                    tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                     tempDialog.show();
                     new Handler().postDelayed(new Runnable() {
                         @Override

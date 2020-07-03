@@ -17,9 +17,17 @@
     <string name="invitado">Login as a guest</string>
     <string name="loginInvitado">Logging in as guest…</string>
     <string name="forgotPassword"><u>Forgot password</u></string>
+    <string name="introEmail">Enter email</string>
+    <string name="emailError">Invalid email</string>
+    <string name="introPass">Enter password</string>
+    <string name="passError">Invalid password</string>
+    <string name="cerrarSesion">Sign out</string>
     //RESET PASSWORD
     <string name="resetPassword">Reset password</string>
     <string name="resetSending">Sending email…</string>
+    <string name="introResetPass">Enter the email to reset your password</string>
+    <string name="resetOk">An email has been sent to reset your password</string>
+    <string name="resetError">An error has occurred while sending the password reset email</string>
 
     //HOME
     <string name="competicionesIcon">Competitions</string>
@@ -49,8 +57,15 @@
     <string name="mañana">TOMORROW</string>
     <string name="semana">WEEK</string>
     <string name="como_llegar">HOW TO GET</string>
+    <string name="perfilError">profile not available</string>
+    <string name="logInPerfil">Login to access your profile</string>
+    <string name="noPartidosHoy">no matches today</string>
+    <string name="noPartidosManana">no matches tomorrow</string>
+    <string name="noPartidosSemana">no matches this week</string>
+    <string name="estadisticasError">Unable to get statistics</string>
 
     //PARTIDO
+    <string name="partidoActivity">MATCH</string>
     <string name="equipo">Team</string>
     <string name="rol">rol</string>
     <string name="informacion">INFORMATION</string>
@@ -75,12 +90,32 @@
     <string name="anadirArbitro">Add referee</string>
     <string name="valorarArbitro">Rate referee</string>
     <string name="valorar">Rate</string>
+    <string name="enDirecto">ON LIVE</string>
+    <string name="partidoError">Could not get match information</string>
+    <string name="match">MATCH</string>
+    <string name="verActa">See record</string>
+    <string name="actaError">Record not available</string>
+    <string name="arbitrosOK">Referees updated successfully</string>
+    <string name="arbitrosError">Could not update the referees</string>
+    <string name="valorarOK">Successfully referee rate</string>
+    <string name="valorarError">Could not rate referee</string>
+    <string name="tecnicosPartido">Managers: </string>
+    <string name="jugadoresPartido">Players: </string>
+    <string name="alineacionOK">Line-up successfully updated</string>
+    <string name="alineacionError">Could not update line-up</string>
+    <string name="maxArbitros">The max number of referees is </string>
+    <string name="partidoEstado">Match status</string>
+    <string name="noSuplentes">There are no substitutes</string>
+    <string name="seleccionaJugador">Select player</string>
 
     //ACTA
+    <string name="acta">RECORD</string>
     <string name="alineaciones">Lineups</string>
-    <string name="partido">Game</string>
+    <string name="partido">Match</string>
 
     //EQUIPO
+    <string name="JUGADOR">PLAYER</string>
+    <string name="TECNICO">MANAGER</string>
     <string name="categoria">Category</string>
     <string name="ciudad">City</string>
     <string name="Campo">Field</string>
@@ -90,6 +125,9 @@
     <string name="tipo_miembro">member type</string>
     <string name="calendario_jugados">Played</string>
     <string name="calendario_pendientes">Pendings</string>
+    <string name="años">years</string>
+    <string name="miembroError">Could not access to this member</string>
+
     //estadisticas
     <string name="partidos">Games</string>
     <string name="goles">Goals</string>
@@ -115,8 +153,14 @@
     <string name="propiaPuerta">Own</string>
 
     //ARBITRO
+    <string name="ARBITRO">REFEREE</string>
     <string name="informacion_arbitro">Information</string>
     <string name="agenda_arbitro">Schedule</string>
+    <string name="arbitroError">The referee\'s information could not be obtained</string>
+    <string name="emailSubject">Message from arbitrApp</string>
+    <string name="emailChoose">Choose email app</string>
+    <string name="emailChooseError">There are not email apps</string>
+    <string name="callError">Call Permission Denied</string>
 
     //COMPETICIONES
     <string name="temporada">Season</string>
@@ -125,6 +169,11 @@
     <string name="favoritos">Favorites</string>
     <string name="equipos">Teams</string>
     <string name="clasificacion">Clasification</string>
+    <string name="seleccionaTemporada">Select season</string>
+    <string name="seleccionaSede">Select campus</string>
+    <string name="seleccionaCategoria">Select category</string>
+    <string name="competicionFavorita">Competition added to favorites</string>
+
     //clasificacion
     <string name="leyenda">Legend</string>
     <string name="puntos">Points</string>
@@ -163,10 +212,24 @@
     <string name="finalizar">Conclude</string>
     <string name="cancelar">Cancel</string>
     <string name="title_activity_maps">Map</string>
-    <string name="alineacion">Alignment</string>
+    <string name="alineacion">Line-up</string>
+    <string name="expulsado">it is out</string>
+    <string name="siAmarilla">already have yellow card</string>
+    <string name="noAmarilla">dont have yellow card</string>
+    <string name="sustituido">has been replaced</string>
+    <string name="siSustituido">has been replaced</string>
+    <string name="noSustituido">has not been replaced</string>
 
     //CAMPOS
     <string name="nombreCampo">Field name</string>
     <string name="direccion">Direction</string>
     <string name="capacidad">Capacity</string>
+
+    //DIALOGS
+    <string name="dialogEstadisticas">Recovering statistics…</string>
+    <string name="dialogArbitro">Recovering referee…</string>
+    <string name="dialogEquipo">Recovering team…</string>
+    <string name="dialogDatos">Recovering info…</string>
+    <string name="dialogEventos">Recovering events…</string>
+
 </resources>

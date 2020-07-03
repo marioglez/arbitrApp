@@ -2,14 +2,12 @@ package com.example.arbitrapp.auth;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
 import com.example.arbitrapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -42,7 +40,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     private void resetPassword() {
         String email = editTextEmail.getText().toString();
         if (email.isEmpty()) {
-            Toast.makeText(ResetPasswordActivity.this, "Introduce el correo para el que reestablecer su contraseña",Toast.LENGTH_LONG).show();
+            Toast.makeText(ResetPasswordActivity.this, getResources().getString(R.string.introResetPass),Toast.LENGTH_LONG).show();
         } else {
             progressDialog.setMessage(getResources().getString(R.string.resetSending));
             progressDialog.setCanceledOnTouchOutside(false);
@@ -53,10 +51,10 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     progressDialog.dismiss();
                     if (task.isSuccessful()) {
-                        Toast.makeText(ResetPasswordActivity.this, "Se ha enviado un correo para reestablecer tu contraseña",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ResetPasswordActivity.this, getResources().getString(R.string.resetOk),Toast.LENGTH_LONG).show();
                         onBackPressed();
                     } else {
-                        Toast.makeText(ResetPasswordActivity.this, "Ha ocurrido un error al enviar el correo para reestablecer tu contraseña",Toast.LENGTH_LONG).show();
+                        Toast.makeText(ResetPasswordActivity.this, getResources().getString(R.string.resetError),Toast.LENGTH_LONG).show();
                     }
                 }
             });

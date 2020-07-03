@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.ComparadorDorsales;
@@ -49,7 +51,7 @@ public class PartidoDirectoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_partido_directo);
 
-        setTitle("EN DIRECTO");
+        setTitle(getResources().getString(R.string.enDirecto));
         //boton flecha atras
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -73,7 +75,11 @@ public class PartidoDirectoActivity extends AppCompatActivity {
         rellenarDatosLocal();
         rellenarDatosVisitante();
 
-        obtenerInfoDirecto();
+        try {
+            obtenerInfoDirecto();
+        } catch (Exception e) {
+            Toast.makeText(PartidoDirectoActivity.this, getResources().getString(R.string.partidoError), Toast.LENGTH_LONG).show();
+        }
     }
 
     private  void rellenarMarcador() {
@@ -124,15 +130,10 @@ public class PartidoDirectoActivity extends AppCompatActivity {
                         switch (evento.getAccion()) {
                             case EVENTO_AMARILLA:
                                 relativeLayout.setBackgroundColor(getResources().getColor(R.color.amarilloPastel));
-                                Log.d("BUSCANDO EVENTO", "rellenarTecnicos: Amarilla EVENTO");
                                 break;
                             case EVENTO_ROJA:
                             case EVENTO_SEGUNDA_AMARILLA:
                                 relativeLayout.setBackgroundColor(getResources().getColor(R.color.rojoPastel));
-                                Log.d("BUSCANDO EVENTO", "rellenarTecnicos: roja EVENTO");
-                                break;
-                            default:
-                                Log.d("BUSCANDO EVENTO", "rellenarTecnicos: NO HAY EVENTO");
                                 break;
                         }
                     }
@@ -155,7 +156,7 @@ public class PartidoDirectoActivity extends AppCompatActivity {
             if(j.isCapitan()){
                 ImageView iconoRol = row.findViewById(R.id.imageview_rol);
                 iconoRol.setVisibility(View.VISIBLE);
-            } else if(j.getPosicion().equals("Portero")){
+            } else if(j.getPosicion().equals(JUGADOR_PORTERO)){
                 ImageView iconoRol = row.findViewById(R.id.imageview_rol);
                 iconoRol.setImageResource(R.drawable.ic_guantes);
                 iconoRol.setColorFilter(getResources().getColor(R.color.primary_text));
@@ -169,37 +170,30 @@ public class PartidoDirectoActivity extends AppCompatActivity {
                             case EVENTO_GOL:
                                 ImageView iconoGol = row.findViewById(R.id.imageview_golFavor);
                                 iconoGol.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: GOL EVENTO");
                                 break;
                             case EVENTO_GOL_PROPIA:
                                 ImageView iconoGolPropia = row.findViewById(R.id.imageview_golPropia);
                                 iconoGolPropia.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: GOL Propia EVENTO");
                                 break;
                             case EVENTO_AMARILLA:
                                 ImageView iconoAmarilla = row.findViewById(R.id.imageview_amarilla);
                                 iconoAmarilla.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Amarilla EVENTO");
                                 break;
                             case EVENTO_ROJA:
                                 ImageView iconoRoja = row.findViewById(R.id.imageview_roja);
                                 iconoRoja.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Roja EVENTO");
                                 break;
                             case EVENTO_SEGUNDA_AMARILLA:
                                 ImageView iconoSegundaAmarilla = row.findViewById(R.id.imageview_segundaAmarilla);
                                 iconoSegundaAmarilla.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Segunda Amarilla EVENTO");
                                 break;
                             case EVENTO_SUSTITUCION:
                                 ImageView iconoSustitucion = row.findViewById(R.id.imageview_sustitucion);
                                 iconoSustitucion.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarJugadores: Sustitución EVENTO");
                                 break;
                             case EVENTO_LESION:
                                 ImageView iconoLesion = row.findViewById(R.id.imageview_lesion);
                                 iconoLesion.setVisibility(View.VISIBLE);
-                                Log.d("BUSCANDO EVENTO", "rellenarTecnicos: Lesión EVENTO");
                                 break;
                         }
                     }
@@ -215,7 +209,6 @@ public class PartidoDirectoActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    Log.w("LISTENER DIRECTO", "onDataChange: ");
                     partido = new Partido(TEMPORADA_ACTUAL, partido.getSede(), partido.getCategoria(), partido.getDiaPartido(), partido.getIdPartido());
                     new Handler().postDelayed(new Runnable() {
                         @Override

@@ -17,7 +17,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import static com.example.arbitrapp.FirebaseData.*;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.auth.LoginScreen;
 import com.example.arbitrapp.R;
@@ -41,8 +40,8 @@ public class PerfilFragment extends Fragment {
 
         if (currentUser.getTipoUsuario().equals(USUARIO_INVITADO) || currentUser.getTipoUsuario().equals(USUARIO_ADMIN)) {
             new AlertDialog.Builder(getContext())
-                    .setTitle("Perfil no disponible")
-                    .setMessage("Inicia sesión para acceder a tu perfil")
+                    .setTitle(getResources().getString(R.string.perfilError))
+                    .setMessage(getResources().getString(R.string.logInPerfil))
                     .setPositiveButton(R.string.loginButton, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             startActivity(new Intent(getContext(), LoginScreen.class));

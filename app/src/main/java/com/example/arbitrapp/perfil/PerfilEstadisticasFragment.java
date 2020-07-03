@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import static com.example.arbitrapp.FirebaseData.*;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Arbitro;
 import com.example.arbitrapp.modelos.Evento;
@@ -34,15 +32,10 @@ public class PerfilEstadisticasFragment extends Fragment {
             currentArbitro = new Arbitro();
         }
 
-        final ProgressDialog tempDialog;
-        int i = 0;
-
         //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-        tempDialog = new ProgressDialog(getContext());
-        tempDialog.setMessage("Recuperando Estadísticas...");
+        final ProgressDialog tempDialog = new ProgressDialog(getContext());
+        tempDialog.setMessage(getResources().getString(R.string.dialogEstadisticas));
         tempDialog.setCancelable(false);
-        tempDialog.setProgress(i);
-        tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         switch (currentUser.getTipoUsuario()){
             case ARBITRO:
@@ -52,10 +45,14 @@ public class PerfilEstadisticasFragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            rellenarEstadisticasArbitro(view);
+                            try {
+                                rellenarEstadisticasArbitro(view);
+                            } catch (Exception e) {
+                                Toast.makeText(getContext(), getResources().getString(R.string.estadisticasError),Toast.LENGTH_SHORT).show();
+                            }
                             tempDialog.dismiss();
                         }
-                    }, 3000);
+                    }, 4000);
                 } else {
                     rellenarEstadisticasArbitro(view);
                 }
@@ -68,10 +65,14 @@ public class PerfilEstadisticasFragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            rellenarEstadisticasJugador(view);
+                            try {
+                                rellenarEstadisticasJugador(view);
+                            } catch (Exception e) {
+                                Toast.makeText(getContext(), getResources().getString(R.string.estadisticasError),Toast.LENGTH_SHORT).show();
+                            }
                             tempDialog.dismiss();
                         }
-                    }, 3000);
+                    }, 4000);
                 } else {
                     rellenarEstadisticasJugador(view);
                 }
@@ -84,10 +85,14 @@ public class PerfilEstadisticasFragment extends Fragment {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            rellenarEstadisticasTecnico(view);
+                            try {
+                                rellenarEstadisticasTecnico(view);
+                            } catch (Exception e) {
+                                Toast.makeText(getContext(), getResources().getString(R.string.estadisticasError),Toast.LENGTH_SHORT).show();
+                            }
                             tempDialog.dismiss();
                         }
-                    }, 3000);
+                    }, 4000);
                 } else {
                     rellenarEstadisticasTecnico(view);
                 }
@@ -135,84 +140,79 @@ public class PerfilEstadisticasFragment extends Fragment {
         TextView tarjetasAmarillas = view.findViewById(R.id.textView_tarjetasAmarillas);
         TextView tarjetasRojas = view.findViewById(R.id.textView_tarjetasRojas);
 
-        try {
-            for(Partido partido : currentUser.getEquipo().getPartidos()){
-                if(partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
-                    //Partidos
-                    contadorPartidosTotal++;
-                    if(currentUser.getEquipo().getNombre().equals(partido.getEquipoLocal().getNombre())){
-                        for(Jugador j : partido.getEquipoLocal().getTitulares()){
-                            if(j.getUid().equals(currentUser.getUid())){
-                                contadorJugados++;
-                                contadorTitular++;
-                                break;
-                            }
-                        }
-                        for(Jugador j : partido.getEquipoLocal().getSuplentes()){
-                            if(j.getUid().equals(currentUser.getUid())){
-                                contadorJugados++;
-                                contadorSuplente++;
-                                break;
-                            }
-                        }
-                    } else if (currentUser.getEquipo().getNombre().equals(partido.getEquipoVisitante().getNombre())){
-                        for(Jugador j : partido.getEquipoVisitante().getTitulares()){
-                            if(j.getUid().equals(currentUser.getUid())){
-                                contadorJugados++;
-                                contadorTitular++;
-                                break;
-                            }
-                        }
-                        for(Jugador j : partido.getEquipoVisitante().getSuplentes()){
-                            if(j.getUid().equals(currentUser.getUid())){
-                                contadorJugados++;
-                                contadorSuplente++;
-                                break;
-                            }
+        for(Partido partido : currentUser.getEquipo().getPartidos()){
+            if(partido.getEstadoPartido().equals(PARTIDO_FINALIZADO)){
+                //Partidos
+                contadorPartidosTotal++;
+                if(currentUser.getEquipo().getNombre().equals(partido.getEquipoLocal().getNombre())){
+                    for(Jugador j : partido.getEquipoLocal().getTitulares()){
+                        if(j.getUid().equals(currentUser.getUid())){
+                            contadorJugados++;
+                            contadorTitular++;
+                            break;
                         }
                     }
+                    for(Jugador j : partido.getEquipoLocal().getSuplentes()){
+                        if(j.getUid().equals(currentUser.getUid())){
+                            contadorJugados++;
+                            contadorSuplente++;
+                            break;
+                        }
+                    }
+                } else if (currentUser.getEquipo().getNombre().equals(partido.getEquipoVisitante().getNombre())){
+                    for(Jugador j : partido.getEquipoVisitante().getTitulares()){
+                        if(j.getUid().equals(currentUser.getUid())){
+                            contadorJugados++;
+                            contadorTitular++;
+                            break;
+                        }
+                    }
+                    for(Jugador j : partido.getEquipoVisitante().getSuplentes()){
+                        if(j.getUid().equals(currentUser.getUid())){
+                            contadorJugados++;
+                            contadorSuplente++;
+                            break;
+                        }
+                    }
+                }
 
-                    //Eventos
-                    for(Evento evento : partido.getEventos()){
-                        for(Usuario u : evento.getAutores()){
-                            if(u.getUid().equals(currentUser.getUid())){
-                                switch (evento.getAccion()){
-                                    case EVENTO_GOL:
-                                        contadorMarcados++;
-                                        break;
-                                    case EVENTO_GOL_PROPIA:
-                                        contadorPropia++;
-                                        break;
-                                    case EVENTO_AMARILLA:
-                                    case EVENTO_SEGUNDA_AMARILLA:
-                                        contadorAmarillas++;
-                                        break;
-                                    case EVENTO_ROJA:
-                                        contadorRojas++;
-                                        break;
-                                }
+                //Eventos
+                for(Evento evento : partido.getEventos()){
+                    for(Usuario u : evento.getAutores()){
+                        if(u.getUid().equals(currentUser.getUid())){
+                            switch (evento.getAccion()){
+                                case EVENTO_GOL:
+                                    contadorMarcados++;
+                                    break;
+                                case EVENTO_GOL_PROPIA:
+                                    contadorPropia++;
+                                    break;
+                                case EVENTO_AMARILLA:
+                                case EVENTO_SEGUNDA_AMARILLA:
+                                    contadorAmarillas++;
+                                    break;
+                                case EVENTO_ROJA:
+                                    contadorRojas++;
+                                    break;
                             }
                         }
                     }
                 }
             }
-            //Pintar estadisticas
-            partidosTotal.setText(String.valueOf(contadorPartidosTotal));
-            partidosJugados.setText(String.valueOf(contadorJugados));
-            partidosTitular.setText(String.valueOf(contadorTitular));
-            partidosSuplente.setText(String.valueOf(contadorSuplente));
-            partidosSinJugar.setText(String.valueOf(contadorPartidosTotal-contadorJugados));
-
-            golesMarcados.setText(String.valueOf(contadorMarcados));
-            golesPropia.setText(String.valueOf(contadorPropia));
-
-            tarjetasTotal.setText(String.valueOf(contadorAmarillas+contadorRojas));
-            tarjetasAmarillas.setText(String.valueOf(contadorAmarillas));
-            tarjetasRojas.setText(String.valueOf(contadorRojas));
-        } catch (Exception e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Error al obtener las estadisticas",Toast.LENGTH_SHORT).show();
         }
+        //Pintar estadisticas
+        partidosTotal.setText(String.valueOf(contadorPartidosTotal));
+        partidosJugados.setText(String.valueOf(contadorJugados));
+        partidosTitular.setText(String.valueOf(contadorTitular));
+        partidosSuplente.setText(String.valueOf(contadorSuplente));
+        partidosSinJugar.setText(String.valueOf(contadorPartidosTotal-contadorJugados));
+
+        golesMarcados.setText(String.valueOf(contadorMarcados));
+        golesPropia.setText(String.valueOf(contadorPropia));
+
+        tarjetasTotal.setText(String.valueOf(contadorAmarillas+contadorRojas));
+        tarjetasAmarillas.setText(String.valueOf(contadorAmarillas));
+        tarjetasRojas.setText(String.valueOf(contadorRojas));
     }
 
     private void rellenarEstadisticasTecnico(View view) {

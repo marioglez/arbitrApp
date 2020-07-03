@@ -10,25 +10,17 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.arbitrapp.R;
-import static com.example.arbitrapp.FirebaseData.*;
-
 import com.example.arbitrapp.modelos.ComparadorNombres;
 import com.example.arbitrapp.modelos.Jugador;
 import com.example.arbitrapp.modelos.Tecnico;
-import com.example.arbitrapp.modelos.Usuario;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 public class PopUpEditarAlineacionActivity extends AppCompatActivity {
 
-    private TextView tituloPopUp;
-    private RelativeLayout btnFinalizar;
     private LinearLayout layoutJugadores;
     private List<CheckBox> checkBoxes;
 
@@ -56,9 +48,9 @@ public class PopUpEditarAlineacionActivity extends AppCompatActivity {
         checkBoxes = new ArrayList<>();
         comparadorNombres = new ComparadorNombres();
 
-        tituloPopUp = findViewById(R.id.titulo_editar);
+        TextView tituloPopUp = findViewById(R.id.titulo_editar);
         layoutJugadores = findViewById(R.id.layoutJugadores);
-        btnFinalizar = findViewById(R.id.confirmar_edicion);
+        RelativeLayout btnFinalizar = findViewById(R.id.confirmar_edicion);
 
         tituloPopUp.setText(titulo);
 

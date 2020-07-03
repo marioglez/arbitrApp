@@ -3,7 +3,6 @@ package com.example.arbitrapp.perfil;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,21 +12,13 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import com.example.arbitrapp.MapsActivity;
-import com.example.arbitrapp.modelos.Agenda;
 import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.R;
-import com.example.arbitrapp.modelos.Usuario;
 import com.example.arbitrapp.partido.PartidoActivity;
-
-import static android.app.Activity.RESULT_OK;
 import static com.example.arbitrapp.FirebaseData.*;
 
 public class PerfilAgendaFragment extends Fragment {
@@ -155,7 +146,7 @@ public class PerfilAgendaFragment extends Fragment {
                 tablaPartidos.addView(row);
             }
         } else {
-            String textoSinPartidos = "No hay partidos hoy";
+            String textoSinPartidos = getResources().getString(R.string.noPartidosHoy);
             sinPartidos.setText(textoSinPartidos);
             sinPartidos.setVisibility(View.VISIBLE);
         }
@@ -216,7 +207,7 @@ public class PerfilAgendaFragment extends Fragment {
                 tablaPartidos.addView(row);
             }
         } else {
-            String textoSinPartidos = "No hay partidos mañana";
+            String textoSinPartidos = getResources().getString(R.string.noPartidosManana);
             sinPartidos.setText(textoSinPartidos);
             sinPartidos.setVisibility(View.VISIBLE);
         }
@@ -277,7 +268,7 @@ public class PerfilAgendaFragment extends Fragment {
                 tablaPartidos.addView(row);
             }
         } else {
-            String textoSinPartidos = "No hay partidos esta semana";
+            String textoSinPartidos = getResources().getString(R.string.noPartidosSemana);
             sinPartidos.setText(textoSinPartidos);
             sinPartidos.setVisibility(View.VISIBLE);
         }
@@ -288,15 +279,12 @@ public class PerfilAgendaFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         switch (requestCode) {
             case 0:
-                Log.d("AGENDA", "onActivityResult: HOY");
                 obtenerPartidosHoy();
                 break;
             case 1:
-                Log.d("AGENDA", "onActivityResult: MAÑANA");
                 obtenerPartidosManana();
                 break;
             case 2:
-                Log.d("AGENDA", "onActivityResult: SEMANA");
                 obtenerPartidosSemana();
                 break;
         }

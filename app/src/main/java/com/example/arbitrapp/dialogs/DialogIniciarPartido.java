@@ -7,16 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-
 import com.example.arbitrapp.R;
 
 public class DialogIniciarPartido extends AppCompatDialogFragment {
 
-    private RelativeLayout aceptar, cancelar;
     private DialogIniciarPartidoListener dialogIniciarPartidoListener;
 
     @NonNull
@@ -28,7 +25,7 @@ public class DialogIniciarPartido extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog_arbitrar_partido, null);
         builder.setView(view);
 
-        aceptar = view.findViewById(R.id.iniciar_aceptar);
+        RelativeLayout aceptar = view.findViewById(R.id.iniciar_aceptar);
         aceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +34,7 @@ public class DialogIniciarPartido extends AppCompatDialogFragment {
             }
         });
 
-        cancelar = view.findViewById(R.id.iniciar_cancelar);
+        RelativeLayout cancelar = view.findViewById(R.id.iniciar_cancelar);
         cancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -43,7 +43,6 @@ public class CompeticionesFragment extends Fragment {
     private TableLayout tablaFavoritos;
 
     private ProgressDialog tempDialog;
-    private int i = 0;
 
     @Nullable
     @Override
@@ -52,10 +51,8 @@ public class CompeticionesFragment extends Fragment {
 
         //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
         tempDialog = new ProgressDialog(getContext());
-        tempDialog.setMessage("Recuperando Datos...");
+        tempDialog.setMessage(getResources().getString(R.string.dialogDatos));
         tempDialog.setCancelable(false);
-        tempDialog.setProgress(i);
-        tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
         relativeLayout = view.findViewById(R.id.competicionesLayout);
         spinnerTemporada = view.findViewById(R.id.spinner_temporada);
@@ -160,7 +157,7 @@ public class CompeticionesFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    spinnerTemporadaItems.add("Selecciona temporada");
+                    spinnerTemporadaItems.add(getResources().getString(R.string.seleccionaTemporada));
                     for(DataSnapshot temporada: dataSnapshot.getChildren()){
                         spinnerTemporadaItems.add(temporada.getKey());
                     }
@@ -185,7 +182,7 @@ public class CompeticionesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     spinnerSedeItems.clear();
-                    spinnerSedeItems.add("selecciona sede");
+                    spinnerSedeItems.add(getResources().getString(R.string.seleccionaSede));
                     for(DataSnapshot sede: dataSnapshot.getChildren()){
                         spinnerSedeItems.add(sede.getKey());
                     }
@@ -210,7 +207,7 @@ public class CompeticionesFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
                     spinnerCategoriaItems.clear();
-                    spinnerCategoriaItems.add("Selecciona categoría");
+                    spinnerCategoriaItems.add(getResources().getString(R.string.seleccionaCategoria));
                     for(DataSnapshot categoria: dataSnapshot.getChildren()){
                         spinnerCategoriaItems.add(categoria.getKey());
                     }
@@ -239,7 +236,6 @@ public class CompeticionesFragment extends Fragment {
     }
 
     public void irACompeticion(final Competicion competicion){
-        //if (competicion.getJornadas().isEmpty() || competicion.getEquipos().isEmpty()) {
             competicion.obtenerJornadas();
             competicion.obtenerEquipos();
             tempDialog.show();
@@ -252,10 +248,6 @@ public class CompeticionesFragment extends Fragment {
                             .putExtra("competicion", competicion),0);
                 }
             }, 6000);
-        /*} else {
-            startActivityForResult(new Intent(getContext(), CompeticionActivity.class)
-                    .putExtra("competicion", competicion),0);
-        }*/
     }
 
     @Override

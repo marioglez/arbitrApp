@@ -52,7 +52,7 @@ public class ArbitroInformacionFragment extends Fragment {
         try {
             rellenarInformacion();
         } catch (Exception e) {
-            Toast.makeText(getContext(),"Error al obtener la información del árbitro",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.arbitroError),Toast.LENGTH_LONG).show();
         }
 
         return view;
@@ -111,13 +111,13 @@ public class ArbitroInformacionFragment extends Fragment {
         String[] destinatario = {arbitro.getEmail()};
         Intent mailIntent = new Intent(Intent.ACTION_SEND);
         mailIntent.putExtra(Intent.EXTRA_EMAIL, destinatario);
-        mailIntent.putExtra(Intent.EXTRA_SUBJECT,"Mensaje de arbitrApp");
+        mailIntent.putExtra(Intent.EXTRA_SUBJECT,getResources().getString(R.string.emailSubject));
         mailIntent.setType("message/rfc822");
 
         try{
-            startActivity(Intent.createChooser(mailIntent,"Elige la aplicación de correo"));
+            startActivity(Intent.createChooser(mailIntent,getResources().getString(R.string.emailChoose)));
         } catch (Exception e) {
-            Toast.makeText(getContext(), "No hay aplicaciones de correo instaladas", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.emailChooseError), Toast.LENGTH_LONG).show();
         }
     }
 
@@ -136,7 +136,7 @@ public class ArbitroInformacionFragment extends Fragment {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 llamarTelefono();
             } else {
-                Toast.makeText(getContext(), "Permiso de llamadas denegado", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), getResources().getString(R.string.callError), Toast.LENGTH_LONG).show();
             }
         }
     }

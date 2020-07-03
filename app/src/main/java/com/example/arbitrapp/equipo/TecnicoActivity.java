@@ -1,14 +1,12 @@
 package com.example.arbitrapp.equipo;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Evento;
@@ -38,7 +36,7 @@ public class TecnicoActivity extends AppCompatActivity {
 
         tecnico = (Tecnico) getIntent().getSerializableExtra("tecnico");
         partidos = (ArrayList<Partido>) getIntent().getSerializableExtra("partidos");
-        setTitle("TÉCNICO");
+        setTitle(getResources().getString(R.string.TECNICO));
         //boton flecha atras
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -83,7 +81,7 @@ public class TecnicoActivity extends AppCompatActivity {
         nombrePersona.setText(tecnico.getNombreCompleto());
         rolPersona.setText(tecnico.getCargo());
         nacionalidadPersona.setText(tecnico.getNacionalidad());
-        String edadCompleta = tecnico.getEdad() + " años";
+        String edadCompleta = tecnico.getEdad() + " " + getResources().getString(R.string.años);
         edadPersona.setText(edadCompleta);
 
         rellenarEstadisticas();

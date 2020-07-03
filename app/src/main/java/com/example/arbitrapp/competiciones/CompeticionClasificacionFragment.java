@@ -20,8 +20,6 @@ import com.example.arbitrapp.modelos.Equipo;
 import com.example.arbitrapp.modelos.Jornada;
 import com.example.arbitrapp.modelos.Partido;
 import static com.example.arbitrapp.FirebaseData.*;
-
-import java.util.ArrayList;
 import java.util.Collections;
 
 public class CompeticionClasificacionFragment extends Fragment {

@@ -93,6 +93,7 @@ public final class FirebaseData extends Application {
     public static final String JUGADOR_CAPITAN = "capitan";
     public static final String JUGADOR_POSICION = "posicion";
     public static final String JUGADOR_DORSAL = "dorsal";
+    public static final String JUGADOR_PORTERO = "Portero";
 
     //TECNICOS
     public static final String TECNICO = "Técnico";

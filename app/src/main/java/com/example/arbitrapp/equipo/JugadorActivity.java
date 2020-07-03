@@ -1,7 +1,6 @@
 package com.example.arbitrapp.equipo;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,10 +10,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
-import com.example.arbitrapp.modelos.Equipo;
 import com.example.arbitrapp.modelos.Evento;
 import com.example.arbitrapp.modelos.Jugador;
 import com.example.arbitrapp.modelos.Partido;
@@ -43,7 +40,7 @@ public class JugadorActivity extends AppCompatActivity {
 
         jugador = (Jugador) getIntent().getSerializableExtra("jugador");
         partidos = (ArrayList<Partido>) getIntent().getSerializableExtra("partidos");
-        setTitle("JUGADOR");
+        setTitle(getResources().getString(R.string.JUGADOR));
         //boton flecha atras
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -86,13 +83,13 @@ public class JugadorActivity extends AppCompatActivity {
         nombrePersona.setText(jugador.getNombreCompleto());
         rolPersona.setText(jugador.getPosicion());
         nacionalidadPersona.setText(jugador.getNacionalidad());
-        String edadCompleta = jugador.getEdad() + " años";
+        String edadCompleta = jugador.getEdad() + " " + getResources().getString(R.string.años);
         edadPersona.setText(edadCompleta);
         dorsalPersona.setText(jugador.getDorsal());
         //Capitan
         if(jugador.isCapitan()){
             iconoPersona.setVisibility(View.VISIBLE);
-        } else if(jugador.getPosicion().equals("Portero")){
+        } else if(jugador.getPosicion().equals(JUGADOR_PORTERO)){
             iconoPersona.setImageResource(R.drawable.ic_guantes);
             iconoPersona.setColorFilter(getResources().getColor(R.color.icons));
             iconoPersona.setVisibility(View.VISIBLE);
@@ -187,7 +184,7 @@ public class JugadorActivity extends AppCompatActivity {
         final Jugador j = new Jugador(jugador.getUid());
         jugador.getEquipo().obtenerPartidos(TEMPORADA_ACTUAL);
         final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Recuperando datos...");
+        progressDialog.setMessage(getResources().getString(R.string.dialogDatos));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         new Handler().postDelayed(new Runnable() {

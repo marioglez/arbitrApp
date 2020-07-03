@@ -33,17 +33,15 @@ public class ArbitroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_arbitro);
 
         //ACTION BAR
-        setTitle("ARBITRO");
+        setTitle(getResources().getString(R.string.ARBITRO));
         //boton flecha atras
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         arbitro = (Arbitro) getIntent().getSerializableExtra("arbitro");
 
         scrollView = findViewById(R.id.scrollViewArbitro);
-        //Barra de navegacion en partido
         bottomNavigationView = findViewById(R.id.arbitro_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-        //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_informacion);
 
         imagenArbitro = findViewById(R.id.imagen_arbitro);
@@ -68,33 +66,8 @@ public class ArbitroActivity extends AppCompatActivity {
         nombre.setText(arbitro.getNombreCompleto());
         categoria.setText(arbitro.getCategoria());
         nacionalidad.setText(arbitro.getNacionalidad());
-        String edadCompleta = arbitro.getEdad() + " años";
+        String edadCompleta = arbitro.getEdad() + " " + getResources().getString(R.string.años);
         edad.setText(edadCompleta);
-
-        //obtenerPartidos();
-    }
-
-    public void obtenerPartidos(){
-        //ESPERAR POR LOS DATOS
-        final ProgressDialog tempDialog;
-        int i = 0;
-
-        //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-        tempDialog = new ProgressDialog(ArbitroActivity.this);
-        tempDialog.setMessage("Recuperando Arbitro...");
-        tempDialog.setCancelable(false);
-        tempDialog.setProgress(i);
-        tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-
-        tempDialog.show();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                tempDialog.dismiss();
-                //Fragment inicial
-                bottomNavigationView.setSelectedItemId(R.id.nav_informacion);
-            }
-        }, 1000);
     }
 
     //Boton flecha atras

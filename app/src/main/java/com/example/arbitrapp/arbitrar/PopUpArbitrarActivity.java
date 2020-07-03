@@ -42,7 +42,6 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     private ImageView imagenPersona;
     private TextView nombrePersona, equipoPersona;
     private ImageView tarjetaAmarilla, tarjetaRoja, dobleAmarilla;
-    private RelativeLayout btnFinalizar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
             rellenarDatosJugador();
         }
 
-        btnFinalizar = findViewById(R.id.arbitrar_salir);
+        RelativeLayout btnFinalizar = findViewById(R.id.arbitrar_salir);
         btnFinalizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,7 +102,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
             @Override
             public void onClick(View v) {
             if (eventosJugador.get(EVENTO_AMARILLA)) {
-                Toast.makeText(PopUpArbitrarActivity.this, tecnico.getNombre() + " ya tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PopUpArbitrarActivity.this, tecnico.getNombre() + " " + getResources().getString(R.string.siAmarilla), Toast.LENGTH_SHORT).show();
             } else {
                 DialogEvento dialogEvento = new DialogEvento(EVENTO_AMARILLA);
                 dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
@@ -125,7 +124,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
             @Override
             public void onClick(View v) {
                 if (!eventosJugador.get(EVENTO_AMARILLA)) {
-                    Toast.makeText(PopUpArbitrarActivity.this, tecnico.getNombre() + " no tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopUpArbitrarActivity.this, tecnico.getNombre() + " " + getResources().getString(R.string.noAmarilla), Toast.LENGTH_SHORT).show();
                 } else {
                     DialogEvento dialogEvento = new DialogEvento(EVENTO_SEGUNDA_AMARILLA);
                     dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
@@ -155,7 +154,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         dorsal.setText(jugador.getDorsal());
         if(jugador.isCapitan()){
             iconoPersona.setVisibility(View.VISIBLE);
-        } else if(jugador.getPosicion().equals("Portero")){
+        } else if(jugador.getPosicion().equals(JUGADOR_PORTERO)){
             iconoPersona.setImageResource(R.drawable.ic_guantes);
             iconoPersona.setColorFilter(getResources().getColor(R.color.icons));
             iconoPersona.setVisibility(View.VISIBLE);
@@ -166,9 +165,9 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
             @Override
             public void onClick(View v) {
                 if (titular && eventosJugador.get(EVENTO_SUSTITUCION)) {
-                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " ha sido sustituido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " " + getResources().getString(R.string.sustituido), Toast.LENGTH_SHORT).show();
                 } else if (!titular && !eventosJugador.get(EVENTO_SUSTITUCION)) {
-                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " no ha sido sustituido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " " + getResources().getString(R.string.noSustituido), Toast.LENGTH_SHORT).show();
                 } else {
                     DialogGol dialogGol = new DialogGol();
                     dialogGol.show(getSupportFragmentManager(),"GOL DIALOG");
@@ -181,7 +180,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
             @Override
             public void onClick(View v) {
                 if (titular && eventosJugador.get(EVENTO_SUSTITUCION)) {
-                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " ya ha sido sustituido", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " " + getResources().getString(R.string.siSustituido), Toast.LENGTH_SHORT).show();
                 } else {
                     DialogSustitucion dialogSustitucion = new DialogSustitucion(jugadores);
                     dialogSustitucion.show(getSupportFragmentManager(),"SUSTITUCION DIALOG");
@@ -203,7 +202,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
             @Override
             public void onClick(View v) {
                 if (eventosJugador.get(EVENTO_AMARILLA)) {
-                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " ya tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " " + getResources().getString(R.string.siAmarilla), Toast.LENGTH_SHORT).show();
                 } else {
                     DialogEvento dialogEvento = new DialogEvento(EVENTO_AMARILLA);
                     dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
@@ -225,7 +224,7 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
             @Override
             public void onClick(View v) {
                 if (!eventosJugador.get(EVENTO_AMARILLA)) {
-                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " no tiene tarjeta amarilla", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PopUpArbitrarActivity.this, jugador.getNombre() + " " + getResources().getString(R.string.noAmarilla), Toast.LENGTH_SHORT).show();
                 } else {
                     DialogEvento dialogEvento = new DialogEvento(EVENTO_SEGUNDA_AMARILLA);
                     dialogEvento.show(getSupportFragmentManager(),"EVENTO DIALOG");
@@ -234,10 +233,8 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         });
     }
 
-    //RESPUESTAS DE DIALOGS
     @Override
     public void applyGol(int resultado) {
-        Log.d("RESULTADO GOL", "applyGol: " + resultado);
         String[] autores = {jugador.getUid()};
         if (resultado == 1) {
             eventos.add(new Evento(String.valueOf(minuto),EVENTO_GOL,autores,equipo));
@@ -248,14 +245,12 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
 
     @Override
     public void applyEvento(String resultado) {
-        Log.d("RESULTADO TARJETA", "applyTarjeta: " + resultado);
         String[] autores = new String[1];
         if (tecnico!=null){
             autores[0] = tecnico.getUid();
         } else {
             autores[0] = jugador.getUid();
         }
-        Log.d("AUTORES EVENTO", "applySustitucion: " + autores[0]);
         switch (resultado) {
             case EVENTO_AMARILLA:
                 eventos.add(new Evento(String.valueOf(minuto),EVENTO_AMARILLA,autores,equipo));
@@ -274,7 +269,6 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
 
     @Override
     public void applySustitucion(String resultado) {
-        Log.d("RESULTADO SUSTITUCION", "applySustitucion: " + resultado);
         if (titular) {
             String[] autores = {jugador.getUid(), resultado};
             eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo));
@@ -287,15 +281,10 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     //FINALIZAR POPUP Y ENVIAR DATOS A ARBITRAR ACTIVITY
     private void finishPopUp(){
         if (!eventos.isEmpty()) {
-            //ESPERAR POR LOS EVENTOS
-            final ProgressDialog tempDialog;
-            int i = 0;
             //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-            tempDialog = new ProgressDialog(PopUpArbitrarActivity.this);
-            tempDialog.setMessage("Aplicando eventos...");
+            final ProgressDialog tempDialog = new ProgressDialog(PopUpArbitrarActivity.this);
+            tempDialog.setMessage(getResources().getString(R.string.dialogEventos));
             tempDialog.setCancelable(false);
-            tempDialog.setProgress(i);
-            tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
             tempDialog.show();
             new Handler().postDelayed(new Runnable() {
@@ -311,7 +300,6 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
         } else {
             finish();
         }
-
     }
 
     @Override

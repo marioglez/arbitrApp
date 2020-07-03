@@ -19,7 +19,6 @@ import static com.example.arbitrapp.FirebaseData.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.ComparadorDorsales;
@@ -81,7 +80,7 @@ public class EquipoPlantillaFragment extends Fragment {
             tipo.setText(tecnico.getCargo());
 
             TextView edad = row.findViewById(R.id.edad_miembro_equipo);
-            String edadCompleta = tecnico.getEdad() + " años";
+            String edadCompleta = tecnico.getEdad() + " " + getResources().getString(R.string.años);
             edad.setText(edadCompleta);
 
             //Ir al Tecnico concreto
@@ -119,7 +118,7 @@ public class EquipoPlantillaFragment extends Fragment {
             tipo.setText(jugador.getPosicion());
 
             TextView edad = row.findViewById(R.id.edad_miembro_equipo);
-            String edadCompleta = jugador.getEdad() + " años";
+            String edadCompleta = jugador.getEdad() + " " + getResources().getString(R.string.años);
             edad.setText(edadCompleta);
 
             TextView dorsal = row.findViewById(R.id.textView_dorsal);
@@ -141,7 +140,7 @@ public class EquipoPlantillaFragment extends Fragment {
         equipo.obtenerPartidos(TEMPORADA_ACTUAL);
         equipo.obtenerPlantilla();
         final ProgressDialog progressDialog = new ProgressDialog(getContext());
-        progressDialog.setMessage("Recargando datos...");
+        progressDialog.setMessage(getResources().getString(R.string.dialogDatos));
         progressDialog.setCanceledOnTouchOutside(false);
         progressDialog.show();
         new Handler().postDelayed(new Runnable() {
@@ -158,8 +157,7 @@ public class EquipoPlantillaFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode==1) {
-            Toast.makeText(getContext(),"No se ha podido acceder al miembro",Toast.LENGTH_LONG).show();
-            //Recagar los datos del equipo
+            Toast.makeText(getContext(),getResources().getString(R.string.miembroError),Toast.LENGTH_LONG).show();
             //recargarDatosEquipo();
         } else {
             Log.d("EQUIPO PLANTILLA", "onActivityResult: OKEY");

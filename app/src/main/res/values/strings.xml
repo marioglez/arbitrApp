@@ -16,9 +16,17 @@
     <string name="invitado">Acceder como invitado</string>
     <string name="loginInvitado">Iniciando sesión como invitado…</string>
     <string name="forgotPassword"><u>Olvide mi contraseña</u></string>
+    <string name="introEmail">Introduzca el email</string>
+    <string name="emailError">Email no válido</string>
+    <string name="introPass">Introduzca la contraseña</string>
+    <string name="passError">Formato de contraseña no válido</string>
+    <string name="cerrarSesion">Cerrar sesión</string>
     //RESET PASSWORD
     <string name="resetPassword">Restablecer contraseña</string>
     <string name="resetSending">Enviando email…</string>
+    <string name="introResetPass">Introduzca el correo para el que reestablecer su contraseña</string>
+    <string name="resetOk">Se ha enviado un email para reestablecer tu contraseña</string>
+    <string name="resetError">Ha ocurrido un error al enviar el correo de reestablecimiento de contraseña</string>
 
     //HOME
     <string name="competicionesIcon">Competiciones</string>
@@ -48,8 +56,15 @@
     <string name="mañana">MAÑANA</string>
     <string name="semana">SEMANA</string>
     <string name="como_llegar">COMO LLEGAR</string>
+    <string name="perfilError">Perfil no disponible</string>
+    <string name="logInPerfil">Inicia sesión para acceder a tu perfil</string>
+    <string name="noPartidosHoy">No hay partidos hoy</string>
+    <string name="noPartidosManana">No hay partidos mañana</string>
+    <string name="noPartidosSemana">No hay partidos esta semana</string>
+    <string name="estadisticasError">No se han podido obtener las estadísticas</string>
 
     //PARTIDO
+    <string name="partidoActivity">PARTIDO</string>
     <string name="equipo">Equipo</string>
     <string name="rol">rol</string>
     <string name="informacion">INFORMACIÓN</string>
@@ -74,12 +89,32 @@
     <string name="anadirArbitro">Añadir árbitro</string>
     <string name="valorarArbitro">Valorar árbitro</string>
     <string name="valorar">Valorar</string>
+    <string name="enDirecto">EN DIRECTO</string>
+    <string name="partidoError">No se ha podido obtener la información del partido</string>
+    <string name="match">PARTIDO</string>
+    <string name="verActa">Ver acta</string>
+    <string name="actaError">Acta no disponible</string>
+    <string name="arbitrosOK">Árbitros actualizados con éxito</string>
+    <string name="arbitrosError">No se han podido actualizar los árbitros</string>
+    <string name="valorarOK">Árbitro Valorado con éxito</string>
+    <string name="valorarError">No se ha podido realizar la valoración</string>
+    <string name="tecnicosPartido">Técnicos: </string>
+    <string name="jugadoresPartido">Jugadores: </string>
+    <string name="alineacionOK">Alineación actualizada con éxito</string>
+    <string name="alineacionError">No se ha podido actualizar la alineación</string>
+    <string name="maxArbitros">El máximo de árbitros es </string>
+    <string name="partidoEstado">Estado del partido</string>
+    <string name="noSuplentes">No hay suplentes</string>
+    <string name="seleccionaJugador">Selecciona jugador</string>
 
     //ACTA
+    <string name="acta">ACTA</string>
     <string name="alineaciones">Alineaciones</string>
     <string name="partido">Partido</string>
 
     //EQUIPO
+    <string name="JUGADOR">JUGADOR</string>
+    <string name="TECNICO">TÉCNICO</string>
     <string name="categoria">Categoría</string>
     <string name="ciudad">Ciudad</string>
     <string name="Campo">Campo de juego</string>
@@ -89,6 +124,9 @@
     <string name="tipo_miembro">Tipo Miembro</string>
     <string name="calendario_jugados">Jugados</string>
     <string name="calendario_pendientes">Pendientes</string>
+    <string name="años">años</string>
+   <string name="miembroError">No se ha podido acceder al miembro</string>
+
     //estadisticas
     <string name="partidos">Partidos</string>
     <string name="goles">Goles</string>
@@ -114,8 +152,14 @@
     <string name="propiaPuerta">Propia puerta</string>
 
     //ARBITRO
+    <string name="ARBITRO">ÁRBITRO</string>
     <string name="informacion_arbitro">Información</string>
     <string name="agenda_arbitro">Agenda</string>
+    <string name="arbitroError">No se ha podido obtener la información del árbitro</string>
+    <string name="emailSubject">Mensaje de arbitrApp</string>
+    <string name="emailChoose">Elige la aplicación de correo</string>
+    <string name="emailChooseError">No hay aplicaciones de correo instaladas</string>
+    <string name="callError">Permiso de llamadas denegado</string>
 
     //COMPETICIONES
     <string name="temporada">Temporada</string>
@@ -124,6 +168,11 @@
     <string name="favoritos">Favoritos</string>
     <string name="equipos">Equipos</string>
     <string name="clasificacion">Clasificación</string>
+    <string name="seleccionaTemporada">Selecciona temporada</string>
+    <string name="seleccionaSede">Selecciona sede</string>
+    <string name="seleccionaCategoria">Selecciona categoría</string>
+    <string name="competicionFavorita">Competición añadida a Favoritos</string>
+
     //clasificacion
     <string name="leyenda">Leyenda</string>
     <string name="puntos">Puntos</string>
@@ -163,10 +212,23 @@
     <string name="cancelar">Cancelar</string>
     <string name="title_activity_maps">Map</string>
     <string name="alineacion">Alineación</string>
+    <string name="expulsado">ha sido expulsado</string>
+    <string name="siAmarilla">ya tiene tarjeta amarilla</string>
+    <string name="noAmarilla">no tiene tarjeta amarilla</string>
+    <string name="sustituido">ha sido sustituido</string>
+    <string name="siSustituido">ya ha sido sustituido</string>
+    <string name="noSustituido">no ha sido sustituido</string>
 
     //CAMPOS
     <string name="nombreCampo">Nombre campo</string>
     <string name="direccion">Dirección</string>
     <string name="capacidad">Capacidad</string>
+
+    //DIALOGS
+    <string name="dialogEstadisticas">Recuperando estadísticas…</string>
+    <string name="dialogArbitro">Recuperando árbitro…</string>
+    <string name="dialogEquipo">Recuperando equipo…</string>
+    <string name="dialogDatos">Recuperando datos…</string>
+    <string name="dialogEventos">Recuperando eventos…</string>
 
 </resources>

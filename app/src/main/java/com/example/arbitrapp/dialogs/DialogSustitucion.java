@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +17,6 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Jugador;
-import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
@@ -27,7 +25,6 @@ public class DialogSustitucion extends AppCompatDialogFragment {
     private ArrayList<Jugador> jugadores;
 
     private Spinner spinnerJugadores;
-    private ArrayList<String> spinnerJugadoresItems;
     private RelativeLayout btnConfirmar;
     private DialogSustitucionListener dialogSustitucionListener;
 
@@ -47,11 +44,11 @@ public class DialogSustitucion extends AppCompatDialogFragment {
         spinnerJugadores = view.findViewById(R.id.spinner_sustitucion);
         btnConfirmar = view.findViewById(R.id.btn_confirmar);
 
-        spinnerJugadoresItems = new ArrayList<>();
+        ArrayList<String> spinnerJugadoresItems = new ArrayList<>();
         if (jugadores.isEmpty()) {
-            spinnerJugadoresItems.add("No hay suplentes");
+            spinnerJugadoresItems.add(getResources().getString(R.string.noSuplentes));
         } else {
-            spinnerJugadoresItems.add("Selecciona jugador");
+            spinnerJugadoresItems.add(getResources().getString(R.string.seleccionaJugador));
             for (Jugador jugador : jugadores) {
                 spinnerJugadoresItems.add(jugador.getNombreCompleto());
             }

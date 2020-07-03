@@ -5,19 +5,12 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Equipo;
-import com.example.arbitrapp.modelos.Partido;
-import com.example.arbitrapp.partido.ActaAlineacionesFragment;
-import com.example.arbitrapp.partido.ActaPartidoFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
 
 public class EquipoCalendarioFragment extends Fragment {
 
@@ -32,11 +25,8 @@ public class EquipoCalendarioFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_equipo_calendario, container, false);
 
-        //Barra de navegacion en Calendario
         BottomNavigationView bottomNavigationView = view.findViewById(R.id.equipo_calendario_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
-        //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_jugados);
 
         return view;

@@ -3,7 +3,6 @@ package com.example.arbitrapp.partido;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,22 +10,13 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
-import com.example.arbitrapp.arbitro.ArbitroActivity;
 import com.example.arbitrapp.modelos.Partido;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
 public class ActaActivity extends AppCompatActivity {
 
     private Partido partido;
-    private ImageView escudoLocal, escudoVisitante;
-    private TextView nombreLocal, nombreVisitante, golesLocal, golesVisitante;
     private ScrollView scrollView;
 
     @Override
@@ -37,26 +27,21 @@ public class ActaActivity extends AppCompatActivity {
         partido = (Partido) getIntent().getSerializableExtra("partido");
 
         //ACTION BAR
-        setTitle("ACTA");
-        //boton flecha atras
+        setTitle(getResources().getString(R.string.acta));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         scrollView = findViewById(R.id.scrollViewActa);
-        //Barra de navegacion en partido
         BottomNavigationView bottomNavigationView = findViewById(R.id.acta_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
-
-        //Fragment inicial
         bottomNavigationView.setSelectedItemId(R.id.nav_alineaciones);
 
-        escudoLocal = findViewById(R.id.escudo_local);
-        escudoVisitante = findViewById(R.id.escudo_visitante);
-        nombreLocal = findViewById(R.id.nombre_local);
-        nombreVisitante = findViewById(R.id.nombre_visitante);
-        golesLocal = findViewById(R.id.marcador_local);
-        golesVisitante = findViewById(R.id.marcador_visitante);
+        ImageView escudoLocal = findViewById(R.id.escudo_local);
+        ImageView escudoVisitante = findViewById(R.id.escudo_visitante);
+        TextView nombreLocal = findViewById(R.id.nombre_local);
+        TextView nombreVisitante = findViewById(R.id.nombre_visitante);
+        TextView golesLocal = findViewById(R.id.marcador_local);
+        TextView golesVisitante = findViewById(R.id.marcador_visitante);
 
-        //RELLENAR INFO EN MARCADOR
         try {
             Glide
                     .with(ActaActivity.this)
@@ -79,8 +64,6 @@ public class ActaActivity extends AppCompatActivity {
         nombreVisitante.setText(partido.getEquipoVisitante().getNombre());
         golesLocal.setText(partido.getGolesLocal());
         golesVisitante.setText(partido.getGolesVisitante());
-
-
     }
 
     //Boton flecha atras

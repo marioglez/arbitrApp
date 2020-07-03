@@ -1,7 +1,6 @@
 package com.example.arbitrapp.partido;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +8,14 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.ComparadorDorsales;
 import com.example.arbitrapp.modelos.Jugador;
 import com.example.arbitrapp.modelos.Partido;
 import com.example.arbitrapp.modelos.Tecnico;
-
 import java.util.Collections;
 
 public class ActaAlineacionesFragment extends Fragment {

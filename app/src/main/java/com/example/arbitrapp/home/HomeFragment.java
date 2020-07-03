@@ -42,10 +42,7 @@ public class HomeFragment extends Fragment {
     private RelativeLayout comoLlegar, cajaDirecto, cajaProximos;
     private ImageButton chevronLeft, chevronRight, chevronLeftDirecto, chevronRightDirecto;
     private ProgressBar progressBarDirecto, progressBarProximos;
-
     private int posicionCarousel, posicionCarouselDirecto;
-
-    private CountDownLatch countDownLatchDirecto;
 
     @Nullable
     @Override

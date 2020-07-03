@@ -7,16 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.RelativeLayout;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
-
 import com.example.arbitrapp.R;
 
 public class DialogGol extends AppCompatDialogFragment {
 
-    private RelativeLayout golAFavor, golEnContra;
     private DialogGolListener dialogGolListener;
 
     @NonNull
@@ -28,7 +25,7 @@ public class DialogGol extends AppCompatDialogFragment {
         View view = inflater.inflate(R.layout.layout_dialog_gol, null);
         builder.setView(view);
 
-        golAFavor = view.findViewById(R.id.gol_favor);
+        RelativeLayout golAFavor = view.findViewById(R.id.gol_favor);
         golAFavor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -37,7 +34,7 @@ public class DialogGol extends AppCompatDialogFragment {
             }
         });
 
-        golEnContra = view.findViewById(R.id.gol_propia);
+        RelativeLayout golEnContra = view.findViewById(R.id.gol_propia);
         golEnContra.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

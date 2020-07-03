@@ -11,16 +11,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.bumptech.glide.Glide;
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.arbitro.ArbitroActivity;
@@ -31,7 +30,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import static com.example.arbitrapp.FirebaseData.*;
 
@@ -39,10 +37,9 @@ public class PartidoInformacionFragment extends Fragment {
 
     private Partido partido;
     private ArrayList<Arbitro> arbitros;
-    private TextView estado, local, visitante, lugar, fecha, hora, resultado, sinArbitros;
+    private TextView estado, local, visitante, lugar, fecha, hora, resultado;
     private RelativeLayout relativeLayout;
     private TableLayout tablaArbitros;
-    private ImageButton btnEditarArbitros;
 
     public PartidoInformacionFragment(Partido p){
         this.partido = p;
@@ -60,7 +57,7 @@ public class PartidoInformacionFragment extends Fragment {
         fecha = view.findViewById(R.id.textView_fecha_partido);
         hora = view.findViewById(R.id.textView_hora_partido);
         resultado = view.findViewById(R.id.textView_resultado_partido);
-        btnEditarArbitros = view.findViewById(R.id.imageButton_arbitros);
+        ImageButton btnEditarArbitros = view.findViewById(R.id.imageButton_arbitros);
         relativeLayout = view.findViewById(R.id.layout_arbitros);
         tablaArbitros = view.findViewById(R.id.tablaArbitros);
 
@@ -195,19 +192,13 @@ public class PartidoInformacionFragment extends Fragment {
 
     private void irAArbitro(final Arbitro arbitro) {
         if (arbitro.getPartidos().isEmpty()){
-            //ESPERAR POR LOS DATOS
-            final ProgressDialog tempDialog;
-            int i = 0;
-
+            arbitro.obtenerPartidos();
             //Diseñar CUADRO DE DIALOGO MIENTRAS CARGA
-            tempDialog = new ProgressDialog(getContext());
-            tempDialog.setMessage("Recuperando Arbitro...");
+            final ProgressDialog tempDialog = new ProgressDialog(getContext());
+            tempDialog.setMessage(getResources().getString(R.string.dialogArbitro));
             tempDialog.setCancelable(false);
-            tempDialog.setProgress(i);
-            tempDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 
             tempDialog.show();
-            arbitro.obtenerPartidos();
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -222,9 +213,9 @@ public class PartidoInformacionFragment extends Fragment {
 
     private void guardarArbitros() {
         if (partido.guardarArbitros()) {
-            Toast.makeText(getContext(),"Árbitros actualizados con éxito",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.arbitrosOK),Toast.LENGTH_LONG).show();
         } else {
-            Toast.makeText(getContext(),"Error al actualizar árbitros",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),getResources().getString(R.string.arbitrosError),Toast.LENGTH_LONG).show();
         }
     }
 
@@ -237,17 +228,17 @@ public class PartidoInformacionFragment extends Fragment {
                 rellenarArbitros();
                 guardarArbitros();
             } catch (Exception e) {
-                Log.w("PARTIDO ARBITROS", "onActivityResult: No se han modificado los árbitros");
+                Log.d("PARTIDO ARBITROS", "onActivityResult: No se han modificado los árbitros");
             }
         } else if (requestCode == 1) {
             try {
                 if(partido.valorarArbitro(data.getStringExtra("arbitro"),data.getFloatExtra("valoracion",0))) {
-                    Toast.makeText(getContext(),"Árbitro Valorado con éxito",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),getResources().getString(R.string.valorarOK),Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(getContext(),"No se ha podido realizar la valoración",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(),getResources().getString(R.string.valorarError),Toast.LENGTH_LONG).show();
                 }
             } catch (Exception e) {
-                Log.w("PARTIDO ARBITROS", "onActivityResult: No se ha valorado el árbitro");
+                Log.d("PARTIDO ARBITROS", "onActivityResult: No se ha valorado el árbitro");
             }
         }
 

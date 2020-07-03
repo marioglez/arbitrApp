@@ -5,11 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Equipo;
 import com.example.arbitrapp.modelos.Evento;
@@ -61,16 +59,13 @@ public class EquipoEstadisticasFragment extends Fragment {
                 contadorPartidosJugados++;
                 //Comprobar si soy local o visitante en el partido
                 if (partido.getEquipoLocal().getNombre().equals(equipo.getNombre())){
-                    //soy local
                     rellenarInfoLocal(partido);
                 } else {
-                    //soy visitante
                     rellenarInfoVisitante(partido);
                 }
             }
         }
 
-        //Pintar valores
         partidosTotal.setText(String.valueOf(contadorPartidosTotales));
         partidosJugados.setText(String.valueOf(contadorPartidosJugados));
         partidosPendientes.setText(String.valueOf(contadorPartidosTotales-contadorPartidosJugados));

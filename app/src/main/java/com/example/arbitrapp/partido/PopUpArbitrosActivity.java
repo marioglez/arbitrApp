@@ -7,31 +7,18 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.arbitrapp.R;
 import com.example.arbitrapp.modelos.Arbitro;
 import com.example.arbitrapp.modelos.ComparadorNombres;
-import com.example.arbitrapp.modelos.Jugador;
-import com.example.arbitrapp.modelos.Tecnico;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import static com.example.arbitrapp.FirebaseData.EQUIPO_CUERPO_TECNICO;
-import static com.example.arbitrapp.FirebaseData.EQUIPO_SUPLENTES;
-import static com.example.arbitrapp.FirebaseData.EQUIPO_TITULARES;
 import static com.example.arbitrapp.FirebaseData.MAX_ARBITROS;
-import static com.example.arbitrapp.FirebaseData.MAX_JUG_SUPLENTES;
-import static com.example.arbitrapp.FirebaseData.MAX_JUG_TITULARES;
 
 public class PopUpArbitrosActivity extends AppCompatActivity {
 
-    private RelativeLayout btnFinalizar;
     private LinearLayout layoutArbitros;
     private List<CheckBox> checkBoxes;
 
@@ -55,7 +42,7 @@ public class PopUpArbitrosActivity extends AppCompatActivity {
         comparadorNombres = new ComparadorNombres();
 
         layoutArbitros = findViewById(R.id.layoutArbitros);
-        btnFinalizar = findViewById(R.id.confirmar_edicion_arbitros);
+        RelativeLayout btnFinalizar = findViewById(R.id.confirmar_edicion_arbitros);
 
         arbitros = (ArrayList<Arbitro>) getIntent().getSerializableExtra("arbitros");
         arbitrosSeleccionados = (ArrayList<Arbitro>) getIntent().getSerializableExtra("seleccionados");
@@ -87,8 +74,6 @@ public class PopUpArbitrosActivity extends AppCompatActivity {
         }
     }
 
-
-    //FINALIZAR POPUP Y ENVIAR DATOS A PARTIDO EQUIPO
     private void finishPopUp(){
         ArrayList<Arbitro> resultado = new ArrayList<>();
         for (CheckBox checkBox : checkBoxes) {
@@ -102,9 +87,8 @@ public class PopUpArbitrosActivity extends AppCompatActivity {
             setResult(0,intent);
             finish();
         } else {
-            Toast.makeText(getApplicationContext(), "El máximo de árbitros es " + MAX_ARBITROS, Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), getResources().getString(R.string.maxArbitros) + MAX_ARBITROS, Toast.LENGTH_LONG).show();
         }
-
     }
 
 
