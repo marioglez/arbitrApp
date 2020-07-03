@@ -117,7 +117,9 @@ public class ArbitrarActivity extends AppCompatActivity implements DialogFinaliz
                 } else if (cronoCorrido.getText().toString().equals("00:20")) {
                     cronoCorrido.stop();
                     cronoParado.stop();
-                    btnCrono.setImageResource(R.drawable.ic_play_circle);
+                    //btnCrono.setImageResource(R.drawable.ic_play_circle);
+                    //btnCrono.setClickable(false);
+                    btnCrono.setVisibility(View.INVISIBLE);
                     empezarDescuento(true);
                 }
             }

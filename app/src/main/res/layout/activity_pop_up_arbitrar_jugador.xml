@@ -4,70 +4,74 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@drawable/border">
 
-    <ImageView
-        android:id="@+id/imageview_fondo"
-        android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:contentDescription="@string/app_name"
-        app:srcCompat="@color/primary_text" />
-
-    <ImageView
-        android:id="@+id/icono_persona"
-        android:visibility="invisible"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imagen_persona"
-        android:layout_toStartOf="@+id/imagen_persona"
-        android:src="@drawable/ic_capitan"/>
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imagen_persona"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/arbitro"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/icons"
-        android:layout_centerHorizontal="true"/>
-
-    <TextView
-        android:id="@+id/dorsal_persona"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imagen_persona"
-        android:layout_toEndOf="@+id/imagen_persona"
-        android:text="10"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="@color/icons" />
-
-    <TextView
-        android:id="@+id/textview_arbitrar_nombre"
+    <RelativeLayout
+        android:id="@+id/cabeceraArbitrarJugador"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imagen_persona"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:text="@string/nombrePerfil"
-        android:textColor="@color/icons"
-        android:textSize="18sp" />
+        android:background="@color/primary_text">
 
-    <TextView
-        android:id="@+id/textview_arbitrar_equipo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_arbitrar_nombre"
-        android:layout_centerHorizontal="true"
-        android:gravity="center"
-        android:text="@string/equipo"
-        android:textColor="@color/colorAccent"
-        android:textSize="16sp" />
+        <ImageView
+            android:id="@+id/icono_persona"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imagen_persona"
+            android:layout_toStartOf="@+id/imagen_persona"
+            android:src="@drawable/ic_capitan"/>
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imagen_persona"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:src="@drawable/arbitro"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/icons"
+            android:layout_centerHorizontal="true"/>
+
+        <TextView
+            android:id="@+id/dorsal_persona"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imagen_persona"
+            android:layout_toEndOf="@+id/imagen_persona"
+            android:text="10"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/icons" />
+
+        <TextView
+            android:id="@+id/textview_arbitrar_nombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagen_persona"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="@string/nombrePerfil"
+            android:textColor="@color/icons"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textview_arbitrar_equipo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textview_arbitrar_nombre"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="@string/equipo"
+            android:textColor="@color/colorAccent"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/imageview_fondo">
+        android:layout_below="@id/cabeceraArbitrarJugador">
 
         <RelativeLayout
             android:layout_width="match_parent"

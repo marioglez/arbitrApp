@@ -1,153 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".auth.LoginScreen">
 
-    <TableLayout
-        android:id="@+id/tableLayout"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TableRow
-            android:layout_width="wrap_content"
-            android:layout_height="312dp">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/logoApp"
                 android:layout_width="wrap_content"
                 android:layout_height="200dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:contentDescription="@string/app_name"
                 app:srcCompat="@drawable/logo" />
-        </TableRow>
 
-    </TableLayout>
+            <Button
+                android:id="@+id/button_invitado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/logoApp"
+                android:layout_marginTop="20dp"
+                android:text="@string/invitado"
+                android:textSize="12sp"/>
 
-    <EditText
-        android:id="@+id/usuario"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:backgroundTint="@color/colorAccent"
-        android:ems="10"
-        android:hint="@string/loginEmail"
-        android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_invitado" />
+            <EditText
+                android:id="@+id/usuario"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/button_invitado"
+                android:layout_marginTop="50dp"
+                android:backgroundTint="@color/colorAccent"
+                android:hint="@string/loginEmail"
+                android:importantForAutofill="no"
+                android:inputType="textEmailAddress" />
 
-    <EditText
-        android:id="@+id/contrasena"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/colorAccent"
-        android:ems="10"
-        android:hint="@string/loginPassword"
-        android:importantForAutofill="no"
-        android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usuario" />
+            <EditText
+                android:id="@+id/contrasena"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@id/usuario"
+                android:layout_marginTop="20dp"
+                android:backgroundTint="@color/colorAccent"
+                android:hint="@string/loginPassword"
+                android:importantForAutofill="no"
+                android:inputType="textPassword"/>
 
-    <Button
-        android:id="@+id/button_login"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:background="@color/colorPrimaryDark"
-        android:onClick="iniciarSesion"
-        android:text="@string/loginButton"
-        android:textColor="@color/primary_light"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contrasena" />
+            <Button
+                android:id="@+id/button_login"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/contrasena"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:background="@color/colorPrimaryDark"
+                android:onClick="iniciarSesion"
+                android:text="@string/loginButton"
+                android:textColor="@color/primary_light"/>
 
-    <ImageView
-        android:id="@+id/image_fail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:tint="@color/error"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_tarjeta_login" />
+            <TextView
+                android:id="@+id/textview_resetPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/button_login"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/forgotPassword"
+                android:textColor="@color/maps"/>
 
-    <TextView
-        android:id="@+id/txt_fail1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="@string/loginFail1"
-        android:textColor="@color/primary_text"
-        android:textSize="22sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/image_fail" />
+            <ImageView
+                android:id="@+id/image_fail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:tint="@color/error"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/ic_tarjeta_login" />
 
-    <TextView
-        android:id="@+id/txt_fail2"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:text="@string/loginFail2"
-        android:textColor="@color/secondary_text"
-        android:textSize="18sp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txt_fail1" />
+            <TextView
+                android:id="@+id/txt_fail1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/image_fail"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:text="@string/loginFail1"
+                android:textColor="@color/primary_text"
+                android:textSize="18sp"
+                android:visibility="invisible" />
 
-    <ProgressBar
-        android:id="@+id/progressBar_login"
-        style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toStartOf="@+id/button_login"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/button_login"
-        app:layout_constraintTop_toTopOf="@+id/button_login" />
+            <TextView
+                android:id="@+id/txt_fail2"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_fail1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:text="@string/loginFail2"
+                android:textColor="@color/secondary_text"
+                android:textSize="14sp"
+                android:visibility="invisible" />
 
-    <Button
-        android:id="@+id/button_invitado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/invitado"
-        android:textSize="11dp"
-        app:layout_constraintEnd_toStartOf="@+id/txt_fail1"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/txt_fail2"
-        app:layout_constraintTop_toBottomOf="@+id/tableLayout" />
+            <ProgressBar
+                android:id="@+id/progressBar_login"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/contrasena"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
+                android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/textview_resetPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:text="@string/forgotPassword"
-        android:textColor="@color/maps"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_login" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
