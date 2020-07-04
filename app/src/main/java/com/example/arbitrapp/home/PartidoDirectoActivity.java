@@ -163,7 +163,7 @@ public class PartidoDirectoActivity extends AppCompatActivity {
                 iconoRol.setVisibility(View.VISIBLE);
             }
 
-            for (Evento evento : partido.getEventos()) {
+            for (final Evento evento : partido.getEventos()) {
                 for (Usuario u : evento.getAutores()){
                     if(u.getUid().equals(j.getUid())) {
                         switch (evento.getAccion()) {
@@ -178,14 +178,32 @@ public class PartidoDirectoActivity extends AppCompatActivity {
                             case EVENTO_AMARILLA:
                                 ImageView iconoAmarilla = row.findViewById(R.id.imageview_amarilla);
                                 iconoAmarilla.setVisibility(View.VISIBLE);
+                                iconoAmarilla.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(PartidoDirectoActivity.this, j.getNombre() + ": " +evento.getComentario(),Toast.LENGTH_LONG).show();
+                                    }
+                                });
                                 break;
                             case EVENTO_ROJA:
                                 ImageView iconoRoja = row.findViewById(R.id.imageview_roja);
                                 iconoRoja.setVisibility(View.VISIBLE);
+                                iconoRoja.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(PartidoDirectoActivity.this,j.getNombre() + ": " +evento.getComentario(),Toast.LENGTH_LONG).show();
+                                    }
+                                });
                                 break;
                             case EVENTO_SEGUNDA_AMARILLA:
                                 ImageView iconoSegundaAmarilla = row.findViewById(R.id.imageview_segundaAmarilla);
                                 iconoSegundaAmarilla.setVisibility(View.VISIBLE);
+                                iconoSegundaAmarilla.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(PartidoDirectoActivity.this,j.getNombre() + ": " +evento.getComentario(),Toast.LENGTH_LONG).show();
+                                    }
+                                });
                                 break;
                             case EVENTO_SUSTITUCION:
                                 ImageView iconoSustitucion = row.findViewById(R.id.imageview_sustitucion);
@@ -194,6 +212,12 @@ public class PartidoDirectoActivity extends AppCompatActivity {
                             case EVENTO_LESION:
                                 ImageView iconoLesion = row.findViewById(R.id.imageview_lesion);
                                 iconoLesion.setVisibility(View.VISIBLE);
+                                iconoLesion.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Toast.makeText(PartidoDirectoActivity.this,j.getNombre() + ": " +evento.getComentario(),Toast.LENGTH_LONG).show();
+                                    }
+                                });
                                 break;
                         }
                     }
