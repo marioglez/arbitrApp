@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 
-public class Partido extends Thread implements Serializable {
+public class Partido implements Serializable {
 
     private String uid;
     private Equipo equipoLocal, equipoVisitante;
@@ -27,98 +27,6 @@ public class Partido extends Thread implements Serializable {
     private String liga;
     private ArrayList<Arbitro> arbitros = new ArrayList<>();
     private ArrayList<Evento> eventos = new ArrayList<>();
-    private int equiposObtenidos = 0;
-    private int arbitrosObtenidos = 0;
-
-    private CountDownLatch countDownLatch,countDownLatchEquipos, countDownLatchArbitros;
-
-    public Partido (CountDownLatch countDownLatch, String temporada, String sede, String categoria, String diaPartido, String idPartido) {
-        this.countDownLatch = countDownLatch;
-        this.temporada = temporada;
-        this.sede = sede;
-        this.categoria = categoria;
-        this.diaPartido = diaPartido;
-        this.idPartido = idPartido;
-    }
-
-    @Override
-    public void run() {
-        countDownLatchEquipos = new CountDownLatch(2);
-        countDownLatchArbitros = new CountDownLatch(0);
-        obtenerPartido();
-        try {
-            //ESPERAR A TENER LOS EQUIPOS
-            countDownLatchEquipos.await();
-            countDownLatchArbitros.await();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        countDownLatch.countDown();
-    }
-
-    private void obtenerPartido() {
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(temporada).child(sede).child(categoria).child(PARTIDOS).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot jornada : dataSnapshot.getChildren()){
-                        for (DataSnapshot dia : jornada.getChildren()){
-                            if (dia.getKey().equals(diaPartido)){
-                                for (DataSnapshot partido : dia.getChildren()){
-                                    if (partido.getKey().equals(idPartido)){
-                                        jornadaPartido = jornada.getKey();
-                                        uid = partido.getKey();
-                                        estadoPartido = partido.child(PARTIDO_ESTADO).getValue().toString();
-                                        fecha = partido.child(PARTIDO_FECHA).getValue().toString();
-                                        hora = partido.child(PARTIDO_HORA).getValue().toString();
-                                        lugar = partido.child(PARTIDO_LUGAR).getValue().toString();
-                                        golesLocal = partido.child(EQUIPO_LOCAL).child(EQUIPO_GOLES).getValue().toString();
-                                        golesVisitante = partido.child(EQUIPO_VISITANTE).child(EQUIPO_GOLES).getValue().toString();
-                                        liga = partido.child(PARTIDO_LIGA).getValue().toString();
-                                        //Equipos
-                                        String nombreLocal = partido.child(EQUIPO_LOCAL).child(EQUIPO_NOMBRE).getValue().toString();
-                                        equipoLocal = new Equipo(countDownLatchEquipos,nombreLocal, temporada, sede, categoria, diaPartido, idPartido);
-                                        String nombreVisitante = partido.child(EQUIPO_VISITANTE).child(EQUIPO_NOMBRE).getValue().toString();
-                                        equipoVisitante = new Equipo(countDownLatchEquipos,nombreVisitante, temporada, sede, categoria, diaPartido, idPartido);
-                                        //Arbitros
-                                        try {
-                                            for (DataSnapshot arbitro : partido.child(PARTIDO_ARBITRAJE).getChildren()){
-                                                countDownLatchArbitros = new CountDownLatch((int)countDownLatchArbitros.getCount()+1);
-                                                Arbitro a = new Arbitro(arbitro.getKey(),countDownLatchArbitros);
-                                                arbitros.add(a);
-                                            }
-                                        } catch (Exception e) {
-                                            Log.w("PARTIDO", "onDataChange: NO HAY ARBITROS ASIGNADOS");
-                                        }
-                                        //Eventos
-                                        try {
-                                            for(DataSnapshot evento : partido.child(PARTIDO_EVENTOS).getChildren()){
-                                                String[] autores = evento.child(EVENTO_AUTOR).getValue().toString().split("-");
-                                                eventos.add(
-                                                        new Evento(
-                                                                evento.child(EVENTO_MINUTO).getValue().toString(),
-                                                                evento.child(EVENTO_TIPO).getValue().toString(),
-                                                                autores,
-                                                                evento.child(EVENTO_EQUIPO).getValue().toString()));
-                                            }
-                                        }catch (Exception e){
-                                            Log.w("PARTIDO", "onDataChange: NO HAY EVENTOS ASIGNADOS");
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
 
     public Partido(final String temporada, final String sede, final String categoria, final String diaPartido, final String idPartido){
         final Partido p = this;
@@ -157,7 +65,7 @@ public class Partido extends Thread implements Serializable {
                                                 arbitros.add(a);
                                             }
                                         } catch (Exception e) {
-                                            Log.w("PARTIDO", "onDataChange: NO HAY ARBITROS ASIGNADOS");
+                                            Log.d("PARTIDO", "onDataChange: NO HAY ARBITROS ASIGNADOS");
                                         }
                                         //Eventos
                                         try {
@@ -171,7 +79,7 @@ public class Partido extends Thread implements Serializable {
                                                                 evento.child(EVENTO_EQUIPO).getValue().toString()));
                                             }
                                         }catch (Exception e){
-                                            Log.w("PARTIDO", "onDataChange: NO HAY EVENTOS ASIGNADOS");
+                                            Log.d("PARTIDO", "onDataChange: NO HAY EVENTOS ASIGNADOS");
                                         }
                                     }
                                 }
@@ -186,32 +94,6 @@ public class Partido extends Thread implements Serializable {
 
             }
         });
-    }
-
-    public void equipoObtenido() {
-        equiposObtenidos++;
-        if (equiposObtenidos == 2 && arbitrosObtenidos == arbitros.size()) {
-            //PARTIDO HA TERMINADO DE OBTENERSE
-            try{
-                countDownLatch.countDown();
-            } catch (Exception e) {
-                Log.w("PARTIDO", "arbitroObtenido: No hay CountDownLatch");
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void arbitroObtenido() {
-        arbitrosObtenidos++;
-        if (arbitrosObtenidos == arbitros.size() && equiposObtenidos == 2) {
-            //PARTIDO HA TERMINADO DE OBTENERSE
-            try{
-                countDownLatch.countDown();
-            } catch (Exception e) {
-                Log.w("PARTIDO", "arbitroObtenido: No hay CountDownLatch");
-                e.printStackTrace();
-            }
-        }
     }
 
     public void iniciarPartido() {

@@ -224,6 +224,7 @@
     <string name="nombreCampo">Field name</string>
     <string name="direccion">Direction</string>
     <string name="capacidad">Capacity</string>
+    <string name="espectadores">viewers</string>
 
     //DIALOGS
     <string name="dialogEstadisticas">Recovering statistics…</string>

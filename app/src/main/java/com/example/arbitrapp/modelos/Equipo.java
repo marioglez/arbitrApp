@@ -17,7 +17,6 @@ import com.google.firebase.storage.StorageReference;
 import static com.example.arbitrapp.FirebaseData.*;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.concurrent.CountDownLatch;
 
 public class Equipo implements Serializable {
 
@@ -37,31 +36,14 @@ public class Equipo implements Serializable {
     private ArrayList<Jugador> suplentes = new ArrayList<>();
     private ArrayList<Partido> partidos = new ArrayList<>();
     private int puntos;
-    private int miembrosObtenidos = 0;
-
-    private CountDownLatch countDownLatch, countDownLatchMiembros;
 
     public Equipo(String nombreEquipo){
-        Log.d("EQUIPO", "Equipo: " + nombreEquipo);
         obtenerInfoEquipo(nombreEquipo);
     }
 
     public Equipo(final String nombreEquipo, String temporada, String sede, String categoria, final String diaPartido, final String idPartido) {
         obtenerInfoEquipo(nombreEquipo);
         obtenerInfoEquipoPartido(nombreEquipo,temporada,sede,categoria,diaPartido,idPartido);
-    }
-
-    public Equipo(CountDownLatch countDownLatch, final String nombreEquipo, String temporada, String sede, String categoria, final String diaPartido, final String idPartido){
-        this.countDownLatch = countDownLatch;
-        countDownLatchMiembros = new CountDownLatch(0);
-        obtenerInfoEquipo(nombreEquipo);
-        obtenerInfoEquipoPartido(nombreEquipo,temporada,sede,categoria,diaPartido,idPartido);
-        try{
-            countDownLatchMiembros.await();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        countDownLatch.countDown();
     }
 
     private void obtenerInfoEquipo(final String nombreEquipo){
@@ -78,7 +60,6 @@ public class Equipo implements Serializable {
                     campo = new Campo(dataSnapshot.child(EQUIPO_CAMPO).getValue().toString());
                     categoria = dataSnapshot.child(EQUIPO_CATEGORIA).getValue().toString();
                     sede = dataSnapshot.child(EQUIPO_SEDE).getValue().toString();
-                    //EQUIPACION
                     equipacion = obtenerEquipacion(dataSnapshot);
                 }
             }
@@ -120,7 +101,6 @@ public class Equipo implements Serializable {
     }
 
     public void obtenerPlantilla(){
-        //final Equipo equipo = this;
         if (this.tecnicos.isEmpty() || this.jugadores.isEmpty()){
             DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
             databaseReference.child(EQUIPOS).child(nombre).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -150,30 +130,17 @@ public class Equipo implements Serializable {
 
     private void obtenerPlantillaPartido(DataSnapshot miembros){
         for(DataSnapshot miembro : miembros.getChildren()){
-            try{
-                countDownLatchMiembros = new CountDownLatch((int)countDownLatch.getCount() + 1);
-            } catch (Exception e) {
-            }
             switch (miembro.child(EQUIPO_PLANTILLA_TIPO).getValue().toString()){
                 case EQUIPO_PLANTILLA_TIPO_TECNICO:
-                    tecnicosPartido.add(new Tecnico(miembro.getKey(), countDownLatchMiembros));
+                    tecnicosPartido.add(new Tecnico(miembro.getKey()));
                     break;
                 case EQUIPO_PLANTILLA_TIPO_JUGADOR_TITULAR:
-                    titulares.add(new Jugador(miembro.getKey(), countDownLatchMiembros));
+                    titulares.add(new Jugador(miembro.getKey()));
                     break;
                 case EQUIPO_PLANTILLA_TIPO_JUGADOR_SUPLENTE:
-                    suplentes.add(new Jugador(miembro.getKey(), countDownLatchMiembros));
+                    suplentes.add(new Jugador(miembro.getKey()));
                     break;
             }
-        }
-    }
-
-    public void miembroObtenido() {
-        miembrosObtenidos++;
-        Log.d("EQUIPO", "miembroObtenido: " + miembrosObtenidos);
-        if (miembrosObtenidos == (tecnicosPartido.size() + titulares.size() + suplentes.size())) {
-            //EQUIPO HA TERMINADO DE OBTENERSE
-            countDownLatch.countDown();
         }
     }
 
@@ -192,13 +159,11 @@ public class Equipo implements Serializable {
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    // Got the download URL
                     escudo = uri.toString();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
                     Log.d("EQUIPO", "onDataChange: download image FAIL");
                 }
             });
@@ -223,40 +188,6 @@ public class Equipo implements Serializable {
                                 }
                             }
                         }
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public void obtenerPartidos(final CountDownLatch countDownLatch , final String temporada){
-        partidos.clear();
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        databaseReference.child(COMPETICIONES).child(temporada).child(sede).child(categoria).child(PARTIDOS).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot jornada : dataSnapshot.getChildren()){
-                        for(DataSnapshot diaPartido : jornada.getChildren()){
-                            for (DataSnapshot partido : diaPartido.getChildren()){
-                                if(partido.child(EQUIPO_LOCAL).child(EQUIPO_NOMBRE).getValue().toString().equals(nombre) ||
-                                        partido.child(EQUIPO_VISITANTE).child(EQUIPO_NOMBRE).getValue().toString().equals(nombre)){
-                                    partidos.add(new Partido(countDownLatch, temporada,sede,categoria,diaPartido.getKey(), partido.getKey()));
-                                }
-                            }
-                        }
-                    }
-                    CountDownLatch countDownLatchPartidos = new CountDownLatch(partidos.size());
-                    try {
-                        countDownLatchPartidos.await();
-                        countDownLatch.await();
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
                 }
             }

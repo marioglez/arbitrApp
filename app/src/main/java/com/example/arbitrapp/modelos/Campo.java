@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.arbitrapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -41,7 +42,7 @@ public class Campo implements Serializable {
                         ubicacion = dataSnapshot.child(CAMPO_UBICACION).getValue().toString();
                         obtenerImagen(nombreCampo);
                     } catch (Exception e) {
-                        Log.w(CAMPOS, "onDataChange: Error al obtener el campo: " + nombre);
+                        Log.d(CAMPOS, "onDataChange: Error al obtener el campo: " + nombre);
                     }
                 }
             }
@@ -88,7 +89,7 @@ public class Campo implements Serializable {
     }
 
     public String getCapacidad() {
-        return capacidad + " espectadores";
+        return capacidad + " " + R.string.espectadores;
     }
 
     public String getUbicacion() {

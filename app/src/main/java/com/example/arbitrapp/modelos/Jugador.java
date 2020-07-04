@@ -1,7 +1,5 @@
 package com.example.arbitrapp.modelos;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -12,16 +10,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import static com.example.arbitrapp.FirebaseData.*;
 import java.io.Serializable;
-import java.util.concurrent.CountDownLatch;
 
 public class Jugador extends Usuario implements Serializable {
 
-    private Equipo equipoJugador;
     private boolean capitan;
     private String posicion;
     private String dorsal;
-
-    private CountDownLatch countDownLatch;
 
     public Jugador(){
         super();
@@ -31,13 +25,6 @@ public class Jugador extends Usuario implements Serializable {
 
     public Jugador (String uid) {
         super(uid);
-        obtenerJugador(uid);
-    }
-
-    public Jugador(String uid, CountDownLatch countDownLatch){
-        super(uid);
-        this.countDownLatch = countDownLatch;
-        Log.d("JUGADOOR", "Jugador: " + uid);
         obtenerJugador(uid);
     }
 
@@ -55,10 +42,6 @@ public class Jugador extends Usuario implements Serializable {
                     }
                     posicion = dataSnapshot.child(JUGADOR_POSICION).getValue().toString();
                     dorsal = dataSnapshot.child(JUGADOR_DORSAL).getValue().toString();
-                }
-                try{
-                    countDownLatch.countDown();
-                } catch (Exception e) {
                 }
             }
 

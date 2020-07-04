@@ -34,7 +34,6 @@ public class Agenda implements Serializable {
     private void obtenerPartidosSemana(){
         Calendar cal = Calendar.getInstance();
         final int day = cal.get(Calendar.DAY_OF_YEAR);
-        //Log.w("DIA DEL AÑO", "obtenerPartidosSemana: " + day );
         final int year = cal.get(Calendar.YEAR);
         final String sede = currentUser.getEquipo().getSede();
         final String categoria = currentUser.getEquipo().getCategoria();

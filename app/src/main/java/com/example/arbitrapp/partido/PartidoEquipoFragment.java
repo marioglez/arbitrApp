@@ -183,9 +183,10 @@ public class PartidoEquipoFragment extends Fragment {
             dorsal.setText(j.getDorsal());
             tablaSuplentes.addView(row);
         }
-        String textTecnicos = getResources().getString(R.string.tecnicosPartido) + " " + contadorTecnicos;
+        String textTecnicos = getResources().getString(R.string.tecnicosPartido) + " " + equipo.getTecnicosPartido().size();
         numeroTecnicos.setText(textTecnicos);
-        String textJugadores = getResources().getString(R.string.jugadoresPartido) + " " + contadorTitulares+contadorSuplentes;
+        String textJugadores = getResources().getString(R.string.jugadoresPartido) + " "
+                + (equipo.getTitulares().size() + equipo.getSuplentes().size());
         numeroJugadores.setText(textJugadores);
     }
 

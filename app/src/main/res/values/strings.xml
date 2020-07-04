@@ -223,6 +223,7 @@
     <string name="nombreCampo">Nombre campo</string>
     <string name="direccion">Dirección</string>
     <string name="capacidad">Capacidad</string>
+    <string name="espectadores">espectadores</string>
 
     //DIALOGS
     <string name="dialogEstadisticas">Recuperando estadísticas…</string>

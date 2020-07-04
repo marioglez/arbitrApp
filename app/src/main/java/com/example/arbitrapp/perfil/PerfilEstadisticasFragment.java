@@ -52,7 +52,7 @@ public class PerfilEstadisticasFragment extends Fragment {
                             }
                             tempDialog.dismiss();
                         }
-                    }, 4000);
+                    }, 5000);
                 } else {
                     rellenarEstadisticasArbitro(view);
                 }
@@ -72,7 +72,7 @@ public class PerfilEstadisticasFragment extends Fragment {
                             }
                             tempDialog.dismiss();
                         }
-                    }, 4000);
+                    }, 5000);
                 } else {
                     rellenarEstadisticasJugador(view);
                 }
@@ -92,7 +92,7 @@ public class PerfilEstadisticasFragment extends Fragment {
                             }
                             tempDialog.dismiss();
                         }
-                    }, 4000);
+                    }, 5000);
                 } else {
                     rellenarEstadisticasTecnico(view);
                 }

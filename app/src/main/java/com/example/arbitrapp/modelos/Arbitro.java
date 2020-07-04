@@ -19,9 +19,6 @@ public class Arbitro extends Usuario implements Serializable {
     private String categoria;
     private ArrayList<Partido> partidos = new ArrayList<>();
     private ArrayList<Integer> valoraciones = new ArrayList<>();
-    private Partido partido;
-
-    private CountDownLatch countDownLatch;
 
     public Arbitro(){
         super();
@@ -32,12 +29,6 @@ public class Arbitro extends Usuario implements Serializable {
 
     public Arbitro(String uid) {
         super(uid);
-        obtenerArbitro(uid);
-    }
-
-    public Arbitro(String uid, CountDownLatch countDownLatch){
-        super(uid);
-        this.countDownLatch = countDownLatch;
         obtenerArbitro(uid);
     }
 
@@ -52,11 +43,6 @@ public class Arbitro extends Usuario implements Serializable {
                     }catch (Exception e){
                         Log.d("ARBITRO", "onDataChange: Error al obtener ARBITRO");
                     }
-                }
-                try{
-                    countDownLatch.countDown();
-                } catch (Exception e) {
-
                 }
             }
 

@@ -54,7 +54,6 @@ public class Usuario extends Thread implements Serializable {
     }
 
     public Usuario(String uid){
-        Log.d("USUARIO UID", "Usuario: "+uid);
         obtenerUsuario(uid);
     }
 
@@ -66,7 +65,6 @@ public class Usuario extends Thread implements Serializable {
     }
 
     private void obtenerUsuario(final String id){
-        Log.d("USUARIO UID", "obtenerUsuario: ");
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
         databaseReference.child(USUARIOS).child(id).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -77,13 +75,11 @@ public class Usuario extends Thread implements Serializable {
                         obtenerImagen(uid);
                         nombre = dataSnapshot.child(USUARIO_NOMBRE).getValue().toString();
                         apellidos = dataSnapshot.child(USUARIO_APELLIDOS).getValue().toString();
-                        Log.d("USUARIO", "Usuario: " + id);
                         edad = calcularEdad(dataSnapshot.child(USUARIO_NACIMIENTO).getValue().toString());
                         nacionalidad = dataSnapshot.child(USUARIO_NACIONALIDAD).getValue().toString();
                         tipoUsuario = dataSnapshot.child(USUARIO_TIPO).getValue().toString();
                         movil = dataSnapshot.child(USUARIO_MOVIL).getValue().toString();
                         email = dataSnapshot.child(USUARIO_EMAIL).getValue().toString();
-                        //Esto deberia ir en cada tipo de usuario
                         try {
                             equipo = new Equipo(dataSnapshot.child(USUARIO_EQUIPO).getValue().toString());
                         } catch (Exception e) {
@@ -92,7 +88,6 @@ public class Usuario extends Thread implements Serializable {
                         agenda = null;
                         competicionesfavoritas = new ArrayList<>();
                     }catch (Exception e){
-                        e.printStackTrace();
                         Log.w("USUARIO", "onDataChange: Error al cargar usuario");
                     }
                 }
@@ -116,17 +111,14 @@ public class Usuario extends Thread implements Serializable {
     private void obtenerImagen(String uid){
         try {
             StorageReference storageReference = FirebaseStorage.getInstance().getReference().child(IMAGENES_PERFIL + uid + IMAGENES_JPG);
-            //Cagar foto Firebase
             storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
-                    // Got the download URL
                     imagen = uri.toString();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception exception) {
-                    // Handle any errors
                     Log.d("USUARIO", "onDataChange: download image FAIL");
                 }
             });
