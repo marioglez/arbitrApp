@@ -237,32 +237,32 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     public void applyGol(int resultado) {
         String[] autores = {jugador.getUid()};
         if (resultado == 1) {
-            eventos.add(new Evento(String.valueOf(minuto),EVENTO_GOL,autores,equipo));
+            eventos.add(new Evento(String.valueOf(minuto),EVENTO_GOL,autores,equipo,""));
         } else {
-            eventos.add(new Evento(String.valueOf(minuto),EVENTO_GOL_PROPIA,autores,equipo));
+            eventos.add(new Evento(String.valueOf(minuto),EVENTO_GOL_PROPIA,autores,equipo,""));
         }
     }
 
     @Override
-    public void applyEvento(String resultado) {
+    public void applyEvento(String[] resultado) {
         String[] autores = new String[1];
         if (tecnico!=null){
             autores[0] = tecnico.getUid();
         } else {
             autores[0] = jugador.getUid();
         }
-        switch (resultado) {
+        switch (resultado[0]) {
             case EVENTO_AMARILLA:
-                eventos.add(new Evento(String.valueOf(minuto),EVENTO_AMARILLA,autores,equipo));
+                eventos.add(new Evento(String.valueOf(minuto),EVENTO_AMARILLA,autores,equipo,resultado[1]));
                 break;
             case EVENTO_ROJA:
-                eventos.add(new Evento(String.valueOf(minuto),EVENTO_ROJA,autores,equipo));
+                eventos.add(new Evento(String.valueOf(minuto),EVENTO_ROJA,autores,equipo,resultado[1]));
                 break;
             case EVENTO_SEGUNDA_AMARILLA:
-                eventos.add(new Evento(String.valueOf(minuto),EVENTO_SEGUNDA_AMARILLA,autores,equipo));
+                eventos.add(new Evento(String.valueOf(minuto),EVENTO_SEGUNDA_AMARILLA,autores,equipo,resultado[1]));
                 break;
             case EVENTO_LESION:
-                eventos.add(new Evento(String.valueOf(minuto),EVENTO_LESION,autores,equipo));
+                eventos.add(new Evento(String.valueOf(minuto),EVENTO_LESION,autores,equipo,resultado[1]));
                 break;
         }
     }
@@ -271,10 +271,10 @@ public class PopUpArbitrarActivity extends AppCompatActivity implements DialogGo
     public void applySustitucion(String resultado) {
         if (titular) {
             String[] autores = {jugador.getUid(), resultado};
-            eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo));
+            eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo,""));
         } else {
             String[] autores = {resultado, jugador.getUid()};
-            eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo));
+            eventos.add(new Evento(String.valueOf(minuto),EVENTO_SUSTITUCION,autores,equipo,""));
         }
     }
 

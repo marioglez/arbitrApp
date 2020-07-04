@@ -9,6 +9,8 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -50,50 +52,50 @@ public class ActaPartidoFragment extends Fragment {
                 case EVENTO_LOCAL:
                     switch (e.getAccion()){
                         case EVENTO_GOL:
-                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_balon);
+                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_balon,false);
                             break;
                         case EVENTO_GOL_PROPIA:
-                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_balon_rojo);
+                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_balon_rojo,false);
                             break;
                         case EVENTO_AMARILLA:
-                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_yellowcard);
+                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_yellowcard,true);
                             break;
                         case EVENTO_ROJA:
-                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_redcard);
+                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_redcard,true);
                             break;
                         case EVENTO_SEGUNDA_AMARILLA:
-                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_tarjetas);
+                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_tarjetas,true);
                             break;
                         case EVENTO_SUSTITUCION:
                             addSustitutionEvent(e,R.layout.fila_evento_sustitucion_local_acta);
                             break;
                         case EVENTO_LESION:
-                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_lesion);
+                            addEvent(e,R.layout.fila_evento_local_acta, R.drawable.ic_lesion,true);
                             break;
                     }
                     break;
                 case EVENTO_VISITANTE:
                     switch (e.getAccion()){
                         case EVENTO_GOL:
-                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_balon);
+                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_balon,false);
                             break;
                         case EVENTO_GOL_PROPIA:
-                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_balon_rojo);
+                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_balon_rojo,false);
                             break;
                         case EVENTO_AMARILLA:
-                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_yellowcard);
+                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_yellowcard,true);
                             break;
                         case EVENTO_ROJA:
-                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_redcard);
+                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_redcard,true);
                             break;
                         case EVENTO_SEGUNDA_AMARILLA:
-                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_tarjetas);
+                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_tarjetas,true);
                             break;
                         case EVENTO_SUSTITUCION:
                             addSustitutionEvent(e,R.layout.fila_evento_sustitucion_visitante_acta);
                             break;
                         case EVENTO_LESION:
-                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_lesion);
+                            addEvent(e,R.layout.fila_evento_visitante_acta, R.drawable.ic_lesion,true);
                             break;
                     }
                     break;
@@ -101,7 +103,7 @@ public class ActaPartidoFragment extends Fragment {
         }
     }
 
-    private void addEvent(Evento e, int layout, int icon){
+    private void addEvent(final Evento e, int layout, int icon, boolean clicable){
         LayoutInflater inflater = LayoutInflater.from(getContext());
         TableRow row = (TableRow) inflater.inflate(layout, relativeLayout, false);
         TextView autor = row.findViewById(R.id.texto_evento);
@@ -111,6 +113,14 @@ public class ActaPartidoFragment extends Fragment {
         minuto.setText(min);
         ImageView icono = row.findViewById(R.id.icono_evento);
         icono.setImageResource(icon);
+        if (clicable) {
+            icono.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(),e.getComentario(),Toast.LENGTH_LONG).show();
+                }
+            });
+        }
         tablaEventos.addView(row);
     }
 

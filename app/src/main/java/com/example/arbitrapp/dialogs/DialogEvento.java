@@ -51,14 +51,14 @@ public class DialogEvento extends AppCompatDialogFragment {
                 break;
         }
 
-        TextInputLayout comentario = view.findViewById(R.id.editText_motivo);
+        final TextInputLayout comentario = view.findViewById(R.id.editText_motivo);
 
         RelativeLayout btnConfirmar = view.findViewById(R.id.btn_confirmar);
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //dialogEventoListener.applyEvento(comentario.getEditText().getText().toString());
-                dialogEventoListener.applyEvento(evento);
+                String[] resultado = {evento, comentario.getEditText().getText().toString()};
+                dialogEventoListener.applyEvento(resultado);
                 dismiss();
             }
         });
@@ -78,6 +78,6 @@ public class DialogEvento extends AppCompatDialogFragment {
     }
 
     public interface DialogEventoListener {
-        void applyEvento(String resultado);
+        void applyEvento(String[] resultado);
     }
 }

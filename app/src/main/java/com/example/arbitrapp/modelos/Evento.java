@@ -9,14 +9,16 @@ public class Evento implements Serializable {
     private String accion;
     private ArrayList<Usuario> autores = new ArrayList<>();
     private String equipo;
+    private String comentario;
 
-    public Evento(String minuto, String accion, String[] idAutores, String equipo){
+    public Evento(String minuto, String accion, String[] idAutores, String equipo, String comentario){
         this.minuto = minuto;
         this.accion = accion;
         for(String id : idAutores){
             this.autores.add(new Usuario(id));
         }
         this.equipo = equipo;
+        this.comentario = comentario;
     }
 
     //GETTERS
@@ -35,5 +37,9 @@ public class Evento implements Serializable {
 
     public String getEquipo() {
         return equipo;
+    }
+
+    public String getComentario() {
+        return comentario;
     }
 }

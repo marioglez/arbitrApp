@@ -129,6 +129,7 @@ public final class FirebaseData extends Application {
 
     //EVENTOS DE PARTIDO
     public static final String EVENTO_AUTOR = "autor";
+    public static final String EVENTO_COMENTARIO = "comentario";
     public static final String EVENTO_MINUTO = "minuto";
     public static final String EVENTO_TIPO = "tipo";
     public static final String EVENTO_EQUIPO = "equipo";

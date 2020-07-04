@@ -71,12 +71,14 @@ public class Partido implements Serializable {
                                         try {
                                             for(DataSnapshot evento : partido.child(PARTIDO_EVENTOS).getChildren()){
                                                 String[] autores = evento.child(EVENTO_AUTOR).getValue().toString().split("-");
+                                                String comentario = evento.child(EVENTO_COMENTARIO).getValue().toString();
                                                 eventos.add(
                                                         new Evento(
                                                                 evento.child(EVENTO_MINUTO).getValue().toString(),
                                                                 evento.child(EVENTO_TIPO).getValue().toString(),
                                                                 autores,
-                                                                evento.child(EVENTO_EQUIPO).getValue().toString()));
+                                                                evento.child(EVENTO_EQUIPO).getValue().toString(),
+                                                                comentario));
                                             }
                                         }catch (Exception e){
                                             Log.d("PARTIDO", "onDataChange: NO HAY EVENTOS ASIGNADOS");
@@ -128,6 +130,7 @@ public class Partido implements Serializable {
         evento.put(EVENTO_EQUIPO, e.getEquipo());
         evento.put(EVENTO_MINUTO, e.getMinuto());
         evento.put(EVENTO_TIPO,e.getAccion());
+        evento.put(EVENTO_COMENTARIO,e.getComentario());
         databaseReference.push().setValue(evento);
     }
 
@@ -137,10 +140,10 @@ public class Partido implements Serializable {
                 .child(PARTIDOS).child(this.jornadaPartido).child(this.diaPartido).child(this.idPartido);
 
         databaseReference.child(PARTIDO_ESTADO).setValue(this.estadoPartido);
-        databaseReference.child(EQUIPO_LOCAL).child(EQUIPO_GOLES).setValue(this.golesLocal);
-        databaseReference.child(EQUIPO_VISITANTE).child(EQUIPO_GOLES).setValue(this.golesVisitante);
+        //databaseReference.child(EQUIPO_LOCAL).child(EQUIPO_GOLES).setValue(this.golesLocal);
+        //databaseReference.child(EQUIPO_VISITANTE).child(EQUIPO_GOLES).setValue(this.golesVisitante);
         //eventos
-        if (!eventos.isEmpty()) {
+        /*if (!eventos.isEmpty()) {
             for (Evento e : eventos) {
                 Map<String, String> evento = new HashMap<>();
                 String autores = "";
@@ -151,9 +154,10 @@ public class Partido implements Serializable {
                 evento.put(EVENTO_EQUIPO, e.getEquipo());
                 evento.put(EVENTO_MINUTO, e.getMinuto());
                 evento.put(EVENTO_TIPO,e.getAccion());
+                evento.put(EVENTO_COMENTARIO,e.getComentario());
                 databaseReference.child(PARTIDO_EVENTOS).push().setValue(evento);
             }
-        }
+        }*/
     }
 
     public boolean guardarAlineacion(Equipo equipo, String condicionEquipo) {
