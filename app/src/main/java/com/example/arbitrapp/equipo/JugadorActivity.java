@@ -83,7 +83,7 @@ public class JugadorActivity extends AppCompatActivity {
         nombrePersona.setText(jugador.getNombreCompleto());
         rolPersona.setText(jugador.getPosicion());
         nacionalidadPersona.setText(jugador.getNacionalidad());
-        String edadCompleta = jugador.getEdad() + " " + getResources().getString(R.string.años);
+        String edadCompleta = jugador.getEdad() + " " + getResources().getString(R.string.anos);
         edadPersona.setText(edadCompleta);
         dorsalPersona.setText(jugador.getDorsal());
         //Capitan

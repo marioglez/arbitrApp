@@ -81,7 +81,7 @@ public class TecnicoActivity extends AppCompatActivity {
         nombrePersona.setText(tecnico.getNombreCompleto());
         rolPersona.setText(tecnico.getCargo());
         nacionalidadPersona.setText(tecnico.getNacionalidad());
-        String edadCompleta = tecnico.getEdad() + " " + getResources().getString(R.string.años);
+        String edadCompleta = tecnico.getEdad() + " " + getResources().getString(R.string.anos);
         edadPersona.setText(edadCompleta);
 
         rellenarEstadisticas();

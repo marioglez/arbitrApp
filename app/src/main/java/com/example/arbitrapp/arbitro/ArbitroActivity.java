@@ -66,7 +66,7 @@ public class ArbitroActivity extends AppCompatActivity {
         nombre.setText(arbitro.getNombreCompleto());
         categoria.setText(arbitro.getCategoria());
         nacionalidad.setText(arbitro.getNacionalidad());
-        String edadCompleta = arbitro.getEdad() + " " + getResources().getString(R.string.años);
+        String edadCompleta = arbitro.getEdad() + " " + getResources().getString(R.string.anos);
         edad.setText(edadCompleta);
     }
 

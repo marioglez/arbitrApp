@@ -125,7 +125,7 @@
     <string name="tipo_miembro">member type</string>
     <string name="calendario_jugados">Played</string>
     <string name="calendario_pendientes">Pendings</string>
-    <string name="años">years</string>
+    <string name="anos">years</string>
     <string name="miembroError">Could not access to this member</string>
 
     //estadisticas

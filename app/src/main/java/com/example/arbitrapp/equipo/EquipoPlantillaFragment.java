@@ -80,7 +80,7 @@ public class EquipoPlantillaFragment extends Fragment {
             tipo.setText(tecnico.getCargo());
 
             TextView edad = row.findViewById(R.id.edad_miembro_equipo);
-            String edadCompleta = tecnico.getEdad() + " " + getResources().getString(R.string.años);
+            String edadCompleta = tecnico.getEdad() + " " + getResources().getString(R.string.anos);
             edad.setText(edadCompleta);
 
             //Ir al Tecnico concreto
@@ -118,7 +118,7 @@ public class EquipoPlantillaFragment extends Fragment {
             tipo.setText(jugador.getPosicion());
 
             TextView edad = row.findViewById(R.id.edad_miembro_equipo);
-            String edadCompleta = jugador.getEdad() + " " + getResources().getString(R.string.años);
+            String edadCompleta = jugador.getEdad() + " " + getResources().getString(R.string.anos);
             edad.setText(edadCompleta);
 
             TextView dorsal = row.findViewById(R.id.textView_dorsal);
